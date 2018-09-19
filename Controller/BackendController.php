@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\Profile;
+namespace Modules\Profile\Controller;
 
 use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\ProfileMapper;
@@ -36,58 +36,8 @@ use phpOMS\Asset\AssetType;
  * @link       http://website.orange-management.de
  * @since      1.0.0
  */
-final class Controller extends ModuleAbstract implements WebInterface
+class BackendController extends Controller
 {
-
-    /**
-     * Module path.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    public const MODULE_PATH = __DIR__;
-
-    /**
-     * Module version.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    public const MODULE_VERSION = '1.0.0';
-
-    /**
-     * Module name.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    public const MODULE_NAME = 'Profile';
-
-    /**
-     * Module id.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    public const MODULE_ID = 1000300000;
-
-    /**
-     * Providing.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected static $providing = [];
-
-    /**
-     * Dependencies.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected static $dependencies = [
-    ];
-
     /**
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -214,66 +164,5 @@ final class Controller extends ModuleAbstract implements WebInterface
         $view->addData('accGrpSelector', $accGrpSelector);
 
         return $view;
-    }
-
-    /**
-     * @param RequestAbstract  $request  Request
-     * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
-     *
-     * @return void
-     *
-     * @api
-     *
-     * @since  1.0.0
-     */
-    public function apiProfileCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
-    {
-        $profiles = $this->createProfilesFromRequest($request);
-        $created  = [];
-
-        foreach ($profiles as $profile) {
-            $this->app->eventManager->trigger('PRE:Module:Admin-profile-create', '', $profile);
-            ProfileMapper::create($profile);
-            $this->app->eventManager->trigger('POST:Module:Admin-profile-create', '', $profile);
-
-            $created[] = $profile->jsonSerialize();
-        }
-
-        $response->set($request->getUri()->__toString(), [
-            'status' => NotificationLevel::OK,
-            'title' => 'Profile(s)',
-            'message' => 'Profile(s) successfully created.',
-            'response' => $created
-        ]);
-    }
-
-    /**
-     * Method to create profile from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return array<Profile>
-     *
-     * @since  1.0.0
-     */
-    private function createProfilesFromRequest(RequestAbstract $request) : array
-    {
-        $profiles = [];
-        $accounts = $request->getDataList('iaccount-idlist');
-        
-        foreach ($accounts as $account) {
-            $account = (int) \trim($account);
-            $isInDb  = ProfileMapper::getFor($account, 'account');
-
-            if ($isInDb->getId() !== 0) {
-                $profiles[] = $isInDb;
-                continue;
-            }
-
-            $profiles[] = new Profile(AccountMapper::get($account));
-        }
-
-        return $profiles;
     }
 }
