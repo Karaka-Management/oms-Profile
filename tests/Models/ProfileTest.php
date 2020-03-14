@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\tests\Profile\Models;
+namespace Modules\Profile\tests\Models;
 
 use Modules\Profile\Models\Profile;
 

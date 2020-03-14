@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\tests\ClientMapper\Models;
+namespace Modules\ClientMapper\tests\Models;
 
 use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\NullAccount;
