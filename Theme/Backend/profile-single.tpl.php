@@ -271,6 +271,34 @@ echo $this->getData('nav')->render();
 
                 <div class="col-xs-12 col-md-4">
                     <div class="portlet">
+                        <div class="portlet-head"><?= $this->getHtml('Precision'); ?></div>
+                        <div class="portlet-body">
+                            <form>
+                                <table class="layout wf-100">
+                                    <tbody>
+                                    <tr><td><label for="iPrecisionVeryShort"><?= $this->getHtml('VeryShort'); ?></label>
+                                    <tr><td>
+                                        <input form="fLocalization" id="iPrecisionVeryShort" name="settings_precision_vs" value="<?= $this->printHtml($l11n->getPrecision()['very_short']); ?>" type="number">
+                                    <tr><td><label for="iPrecisionShort"><?= $this->getHtml('Short'); ?></label>
+                                    <tr><td>
+                                        <input form="fLocalization" id="iPrecisionLight" name="settings_precision_s" value="<?= $this->printHtml($l11n->getPrecision()['short']); ?>" type="number">
+                                    <tr><td><label for="iPrecisionMedium"><?= $this->getHtml('Medium'); ?></label>
+                                    <tr><td>
+                                        <input form="fLocalization" id="iPrecisionMedium" name="settings_precision_m" value="<?= $this->printHtml($l11n->getPrecision()['medium']); ?>" type="number">
+                                    <tr><td><label for="iPrecisionLong"><?= $this->getHtml('Long'); ?></label>
+                                    <tr><td>
+                                        <input form="fLocalization" id="iPrecisionLong" name="settings_precision_l" value="<?= $this->printHtml($l11n->getPrecision()['long']); ?>" type="number">
+                                    <tr><td><label for="iPrecisionVeryLong"><?= $this->getHtml('VeryLong'); ?></label>
+                                    <tr><td>
+                                        <input form="fLocalization" id="iPrecisionVeryLong" name="settings_precision_vl" value="<?= $this->printHtml($l11n->getPrecision()['very_long']); ?>" type="number">
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-4">
+                    <div class="portlet">
                         <div class="portlet-head"><?= $this->getHtml('Weight'); ?></div>
                         <div class="portlet-body">
                             <form>

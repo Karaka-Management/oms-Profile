@@ -53,6 +53,7 @@ return ['Profile' => [
     'OFF'                => 'OFF',
     'ON'                 => 'ON',
     'Phone'              => 'Telefon',
+    'Precision'          => 'Nachkommastellen',
     'Profile'            => 'Profil',
     'ProfileImage'       => 'Profilbild',
     'Profiles'           => 'Profile',

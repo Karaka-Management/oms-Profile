@@ -53,6 +53,7 @@ return ['Profile' => [
     'OFF'                => 'OFF',
     'ON'                 => 'ON',
     'Phone'              => 'Phone',
+    'Precision'          => 'Precision',
     'Profile'            => 'Profile',
     'ProfileImage'       => 'Profile Image',
     'Profiles'           => 'Profiles',
