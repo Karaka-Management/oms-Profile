@@ -57,33 +57,30 @@ echo $this->getData('nav')->render();
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <div class="portlet" itemscope itemtype="http://schema.org/Person" itemtype="http://schema.org/Organization">
-                    <div class="portlet-head">
-                        <?php if (!empty($account->getName3()) || !empty($account->getName2())) : ?>
-                            <span itemprop="familyName" itemprop="legalName">
-                                <?= $this->printHtml(empty($account->getName3()) ? $account->getName2() : $account->getName3()); ?></span>,
-                        <?php endif; ?>
-                        <span itemprop="givenName" itemprop="legalName">
-                            <?= $this->printHtml($account->getName1()); ?>
-                        </span>
-                    </div>
-                    <div class="portlet-body">
-                        <span class="rf">
-                            <img class="m-profile rf"
-                                alt="<?= $this->getHtml('ProfileImage'); ?>"
-                                itemprop="logo"
-                                data-lazyload="<?=
-                                    $profile->getImage() instanceof NullMedia ?
-                                        UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                        UriFactory::build('{/prefix}' . $profile->getImage()->getPath()); ?>"
-                            >
-                        </span>
+                        <div class="portlet-head">
+                            <?php if (!empty($account->getName3()) || !empty($account->getName2())) : ?>
+                                <span itemprop="familyName" itemprop="legalName">
+                                    <?= $this->printHtml(empty($account->getName3()) ? $account->getName2() : $account->getName3()); ?></span>,
+                            <?php endif; ?>
+                            <span itemprop="givenName" itemprop="legalName">
+                                <?= $this->printHtml($account->getName1()); ?>
+                            </span>
+                        </div>
+                        <div class="portlet-body">
+                            <span class="rf">
+                                <img class="m-profile rf"
+                                    alt="<?= $this->getHtml('ProfileImage'); ?>"
+                                    itemprop="logo"
+                                    data-lazyload="<?=
+                                        $profile->getImage() instanceof NullMedia ?
+                                            UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
+                                            UriFactory::build('{/prefix}' . $profile->getImage()->getPath()); ?>"
+                                >
+                            </span>
                             <table class="list" style="table-layout: fixed">
                                 <tr>
-                                    <th><?= $this->getHtml('Occupation') ?>
-                                    <td itemprop="jobTitle">Sailor
-                                <tr>
                                     <th><?= $this->getHtml('Birthday') ?>
-                                    <td itemprop="birthDate" itemprop="foundingDate"><?= $profile->getBirthday() !== null ? $profile->getBirthday()->format('Y-m-d') : ''; ?>
+                                    <td itemprop="birthDate" itemprop="foundingDate"><?= $this->getDateTime($profile->getBirthday()); ?>
                                 <tr>
                                     <th><?= $this->getHtml('Email') ?>
                                     <td itemprop="email"><a href="mailto:>donald.duck@email.com<"><?= $this->printHtml($account->getEmail()); ?></a>
@@ -130,6 +127,9 @@ echo $this->getData('nav')->render();
                                     <td><span class="tag green"><?= $this->getHtml(':s' . $account->getStatus(), 'Admin'); ?></span>
                             </table>
                         </div>
+                        <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
+                        <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0') ?></button></div>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -160,7 +160,7 @@ echo $this->getData('nav')->render();
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <div class="portlet">
-                        <form id="fLocalization" name="fLocalization" action="<?= UriFactory::build('{/api}admin/settings/localization'); ?>" method="post">
+                        <form id="fLocalization" name="fLocalization" action="<?= UriFactory::build('{/api}profile/settings/localization'); ?>" method="post">
                         <div class="portlet-head"><?= $this->getHtml('Localization'); ?></div>
                         <div class="portlet-body">
                                 <table class="layout wf-100">
@@ -168,39 +168,42 @@ echo $this->getData('nav')->render();
                                     <tr><td><label for="iDefaultLocalizations"><?= $this->getHtml('Defaults'); ?></label>
                                     <tr><td>
                                         <div class="ipt-wrap">
-                                            <div class="ipt-first"><select id="iDefaultLocalizations" name="defaultlocalizations">
+                                            <div class="ipt-first"><select id="iDefaultLocalizations" name="localization_load">
                                                     <option selected disabled><?= $this->getHtml('Customized'); ?>
                                                     <?php foreach ($l11nDefinitions as $def) : ?>
                                                         <option value="<?= $this->printHtml(\explode('.', $def)[0]); ?>"><?= $this->printHtml(\explode('.', $def)[0]); ?>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="ipt-second"><input type="submit" name="loadDefaultLocalization" value="<?= $this->getHtml('Load') ?>"></div>
+                                            <div class="ipt-second"><input type="submit" name="loadDefaultLocalization" formaction="<?= UriFactory::build('{/api}profile/settings/localization?load=1'); ?>" value="<?= $this->getHtml('Load') ?>"></div>
                                         </div>
                                     <tr><td colspan="2"><label for="iCountries"><?= $this->getHtml('Country'); ?></label>
                                     <tr><td colspan="2">
-                                            <select id="iCountries" name="settings_1000000019">
+                                            <select id="iCountries" name="settings_country">
                                                 <?php foreach ($countryCodes as $code3 => $code2) : ?>
                                                 <option value="<?= $this->printHtml($code2); ?>"<?= $this->printHtml($code2 === $l11n->getCountry() ? ' selected' : ''); ?>><?= $this->printHtml($countries[$code3]); ?>
                                                 <?php endforeach; ?>
                                             </select>
                                     <tr><td colspan="2"><label for="iLanguages"><?= $this->getHtml('Language'); ?></label>
                                     <tr><td colspan="2">
-                                            <select id="iLanguages" name="settings_1000000020">
+                                            <select id="iLanguages" name="settings_language">
                                                 <?php foreach ($languages as $code => $language) : $code = \strtolower(\substr($code, 1)); ?>
                                                 <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($code === $l11n->getLanguage() ? ' selected' : ''); ?>><?= $this->printHtml($language); ?>
                                                 <?php endforeach; ?>
                                             </select>
                                     <tr><td colspan="2"><label for="iTemperature"><?= $this->getHtml('Temperature'); ?></label>
                                     <tr><td colspan="2">
-                                            <select id="iTemperature" name="settings_1000000022">
-                                                <?php foreach ($temperatures as $code => $temperature) : ?>
-                                                <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($temperature === $l11n->getTemperature() ? ' selected' : ''); ?>><?= $this->printHtml($temperature); ?>
+                                            <select id="iTemperature" name="settings_temperature">
+                                                <?php foreach ($temperatures as $temperature) : ?>
+                                                <option value="<?= $this->printHtml($temperature); ?>"<?= $this->printHtml($temperature === $l11n->getTemperature() ? ' selected' : ''); ?>><?= $this->printHtml($temperature); ?>
                                                 <?php endforeach; ?>
                                             </select>
                                 </table>
                             </div>
-                            <div class="portlet-foot"><input id="iSubmitLocalization" name="submitLocalization" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>"></div>
+                            <div class="portlet-foot">
+                                <input type="hidden" name="account_id" value="<?= $account->getId(); ?>">
+                                <input id="iSubmitLocalization" name="submitLocalization" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -212,24 +215,24 @@ echo $this->getData('nav')->render();
                             <form>
                             <table class="layout wf-100">
                                 <tbody>
-                                <tr><td colspan="2"><label for="iTimezones"><?= $this->getHtml('Timezone'); ?></label>
-                                <tr><td colspan="2">
-                                        <select id="iTimezones" name="settings_1000000021">
-                                            <?php foreach ($timezones as $code => $timezone) : ?>
-                                            <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($timezone === $l11n->getTimezone() ? ' selected' : ''); ?>><?= $this->printHtml($timezone); ?>
+                                <tr><td><label for="iTimezones"><?= $this->getHtml('Timezone'); ?></label>
+                                <tr><td>
+                                        <select form="fLocalization" id="iTimezones" name="settings_timezone">
+                                            <?php foreach ($timezones as $timezone) : ?>
+                                            <option value="<?= $this->printHtml($timezone); ?>"<?= $this->printHtml($timezone === $l11n->getTimezone() ? ' selected' : ''); ?>><?= $this->printHtml($timezone); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                <tr><td colspan="2"><h2><?= $this->getHtml('Timeformat'); ?></h2>
-                                <tr><td colspan="2"><label for="iVeryShort"><?= $this->getHtml('VeryShort'); ?></label>
-                                <tr><td colspan="2"><input form="fLocalization" id="iDateDelim" name="settings_1000000027" type="text" value="<?= $this->printHtml($l11n->getDatetime()['very_short']); ?>" placeholder="Y" required>
-                                <tr><td colspan="2"><label for="iShort"><?= $this->getHtml('Short'); ?></label>
-                                <tr><td colspan="2"><input form="fLocalization" id="iDateDelim" name="settings_1000000027" type="text" value="<?= $this->printHtml($l11n->getDatetime()['short']); ?>" placeholder="Y" required>
-                                <tr><td colspan="2"><label for="iMedium"><?= $this->getHtml('Medium'); ?></label>
-                                <tr><td colspan="2"><input form="fLocalization" id="iDateDelim" name="settings_1000000027" type="text" value="<?= $this->printHtml($l11n->getDatetime()['medium']); ?>" placeholder="Y" required>
-                                <tr><td colspan="2"><label for="iLong"><?= $this->getHtml('Long'); ?></label>
-                                <tr><td colspan="2"><input form="fLocalization" id="iDateDelim" name="settings_1000000027" type="text" value="<?= $this->printHtml($l11n->getDatetime()['long']); ?>" placeholder="Y" required>
-                                <tr><td colspan="2"><label for="iVeryLong"><?= $this->getHtml('VeryLong'); ?></label>
-                                <tr><td colspan="2"><input form="fLocalization" id="iDateDelim" name="settings_1000000027" type="text" value="<?= $this->printHtml($l11n->getDatetime()['very_long']); ?>" placeholder="Y" required>
+                                <tr><td><h2><?= $this->getHtml('Timeformat'); ?></h2>
+                                <tr><td><label for="iTimeformatVeryShort"><?= $this->getHtml('VeryShort'); ?></label>
+                                <tr><td><input form="fLocalization" id="iTimeformatVeryShort" name="settings_timeformat_vs" type="text" value="<?= $this->printHtml($l11n->getDatetime()['very_short']); ?>" placeholder="Y" required>
+                                <tr><td><label for="iTimeformatShort"><?= $this->getHtml('Short'); ?></label>
+                                <tr><td><input form="fLocalization" id="iTimeformatShort" name="settings_timeformat_s" type="text" value="<?= $this->printHtml($l11n->getDatetime()['short']); ?>" placeholder="Y" required>
+                                <tr><td><label for="iTimeformatMedium"><?= $this->getHtml('Medium'); ?></label>
+                                <tr><td><input form="fLocalization" id="iTimeformatMedium" name="settings_timeformat_m" type="text" value="<?= $this->printHtml($l11n->getDatetime()['medium']); ?>" placeholder="Y" required>
+                                <tr><td><label for="iTimeformatLong"><?= $this->getHtml('Long'); ?></label>
+                                <tr><td><input form="fLocalization" id="iTimeformatLong" name="settings_timeformat_l" type="text" value="<?= $this->printHtml($l11n->getDatetime()['long']); ?>" placeholder="Y" required>
+                                <tr><td><label for="iTimeformatVeryLong"><?= $this->getHtml('VeryLong'); ?></label>
+                                <tr><td><input form="fLocalization" id="iTimeformatVeryLong" name="settings_timeformat_vl" type="text" value="<?= $this->printHtml($l11n->getDatetime()['very_long']); ?>" placeholder="Y" required>
                             </table>
                             </form>
                         </div>
@@ -244,28 +247,27 @@ echo $this->getData('nav')->render();
                             <table class="layout wf-100">
                                         <tr><td colspan="2"><label for="iCurrencies"><?= $this->getHtml('Currency'); ?></label>
                                     <tr><td colspan="2">
-                                            <select form="fLocalization" id="iCurrencies" name="settings_1000000023">
+                                            <select form="fLocalization" id="iCurrencies" name="settings_currency">
                                                 <?php foreach ($currencies as $code => $currency) : $code = \substr($code, 1); ?>
                                                 <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($code === $l11n->getCurrency() ? ' selected' : ''); ?>><?= $this->printHtml($currency); ?>
                                                     <?php endforeach; ?>
                                             </select>
                                     <tr><td colspan="2"><label><?= $this->getHtml('Currencyformat'); ?></label>
                                     <tr><td colspan="2">
-                                            <select form="fLocalization">
+                                            <select form="fLocalization" name="settings_currencyformat">
                                                 <option value="0"<?= $this->printHtml('0' === $l11n->getCurrencyFormat() ? ' selected' : ''); ?>><?= $this->getHtml('Amount') , ' ' , $this->printHtml($l11n->getCurrency()); ?>
                                                 <option value="1"<?= $this->printHtml('1' === $l11n->getCurrencyFormat() ? ' selected' : ''); ?>><?= $this->printHtml($l11n->getCurrency()) , ' ' , $this->getHtml('Amount'); ?>
                                             </select>
                                     <tr><td colspan="2"><h2><?= $this->getHtml('Numberformat'); ?></h2>
                                     <tr><td><label for="iDecimalPoint"><?= $this->getHtml('DecimalPoint'); ?></label>
                                         <td><label for="iThousandSep"><?= $this->getHtml('ThousandsSeparator'); ?></label>
-                                    <tr><td><input form="fLocalization" id="iDecimalPoint" name="settings_1000000027" type="text" value="<?= $this->printHtml($l11n->getDecimal()); ?>" placeholder="." required>
-                                        <td><input form="fLocalization" id="iThousandSep" name="settings_1000000028" type="text" value="<?= $this->printHtml($l11n->getThousands()); ?>" placeholder="," required>
+                                    <tr><td><input form="fLocalization" id="iDecimalPoint" name="settings_decimal" type="text" value="<?= $this->printHtml($l11n->getDecimal()); ?>" placeholder="." required>
+                                        <td><input form="fLocalization" id="iThousandSep" name="settings_thousands" type="text" value="<?= $this->printHtml($l11n->getThousands()); ?>" placeholder="," required>
                                 </table>
                             </form>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="col-xs-12 col-md-4">
                     <div class="portlet">
@@ -274,37 +276,37 @@ echo $this->getData('nav')->render();
                             <form>
                                 <table class="layout wf-100">
                                     <tbody>
-                                    <tr><td><label for="iVeryLight"><?= $this->getHtml('VeryLight'); ?></label>
+                                    <tr><td><label for="iWeightVeryLight"><?= $this->getHtml('VeryLight'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVeryLight" name="settings_1000001001">
+                                        <select form="fLocalization" id="iWeightVeryLight" name="settings_weight_vl">
                                             <?php foreach ($weights as $code => $weight) : ?>
                                             <option value="<?= $this->printHtml($weight); ?>"<?= $this->printHtml($weight === $l11n->getWeight()['very_light'] ? ' selected' : ''); ?>><?= $this->printHtml($weight); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iLight"><?= $this->getHtml('Light'); ?></label>
+                                    <tr><td><label for="iWeightLight"><?= $this->getHtml('Light'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iLight" name="settings_1000001002">
+                                        <select form="fLocalization" id="iWeightLight" name="settings_weight_l">
                                             <?php foreach ($weights as $code => $weight) : ?>
                                             <option value="<?= $this->printHtml($weight); ?>"<?= $this->printHtml($weight === $l11n->getWeight()['light'] ? ' selected' : ''); ?>><?= $this->printHtml($weight); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iMedium"><?= $this->getHtml('Medium'); ?></label>
+                                    <tr><td><label for="iWeightMedium"><?= $this->getHtml('Medium'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iMedium" name="settings_1000001003">
+                                        <select form="fLocalization" id="iWeightMedium" name="settings_weight_m">
                                             <?php foreach ($weights as $code => $weight) : ?>
                                             <option value="<?= $this->printHtml($weight); ?>"<?= $this->printHtml($weight === $l11n->getWeight()['medium'] ? ' selected' : ''); ?>><?= $this->printHtml($weight); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iHeavy"><?= $this->getHtml('Heavy'); ?></label>
+                                    <tr><td><label for="iWeightHeavy"><?= $this->getHtml('Heavy'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iHeavy" name="settings_1000001004">
+                                        <select form="fLocalization" id="iWeightHeavy" name="settings_weight_h">
                                             <?php foreach ($weights as $code => $weight) : ?>
                                             <option value="<?= $this->printHtml($weight); ?>"<?= $this->printHtml($weight === $l11n->getWeight()['heavy'] ? ' selected' : ''); ?>><?= $this->printHtml($weight); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iVeryHeavy"><?= $this->getHtml('VeryHeavy'); ?></label>
+                                    <tr><td><label for="iWeightVeryHeavy"><?= $this->getHtml('VeryHeavy'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVeryHeavy" name="settings_1000001005">
+                                        <select form="fLocalization" id="iWeightVeryHeavy" name="settings_weight_vh">
                                             <?php foreach ($weights as $code => $weight) : ?>
                                             <option value="<?= $this->printHtml($weight); ?>"<?= $this->printHtml($weight === $l11n->getWeight()['very_heavy'] ? ' selected' : ''); ?>><?= $this->printHtml($weight); ?>
                                             <?php endforeach; ?>
@@ -322,44 +324,44 @@ echo $this->getData('nav')->render();
                             <form>
                                 <table class="layout wf-100">
                                     <tbody>
-                                    <tr><td><label for="iVerySlow"><?= $this->getHtml('VerySlow'); ?></label>
+                                    <tr><td><label for="iSpeedVerySlow"><?= $this->getHtml('VerySlow'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVerySlow" name="settings_1000002001">
+                                        <select form="fLocalization" id="iSpeedVerySlow" name="settings_speed_vs">
                                             <?php foreach ($speeds as $code => $speed) : ?>
                                             <option value="<?= $this->printHtml($speed); ?>"<?= $this->printHtml($speed === $l11n->getSpeed()['very_slow'] ? ' selected' : ''); ?>><?= $this->printHtml($speed); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iSlow"><?= $this->getHtml('Slow'); ?></label>
+                                    <tr><td><label for="iSpeedSlow"><?= $this->getHtml('Slow'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iSlow" name="settings_1000002002">
+                                        <select form="fLocalization" id="iSpeedSlow" name="settings_speed_s">
                                             <?php foreach ($speeds as $code => $speed) : ?>
                                             <option value="<?= $this->printHtml($speed); ?>"<?= $this->printHtml($speed === $l11n->getSpeed()['slow'] ? ' selected' : ''); ?>><?= $this->printHtml($speed); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iMedium"><?= $this->getHtml('Medium'); ?></label>
+                                    <tr><td><label for="iSpeedMedium"><?= $this->getHtml('Medium'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iMedium" name="settings_1000002003">
+                                        <select form="fLocalization" id="iSpeedMedium" name="settings_speed_m">
                                             <?php foreach ($speeds as $code => $speed) : ?>
                                             <option value="<?= $this->printHtml($speed); ?>"<?= $this->printHtml($speed === $l11n->getSpeed()['medium'] ? ' selected' : ''); ?>><?= $this->printHtml($speed); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iFast"><?= $this->getHtml('Fast'); ?></label>
+                                    <tr><td><label for="iSpeedFast"><?= $this->getHtml('Fast'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iFast" name="settings_1000002004">
+                                        <select form="fLocalization" id="iSpeedFast" name="settings_speed_f">
                                             <?php foreach ($speeds as $code => $speed) : ?>
                                             <option value="<?= $this->printHtml($speed); ?>"<?= $this->printHtml($speed === $l11n->getSpeed()['fast'] ? ' selected' : ''); ?>><?= $this->printHtml($speed); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iVeryFast"><?= $this->getHtml('VeryFast'); ?></label>
+                                    <tr><td><label for="iSpeedVeryFast"><?= $this->getHtml('VeryFast'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVeryFast" name="settings_1000002005">
+                                        <select form="fLocalization" id="iSpeedVeryFast" name="settings_speed_vf">
                                             <?php foreach ($speeds as $code => $speed) : ?>
                                             <option value="<?= $this->printHtml($speed); ?>"<?= $this->printHtml($speed === $l11n->getSpeed()['very_fast'] ? ' selected' : ''); ?>><?= $this->printHtml($speed); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iSeaSpeed"><?= $this->getHtml('Sea'); ?></label>
+                                    <tr><td><label for="iSpeedSea"><?= $this->getHtml('Sea'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iSeaSpeed" name="settings_1000002006">
+                                        <select form="fLocalization" id="iSpeedSea" name="settings_speed_sea">
                                             <?php foreach ($speeds as $code => $speed) : ?>
                                             <option value="<?= $this->printHtml($speed); ?>"<?= $this->printHtml($speed === $l11n->getSpeed()['sea'] ? ' selected' : ''); ?>><?= $this->printHtml($speed); ?>
                                             <?php endforeach; ?>
@@ -377,44 +379,44 @@ echo $this->getData('nav')->render();
                             <form>
                                 <table class="layout wf-100">
                                     <tbody>
-                                    <tr><td><label for="iVeryShort"><?= $this->getHtml('VeryShort'); ?></label>
+                                    <tr><td><label for="iLengthVeryShort"><?= $this->getHtml('VeryShort'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVeryShort" name="settings_1000003001">
+                                        <select form="fLocalization" id="iLengthVeryShort" name="settings_length_vs">
                                             <?php foreach ($lengths as $code => $length) : ?>
                                             <option value="<?= $this->printHtml($length); ?>"<?= $this->printHtml($length === $l11n->getLength()['very_short'] ? ' selected' : ''); ?>><?= $this->printHtml($length); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iShort"><?= $this->getHtml('Short'); ?></label>
+                                    <tr><td><label for="iLengthShort"><?= $this->getHtml('Short'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iShort" name="settings_1000003002">
+                                        <select form="fLocalization" id="iLengthShort" name="settings_length_s">
                                             <?php foreach ($lengths as $code => $length) : ?>
                                             <option value="<?= $this->printHtml($length); ?>"<?= $this->printHtml($length === $l11n->getLength()['short'] ? ' selected' : ''); ?>><?= $this->printHtml($length); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iMedium"><?= $this->getHtml('Medium'); ?></label>
+                                    <tr><td><label for="iLengthMedium"><?= $this->getHtml('Medium'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iMedium" name="settings_1000003003">
+                                        <select form="fLocalization" id="iLengthMedium" name="settings_length_m">
                                             <?php foreach ($lengths as $code => $length) : ?>
                                             <option value="<?= $this->printHtml($length); ?>"<?= $this->printHtml($length === $l11n->getLength()['medium'] ? ' selected' : ''); ?>><?= $this->printHtml($length); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iLong"><?= $this->getHtml('Long'); ?></label>
+                                    <tr><td><label for="iLengthLong"><?= $this->getHtml('Long'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iLong" name="settings_1000003004">
+                                        <select form="fLocalization" id="iLengthLong" name="settings_length_l">
                                             <?php foreach ($lengths as $code => $length) : ?>
                                             <option value="<?= $this->printHtml($length); ?>"<?= $this->printHtml($length === $l11n->getLength()['long'] ? ' selected' : ''); ?>><?= $this->printHtml($length); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iVeryLong"><?= $this->getHtml('VeryLong'); ?></label>
+                                    <tr><td><label for="iLengthVeryLong"><?= $this->getHtml('VeryLong'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVeryLong" name="settings_1000003005">
+                                        <select form="fLocalization" id="iLengthVeryLong" name="settings_length_vl">
                                             <?php foreach ($lengths as $code => $length) : ?>
                                             <option value="<?= $this->printHtml($length); ?>"<?= $this->printHtml($length === $l11n->getLength()['very_long'] ? ' selected' : ''); ?>><?= $this->printHtml($length); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iSeaLength"><?= $this->getHtml('Sea'); ?></label>
+                                    <tr><td><label for="iLengthSea"><?= $this->getHtml('Sea'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iSeaLength" name="settings_1000003006">
+                                        <select form="fLocalization" id="iLengthSea" name="settings_length_sea">
                                             <?php foreach ($lengths as $code => $length) : ?>
                                             <option value="<?= $this->printHtml($length); ?>"<?= $this->printHtml($length === $l11n->getLength()['sea'] ? ' selected' : ''); ?>><?= $this->printHtml($length); ?>
                                             <?php endforeach; ?>
@@ -432,37 +434,37 @@ echo $this->getData('nav')->render();
                             <form>
                                 <table class="layout wf-100">
                                     <tbody>
-                                    <tr><td><label for="iVerySmall"><?= $this->getHtml('VerySmall'); ?></label>
+                                    <tr><td><label for="iAreaVerySmall"><?= $this->getHtml('VerySmall'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVerySmall" name="settings_1000004001">
+                                        <select form="fLocalization" id="iAreaVerySmall" name="settings_area_vs">
                                             <?php foreach ($areas as $code => $area) : ?>
                                             <option value="<?= $this->printHtml($area); ?>"<?= $this->printHtml($area === $l11n->getArea()['very_small'] ? ' selected' : ''); ?>><?= $this->printHtml($area); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iSmall"><?= $this->getHtml('Small'); ?></label>
+                                    <tr><td><label for="iAreaSmall"><?= $this->getHtml('Small'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iSmall" name="settings_1000004002">
+                                        <select form="fLocalization" id="iAreaSmall" name="settings_area_s">
                                             <?php foreach ($areas as $code => $area) : ?>
                                             <option value="<?= $this->printHtml($area); ?>"<?= $this->printHtml($area === $l11n->getArea()['small'] ? ' selected' : ''); ?>><?= $this->printHtml($area); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iMedium"><?= $this->getHtml('Medium'); ?></label>
+                                    <tr><td><label for="iAreaMedium"><?= $this->getHtml('Medium'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iMedium" name="settings_1000004003">
+                                        <select form="fLocalization" id="iAreaMedium" name="settings_area_m">
                                             <?php foreach ($areas as $code => $area) : ?>
                                             <option value="<?= $this->printHtml($area); ?>"<?= $this->printHtml($area === $l11n->getArea()['medium'] ? ' selected' : ''); ?>><?= $this->printHtml($area); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iLarge"><?= $this->getHtml('Large'); ?></label>
+                                    <tr><td><label for="iAreaLarge"><?= $this->getHtml('Large'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iLarge" name="settings_1000004004">
+                                        <select form="fLocalization" id="iAreaLarge" name="settings_area_l">
                                             <?php foreach ($areas as $code => $area) : ?>
                                             <option value="<?= $this->printHtml($area); ?>"<?= $this->printHtml($area === $l11n->getArea()['large'] ? ' selected' : ''); ?>><?= $this->printHtml($area); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iVeryLarge"><?= $this->getHtml('VeryLarge'); ?></label>
+                                    <tr><td><label for="iAreaVeryLarge"><?= $this->getHtml('VeryLarge'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVeryLarge" name="settings_1000004005">
+                                        <select form="fLocalization" id="iAreaVeryLarge" name="settings_area_vl">
                                             <?php foreach ($areas as $code => $area) : ?>
                                             <option value="<?= $this->printHtml($area); ?>"<?= $this->printHtml($area === $l11n->getArea()['very_large'] ? ' selected' : ''); ?>><?= $this->printHtml($area); ?>
                                             <?php endforeach; ?>
@@ -480,58 +482,58 @@ echo $this->getData('nav')->render();
                             <form>
                                 <table class="layout wf-100">
                                     <tbody>
-                                    <tr><td><label for="iVerySmall"><?= $this->getHtml('VerySmall'); ?></label>
+                                    <tr><td><label for="iVolumeVerySmall"><?= $this->getHtml('VerySmall'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVerySmall" name="settings_1000005001">
+                                        <select form="fLocalization" id="iVolumeVerySmall" name="settings_volume_vs">
                                             <?php foreach ($volumes as $code => $volume) : ?>
                                             <option value="<?= $this->printHtml($volume); ?>"<?= $this->printHtml($volume === $l11n->getVolume()['very_small'] ? ' selected' : ''); ?>><?= $this->printHtml($volume); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iSmall"><?= $this->getHtml('Small'); ?></label>
+                                    <tr><td><label for="iVolumeSmall"><?= $this->getHtml('Small'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iSmall" name="settings_1000005002">
+                                        <select form="fLocalization" id="iVolumeSmall" name="settings_volume_s">
                                             <?php foreach ($volumes as $code => $volume) : ?>
                                             <option value="<?= $this->printHtml($volume); ?>"<?= $this->printHtml($volume === $l11n->getVolume()['small'] ? ' selected' : ''); ?>><?= $this->printHtml($volume); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iMedium"><?= $this->getHtml('Medium'); ?></label>
+                                    <tr><td><label for="iVolumeMedium"><?= $this->getHtml('Medium'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iMedium" name="settings_1000005003">
+                                        <select form="fLocalization" id="iVolumeMedium" name="settings_volume_m">
                                             <?php foreach ($volumes as $code => $volume) : ?>
                                             <option value="<?= $this->printHtml($volume); ?>"<?= $this->printHtml($volume === $l11n->getVolume()['medium'] ? ' selected' : ''); ?>><?= $this->printHtml($volume); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iLarge"><?= $this->getHtml('Large'); ?></label>
+                                    <tr><td><label for="iVolumeLarge"><?= $this->getHtml('Large'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iLarge" name="settings_1000005004">
+                                        <select form="fLocalization" id="iVolumeLarge" name="settings_volume_l">
                                             <?php foreach ($volumes as $code => $volume) : ?>
                                             <option value="<?= $this->printHtml($volume); ?>"<?= $this->printHtml($volume === $l11n->getVolume()['large'] ? ' selected' : ''); ?>><?= $this->printHtml($volume); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iVeryLarge"><?= $this->getHtml('VeryLarge'); ?></label>
+                                    <tr><td><label for="iVolumeVeryLarge"><?= $this->getHtml('VeryLarge'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iVeryLarge" name="settings_1000005005">
+                                        <select form="fLocalization" id="iVolumeVeryLarge" name="settings_volume_vl">
                                             <?php foreach ($volumes as $code => $volume) : ?>
                                             <option value="<?= $this->printHtml($volume); ?>"<?= $this->printHtml($volume === $l11n->getVolume()['very_large'] ? ' selected' : ''); ?>><?= $this->printHtml($volume); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iTeaspoon"><?= $this->getHtml('Teaspoon'); ?></label>
+                                    <tr><td><label for="iVolumeTeaspoon"><?= $this->getHtml('Teaspoon'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iTeaspoon" name="settings_1000005006">
+                                        <select form="fLocalization" id="iVolumeTeaspoon" name="settings_volume_teaspoon">
                                             <?php foreach ($volumes as $code => $volume) : ?>
                                             <option value="<?= $this->printHtml($volume); ?>"<?= $this->printHtml($volume === $l11n->getVolume()['teaspoon'] ? ' selected' : ''); ?>><?= $this->printHtml($volume); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iTablespoon"><?= $this->getHtml('Tablespoon'); ?></label>
+                                    <tr><td><label for="iVolumeTablespoon"><?= $this->getHtml('Tablespoon'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iTablespoon" name="settings_1000005007">
+                                        <select form="fLocalization" id="iVolumeTablespoon" name="settings_volume_tablespoon">
                                             <?php foreach ($volumes as $code => $volume) : ?>
                                             <option value="<?= $this->printHtml($volume); ?>"<?= $this->printHtml($volume === $l11n->getVolume()['tablespoon'] ? ' selected' : ''); ?>><?= $this->printHtml($volume); ?>
                                             <?php endforeach; ?>
                                         </select>
-                                    <tr><td><label for="iGlass"><?= $this->getHtml('Glass'); ?></label>
+                                    <tr><td><label for="iVolumeGlass"><?= $this->getHtml('Glass'); ?></label>
                                     <tr><td>
-                                        <select form="fLocalization" id="iGlass" name="settings_1000005008">
+                                        <select form="fLocalization" id="iVolumeGlass" name="settings_volume_glass">
                                             <?php foreach ($volumes as $code => $volume) : ?>
                                             <option value="<?= $this->printHtml($volume); ?>"<?= $this->printHtml($volume === $l11n->getVolume()['glass'] ? ' selected' : ''); ?>><?= $this->printHtml($volume); ?>
                                             <?php endforeach; ?>
@@ -541,7 +543,7 @@ echo $this->getData('nav')->render();
                         </div>
                     </div>
                 </div>
-        </div>
+            </div>
         <?php endif; ?>
     </div>
 </div>
