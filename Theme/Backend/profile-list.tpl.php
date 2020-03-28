@@ -38,11 +38,11 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                 <?php $count = 0; foreach ($accounts as $key => $account) : ++$count;
                 $url = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId()); ?>
                     <tr data-href="<?= $url; ?>">
-                        <td><a href="<?= $url; ?>"><img class="rounded bordered"
+                        <td><a href="<?= $url; ?>"><img width="30" class="rounded bordered"
                             data-lazyload="<?=
                                     $account->getImage() instanceof NullMedia ?
                                         UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                        UriFactory::build('{/prefix}' . $profile->getImage()->getPath()); ?>"></a>
+                                        UriFactory::build('{/prefix}' . $account->getImage()->getPath()); ?>"></a>
                         <td data-label="<?= $this->getHtml('Name') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->getAccount()->getName3() . ' ' . $account->getAccount()->getName2() . ' ' . $account->getAccount()->getName1()); ?></a>
                         <td  data-label="<?= $this->getHtml('Activity') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->getAccount()->getLastActive()->format('Y-m-d')); ?></a>
                 <?php endforeach; ?>
