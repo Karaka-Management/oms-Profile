@@ -18,6 +18,7 @@ use Modules\Profile\Models\ProfileMapper;
 
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\DataStorage\Database\RelationType;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
@@ -117,7 +118,11 @@ final class BackendController extends Controller
         $calendarView->setTemplate('/Modules/Calendar/Theme/Backend/Components/Calendar/mini');
         $view->addData('calendar', $calendarView);
 
-        $view->setData('account', ProfileMapper::get((int) $request->getData('id')));
+        if ($request->getData('for') !== null) {
+            $view->setData('account', ProfileMapper::getFor((int) $request->getData('for'), 'account'));
+        } else {
+            $view->setData('account', ProfileMapper::get((int) $request->getData('id')));
+        }
 
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('accGrpSelector', $accGrpSelector);
