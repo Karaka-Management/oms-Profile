@@ -18,7 +18,6 @@ use Modules\Profile\Models\ProfileMapper;
 
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
-use phpOMS\DataStorage\Database\RelationType;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
