@@ -55,7 +55,7 @@ echo $this->getData('nav')->render();
         <input type="radio" id="c-tab-1" name="tabular-2" checked>
         <div class="tab">
             <div class="row">
-                <div class="col-xs-12 col-md-4">
+                <div class="col-xs-12 col-md-6">
                     <div class="portlet" itemscope itemtype="http://schema.org/Person" itemtype="http://schema.org/Organization">
                         <div class="portlet-head">
                             <?php if (!empty($account->getName3()) || !empty($account->getName2())) : ?>
@@ -68,14 +68,18 @@ echo $this->getData('nav')->render();
                         </div>
                         <div class="portlet-body">
                             <span class="rf">
-                                <img class="m-profile rf"
+                                <div><img class="m-profile rf"
                                     alt="<?= $this->getHtml('ProfileImage'); ?>"
                                     itemprop="logo"
                                     data-lazyload="<?=
                                         $profile->getImage() instanceof NullMedia ?
                                             UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
                                             UriFactory::build('{/prefix}' . $profile->getImage()->getPath()); ?>"
-                                >
+                                ></div>
+                                <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
+                                    <div><a id="iProfileUploadButton" href="#upload" data-action='[{"listener": "click", "key": 1, "action": [{"key": 1, "type": "event.prevent"}, {"key": 2, "type": "dom.click", "selector": "#iProfileUpload"}]}]'>Change</a>
+                                    <form id="iProfileUploadForm" action="<?= UriFactory::build('{/api}profile/settings/image'); ?>" method="post"><input data-action='[{"listener": "change", "key": 1, "action": [{"key": 1, "type": "form.submit", "selector": "#iProfileUploadForm"}]}]' id="iProfileUpload" name="profileImage" type="file" style="display: none;"></form></div>
+                                <?php endif; ?>
                             </span>
                             <table class="list" style="table-layout: fixed">
                                 <tr>
@@ -133,7 +137,7 @@ echo $this->getData('nav')->render();
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-md-4">
+                <div class="col-xs-12 col-md-6">
                     <div class="portlet">
                         <div class="portlet-head"><?= $this->getHtml('Visibility') ?></div>
                         <div class="portlet-body">
@@ -143,7 +147,7 @@ echo $this->getData('nav')->render();
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-md-4">
+                <div class="col-xs-12 col-md-6">
                     <?= $this->getData('medialist')->render([]); ?>
                 </div>
             </div>
