@@ -31,4 +31,15 @@ return [
             ],
         ],
     ],
+    '^.*/profile/settings/image(\?.*|$)' => [
+        [
+            'dest' => '\Modules\Profile\Controller\ApiController:apiSettingsAccountImageSet',
+            'verb' => RouteVerb::SET,
+            'permission' => [
+                'module' => ApiController::MODULE_NAME,
+                'type'  => PermissionType::MODIFY,
+                'state' => PermissionState::PROFILE,
+            ],
+        ],
+    ],
 ];

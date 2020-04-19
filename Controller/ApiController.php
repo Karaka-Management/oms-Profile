@@ -119,4 +119,41 @@ final class ApiController extends Controller
 
         return $profiles;
     }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiSettingsAccountImageSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+        $uploadedFiles = $request->getFiles() ?? [];
+
+        if (empty($uploadedFiles)) {
+            return;
+        }
+
+        $profile = ProfileMapper::getFor($request->getHeader()->getAccount(), 'account');
+        $old     = clone $profile;
+
+        $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+            $request->getData('name') ?? '',
+            $uploadedFiles,
+            $request->getHeader()->getAccount(),
+            __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $request->getHeader()->getAccount()
+        );
+
+        $profile->setImage(\reset($uploaded));
+
+        $this->updateModel($request->getHeader()->getAccount(), $old, $profile, ProfileMapper::class, 'profile');
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Profile', 'Profile successfully updated', $profile);
+    }
 }

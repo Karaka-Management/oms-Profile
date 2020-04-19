@@ -75,7 +75,7 @@ echo $this->getData('nav')->render();
                                         $profile->getImage() instanceof NullMedia ?
                                             UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
                                             UriFactory::build('{/prefix}' . $profile->getImage()->getPath()); ?>"
-                                ></div>
+                                width="100px"></div>
                                 <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
                                     <div><a id="iProfileUploadButton" href="#upload" data-action='[{"listener": "click", "key": 1, "action": [{"key": 1, "type": "event.prevent"}, {"key": 2, "type": "dom.click", "selector": "#iProfileUpload"}]}]'>Change</a>
                                     <form id="iProfileUploadForm" action="<?= UriFactory::build('{/api}profile/settings/image'); ?>" method="post"><input data-action='[{"listener": "change", "key": 1, "action": [{"key": 1, "type": "form.submit", "selector": "#iProfileUploadForm"}]}]' id="iProfileUpload" name="profileImage" type="file" style="display: none;"></form></div>
