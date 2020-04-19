@@ -148,7 +148,8 @@ final class ApiController extends Controller
             $request->getData('name') ?? '',
             $uploadedFiles,
             $request->getHeader()->getAccount(),
-            __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $request->getHeader()->getAccount()
+            __DIR__ . '/../../../Modules/Media/Files',
+            '/Accounts/' . $request->getHeader()->getAccount()
         );
 
         $profile->setImage(\reset($uploaded));
