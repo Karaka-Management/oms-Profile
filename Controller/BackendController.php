@@ -77,8 +77,10 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === '-') {
             $view->setData('accounts', ProfileMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
-        } else {
+        } elseif ($request->getData('ptype') === '+') {
             $view->setData('accounts', ProfileMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
+        } else {
+            $view->setData('accounts', ProfileMapper::getAfterPivot(0, null, 25));
         }
 
         return $view;

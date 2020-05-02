@@ -107,7 +107,9 @@ final class ApiController extends Controller
 
         foreach ($accounts as $account) {
             $account = (int) \trim($account);
-            $isInDb  = ProfileMapper::getFor($account, 'account');
+
+            /** @var Profile $isInDb */
+            $isInDb = ProfileMapper::getFor($account, 'account');
 
             if ($isInDb->getId() !== 0) {
                 $profiles[] = $isInDb;
@@ -141,6 +143,7 @@ final class ApiController extends Controller
             return;
         }
 
+        /** @var Profile $profile */
         $profile = ProfileMapper::getFor($request->getHeader()->getAccount(), 'account');
         $old     = clone $profile;
 
