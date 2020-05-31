@@ -86,7 +86,7 @@ final class ApiController extends Controller
             return false;
         }
 
-        $this->createModel($request->getHeader()->getAccount(), $profile, ProfileMapper::class, 'profile');
+        $this->createModel($request->getHeader()->getAccount(), $profile, ProfileMapper::class, 'profile', $request->getOrigin());
 
         return true;
     }
@@ -157,7 +157,7 @@ final class ApiController extends Controller
 
         $profile->setImage(\reset($uploaded));
 
-        $this->updateModel($request->getHeader()->getAccount(), $old, $profile, ProfileMapper::class, 'profile');
+        $this->updateModel($request->getHeader()->getAccount(), $old, $profile, ProfileMapper::class, 'profile', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Profile', 'Profile successfully updated', $profile);
     }
 }
