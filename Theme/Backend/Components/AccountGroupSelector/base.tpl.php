@@ -13,7 +13,7 @@
                 }
             ]' formaction=""><i class="fa fa-book"></i></button>
             <div class="advancedInput wf-100" id="<?= $this->printHtml($this->getId()); ?>">
-                <input autocomplete="off" class="input" type="text" id="i<?= $this->printHtml($this->getId()); ?>" placeholder="&#xf007; Guest"
+                <input autocomplete="off" spellcheck="false" class="input" type="text" id="i<?= $this->printHtml($this->getId()); ?>" placeholder="&#xf007; Guest"
                     data-emptyAfter="true"
                     data-autocomplete="false"
                     data-src="api/admin/find/accgrp?search={#i<?= $this->printHtml($this->getId()); ?>}">
