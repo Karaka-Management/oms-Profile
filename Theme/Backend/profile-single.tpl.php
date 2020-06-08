@@ -15,10 +15,8 @@ declare(strict_types=1);
 use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
-/**
- * @var \phpOMS\Views\View              $this
- * @var \Modules\Profile\Models\Profile $profile
- */
+/** @var \phpOMS\Views\View $this */
+/** @var \Modules\Profile\Models\Profile $profile */
 $profile = $this->getData('account');
 $media   = $this->getDatA('media') ?? [];
 
