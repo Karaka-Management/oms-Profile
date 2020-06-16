@@ -20,6 +20,7 @@ return ['Profile' => [
     'Amount'             => '{Amount}',
     'Area'               => 'Area',
     'Birthday'           => 'Birthday',
+    'Change'             => 'Birthday',
     'City'               => 'City',
     'Community'          => 'Community',
     'Contact'            => 'Contact',

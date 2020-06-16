@@ -75,8 +75,17 @@ echo $this->getData('nav')->render();
                                             UriFactory::build('{/prefix}' . $profile->getImage()->getPath()); ?>"
                                 width="100px"></div>
                                 <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
-                                    <div><a id="iProfileUploadButton" href="#upload" data-action='[{"listener": "click", "key": 1, "action": [{"key": 1, "type": "event.prevent"}, {"key": 2, "type": "dom.click", "selector": "#iProfileUpload"}]}]'>Change</a>
-                                    <form id="iProfileUploadForm" action="<?= UriFactory::build('{/api}profile/settings/image'); ?>" method="post"><input class="preview" data-action='[{"listener": "change", "key": 1, "action": [{"key": 1, "type": "form.submit", "selector": "#iProfileUploadForm"}]}]' id="iProfileUpload" name="profileImage" type="file" accept="image/png,image/gif,image/jpeg" style="display: none;"></form></div>
+                                    <div><a id="iProfileUploadButton" href="#upload" data-action='[
+                                        {"listener": "click", "key": 1, "action": [
+                                            {"key": 1, "type": "event.prevent"},
+                                            {"key": 2, "type": "dom.click", "selector": "#iProfileUpload"}
+                                            ]
+                                        }]'><?= $this->getHtml('Change') ?></a>
+                                    <form id="iProfileUploadForm" action="<?= UriFactory::build('{/api}profile/settings/image'); ?>" method="post"><input class="preview" data-action='[
+                                        {"listener": "change", "key": 1, "action": [
+                                            {"key": 1, "type": "form.submit", "selector": "#iProfileUploadForm"}
+                                            ]
+                                        }]' id="iProfileUpload" name="profileImage" type="file" accept="image/png,image/gif,image/jpeg" style="display: none;"></form></div>
                                 <?php endif; ?>
                             </span>
                             <table class="list" style="table-layout: fixed">

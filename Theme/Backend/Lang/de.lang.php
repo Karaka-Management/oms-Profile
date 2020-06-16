@@ -20,6 +20,7 @@ return ['Profile' => [
     'Amount'             => '{Anzal}',
     'Area'               => 'Fläche',
     'Birthday'           => 'Geburtstag',
+    'Change'             => 'Ändern',
     'City'               => 'Stadt',
     'Community'          => 'Community',
     'Contact'            => 'Kontakt',
