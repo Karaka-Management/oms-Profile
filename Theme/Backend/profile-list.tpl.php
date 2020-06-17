@@ -38,7 +38,7 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                 <?php $count = 0; foreach ($accounts as $key => $account) : ++$count;
                 $url = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId()); ?>
                     <tr tabindex="0" tabindex="0" data-href="<?= $url; ?>">
-                        <td><a href="<?= $url; ?>"><img width="30" class="rounded bordered"
+                        <td><a href="<?= $url; ?>"><img width="30" class="profile-image"
                             data-lazyload="<?=
                                     $account->getImage() instanceof NullMedia ?
                                         UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
