@@ -75,9 +75,9 @@ final class BackendController extends Controller
 
         $view->setTemplate('/Modules/Profile/Theme/Backend/profile-list');
 
-        if ($request->getData('ptype') === '-') {
+        if ($request->getData('ptype') === 'p') {
             $view->setData('accounts', ProfileMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
-        } elseif ($request->getData('ptype') === '+') {
+        } elseif ($request->getData('ptype') === 'n') {
             $view->setData('accounts', ProfileMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
         } else {
             $view->setData('accounts', ProfileMapper::getAfterPivot(0, null, 25));

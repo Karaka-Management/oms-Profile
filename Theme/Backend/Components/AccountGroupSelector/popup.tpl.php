@@ -11,7 +11,7 @@
                 </ul>
             </div>
             <div class="tab-content">
-                <input type="radio" id="c-tab-1" name="tabular-2" checked>
+                <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-1' ? ' checked' : '' ?>>
                 <div class="tab">
                     <label for="iSearchAcc">Search</label>
                     <input type="text" id="iSearchAcc" name="receiver-search" data-action='[
@@ -54,7 +54,7 @@
                             }
                         ]'><?= $this->getHtml('Close', 'Admin') ?></button>
                 </div>
-                <input type="radio" id="c-tab-2" name="tabular-2">
+                <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-2' ? ' checked' : '' ?>>
                 <div class="tab">
                     <label for="iSearchGrp">Search</label>
                     <input type="text" id="iSearchGrp" name="receiver-search" data-action='[
