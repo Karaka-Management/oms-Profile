@@ -27,13 +27,13 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
 <div class="row">
     <div class="col-xs-12">
         <div class="portlet">
-            <div class="portlet-head"><?= $this->getHtml('Profiles') ?><i class="fa fa-download floatRight download btn"></i></div>
+            <div class="portlet-head"><?= $this->getHtml('Profiles'); ?><i class="fa fa-download floatRight download btn"></i></div>
             <table id="profileList" class="default">
                 <thead>
                 <tr>
                     <td>
-                    <td class="wf-100"><?= $this->getHtml('Name') ?>
-                    <td><?= $this->getHtml('Activity') ?>
+                    <td class="wf-100"><?= $this->getHtml('Name'); ?>
+                    <td><?= $this->getHtml('Activity'); ?>
                 <tbody>
                 <?php $count = 0; foreach ($accounts as $key => $account) : ++$count;
                 $url = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId()); ?>
@@ -43,8 +43,8 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                                     $account->getImage() instanceof NullMedia ?
                                         UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
                                         UriFactory::build('{/prefix}' . $account->getImage()->getPath()); ?>"></a>
-                        <td data-label="<?= $this->getHtml('Name') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->getAccount()->getName3() . ' ' . $account->getAccount()->getName2() . ' ' . $account->getAccount()->getName1()); ?></a>
-                        <td  data-label="<?= $this->getHtml('Activity') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->getAccount()->getLastActive()->format('Y-m-d')); ?></a>
+                        <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->getAccount()->getName3() . ' ' . $account->getAccount()->getName2() . ' ' . $account->getAccount()->getName1()); ?></a>
+                        <td  data-label="<?= $this->getHtml('Activity'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->getAccount()->getLastActive()->format('Y-m-d')); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
                 <tr><td colspan="3" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

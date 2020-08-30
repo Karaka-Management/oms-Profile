@@ -50,7 +50,7 @@ echo $this->getData('nav')->render();
         </ul>
     </div>
     <div class="tab-content">
-        <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-1' ? ' checked' : '' ?>>
+        <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-1' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
                 <div class="col-xs-12 col-md-6">
@@ -80,7 +80,7 @@ echo $this->getData('nav')->render();
                                             {"key": 1, "type": "event.prevent"},
                                             {"key": 2, "type": "dom.click", "selector": "#iProfileUpload"}
                                             ]
-                                        }]'><?= $this->getHtml('Change') ?></a>
+                                        }]'><?= $this->getHtml('Change'); ?></a>
                                     <form id="iProfileUploadForm" action="<?= UriFactory::build('{/api}profile/settings/image'); ?>" method="post"><input class="preview" data-action='[
                                         {"listener": "change", "key": 1, "action": [
                                             {"key": 1, "type": "form.submit", "selector": "#iProfileUploadForm"}
@@ -90,13 +90,13 @@ echo $this->getData('nav')->render();
                             </span>
                             <table class="list" style="table-layout: fixed">
                                 <tr>
-                                    <th><?= $this->getHtml('Birthday') ?>
+                                    <th><?= $this->getHtml('Birthday'); ?>
                                     <td itemprop="birthDate" itemprop="foundingDate"><?= $this->getDateTime($profile->getBirthday()); ?>
                                 <tr>
-                                    <th><?= $this->getHtml('Email') ?>
+                                    <th><?= $this->getHtml('Email'); ?>
                                     <td itemprop="email"><a href="mailto:>donald.duck@email.com<"><?= $this->printHtml($account->getEmail()); ?></a>
                                 <tr>
-                                    <th><?= $this->getHtml('Address') ?>
+                                    <th><?= $this->getHtml('Address'); ?>
                                     <td>
                                 <?php
                                     $locations = $profile->getLocation();
@@ -112,7 +112,7 @@ echo $this->getData('nav')->render();
                                     <td itemprop="address">SMALLSYS INC<br>795 E DRAGRAM<br>TUCSON AZ 85705<br>USA
                                 <?php endforeach; ?>
                                 <tr>
-                                    <th><?= $this->getHtml('Contact') ?>
+                                    <th><?= $this->getHtml('Contact'); ?>
                                     <td>
                                     <?php
                                     $contacts = $profile->getContactElements();
@@ -128,25 +128,25 @@ echo $this->getData('nav')->render();
                                     <td itemprop="telephone">+01 12345-4567
                                 <?php endforeach; ?>
                                 <tr>
-                                    <th><?= $this->getHtml('Registered') ?>
+                                    <th><?= $this->getHtml('Registered'); ?>
                                     <td><?= $this->printHtml($account->getCreatedAt()->format('Y-m-d')); ?>
                                 <tr>
-                                    <th><?= $this->getHtml('LastLogin') ?>
+                                    <th><?= $this->getHtml('LastLogin'); ?>
                                     <td><?= $this->printHtml($account->getLastActive()->format('Y-m-d')); ?>
                                 <tr>
-                                    <th><?= $this->getHtml('Status') ?>
+                                    <th><?= $this->getHtml('Status'); ?>
                                     <td><span class="tag green"><?= $this->getHtml(':s' . $account->getStatus(), 'Admin'); ?></span>
                             </table>
                         </div>
                         <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
-                        <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0') ?></button></div>
+                        <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0'); ?></button></div>
                         <?php endif; ?>
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-md-6">
                     <div class="portlet">
-                        <div class="portlet-head"><?= $this->getHtml('Visibility') ?></div>
+                        <div class="portlet-head"><?= $this->getHtml('Visibility'); ?></div>
                         <div class="portlet-body">
                             <p>Define which users and user groups can see your profile</p>
                             <?= $this->getData('accGrpSelector')->render('iVisibility', 'visibility', true); ?>
@@ -166,7 +166,7 @@ echo $this->getData('nav')->render();
             </div>
         </div>
         <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
-        <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-2' ? ' checked' : '' ?>>
+        <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-2' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
                 <div class="col-xs-12 col-md-4">
@@ -186,7 +186,7 @@ echo $this->getData('nav')->render();
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="ipt-second"><input type="submit" name="loadDefaultLocalization" formaction="<?= UriFactory::build('{/api}profile/settings/localization?load=1'); ?>" value="<?= $this->getHtml('Load') ?>"></div>
+                                            <div class="ipt-second"><input type="submit" name="loadDefaultLocalization" formaction="<?= UriFactory::build('{/api}profile/settings/localization?load=1'); ?>" value="<?= $this->getHtml('Load'); ?>"></div>
                                         </div>
                                     <tr><td colspan="2"><label for="iCountries"><?= $this->getHtml('Country'); ?></label>
                                     <tr><td colspan="2">

@@ -27,5 +27,6 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class PermissionState extends Enum
 {
     public const PROFILE          = 1;
+
     public const PROFILE_SETTINGS = 2;
 }

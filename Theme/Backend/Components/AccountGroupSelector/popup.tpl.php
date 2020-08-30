@@ -1,17 +1,17 @@
 <template id="acc-grp-tpl">
     <section id="acc-grp" class="box w-50" style="z-index: 9; position: absolute; margin: 0 auto; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-        <header><h1><?= $this->getHtml('Account/Group', 'Admin') ?></h1></header>
+        <header><h1><?= $this->getHtml('Account/Group', 'Admin'); ?></h1></header>
 
         <div class="inner">
         <div class="tabview tab-2">
             <div class="box wf-100">
                 <ul class="tab-links">
-                    <li><label for="c-tab-1"><?= $this->getHtml('Account', 'Admin') ?></label>
-                    <li><label for="c-tab-2"><?= $this->getHtml('Group', 'Admin') ?></label>
+                    <li><label for="c-tab-1"><?= $this->getHtml('Account', 'Admin'); ?></label>
+                    <li><label for="c-tab-2"><?= $this->getHtml('Group', 'Admin'); ?></label>
                 </ul>
             </div>
             <div class="tab-content">
-                <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-1' ? ' checked' : '' ?>>
+                <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-1' ? ' checked' : ''; ?>>
                 <div class="tab">
                     <label for="iSearchAcc">Search</label>
                     <input type="text" id="iSearchAcc" name="receiver-search" data-action='[
@@ -52,9 +52,9 @@
                                     {"key": 1, "type": "dom.remove", "selector": "#acc-grp", "aniOut": "fadeOut"}
                                 ]
                             }
-                        ]'><?= $this->getHtml('Close', 'Admin') ?></button>
+                        ]'><?= $this->getHtml('Close', 'Admin'); ?></button>
                 </div>
-                <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-2' ? ' checked' : '' ?>>
+                <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-2' ? ' checked' : ''; ?>>
                 <div class="tab">
                     <label for="iSearchGrp">Search</label>
                     <input type="text" id="iSearchGrp" name="receiver-search" data-action='[
@@ -82,7 +82,7 @@
                                     {"key": 1, "type": "dom.remove", "selector": "#acc-grp", "aniOut": "fadeOut"}
                                 ]
                             }
-                        ]'><?= $this->getHtml('Close', 'Admin') ?></button>
+                        ]'><?= $this->getHtml('Close', 'Admin'); ?></button>
                 </div>
             </div>
         </div>
