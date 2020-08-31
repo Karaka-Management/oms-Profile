@@ -10,35 +10,35 @@ use phpOMS\Router\RouteVerb;
 return [
     '^.*/profile.*$' => [
         [
-            'dest' => '\Modules\Profile\Controller\ApiController:apiProfileCreate',
-            'verb' => RouteVerb::PUT,
+            'dest'       => '\Modules\Profile\Controller\ApiController:apiProfileCreate',
+            'verb'       => RouteVerb::PUT,
             'permission' => [
                 'module' => ApiController::MODULE_NAME,
-                'type'  => PermissionType::CREATE,
-                'state' => PermissionState::PROFILE,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionState::PROFILE,
             ],
         ],
     ],
 
     '^.*/profile/settings/localization(\?.*|$)' => [
         [
-            'dest' => '\Modules\Admin\Controller\ApiController:apiSettingsAccountLocalizationSet',
-            'verb' => RouteVerb::SET,
+            'dest'       => '\Modules\Admin\Controller\ApiController:apiSettingsAccountLocalizationSet',
+            'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => AdminApiController::MODULE_NAME,
-                'type'  => PermissionType::MODIFY,
-                'state' => AdminPermissionState::ACCOUNT_SETTINGS,
+                'type'   => PermissionType::MODIFY,
+                'state'  => AdminPermissionState::ACCOUNT_SETTINGS,
             ],
         ],
     ],
     '^.*/profile/settings/image(\?.*|$)' => [
         [
-            'dest' => '\Modules\Profile\Controller\ApiController:apiSettingsAccountImageSet',
-            'verb' => RouteVerb::SET,
+            'dest'       => '\Modules\Profile\Controller\ApiController:apiSettingsAccountImageSet',
+            'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => ApiController::MODULE_NAME,
-                'type'  => PermissionType::MODIFY,
-                'state' => PermissionState::PROFILE,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionState::PROFILE,
             ],
         ],
     ],

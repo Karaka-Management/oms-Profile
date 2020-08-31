@@ -36,7 +36,7 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                     <td><?= $this->getHtml('Activity'); ?>
                 <tbody>
                 <?php $count = 0; foreach ($accounts as $key => $account) : ++$count;
-                $url = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId()); ?>
+                $url         = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId()); ?>
                     <tr tabindex="0" tabindex="0" data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><img width="30" class="profile-image"
                             data-lazyload="<?=
