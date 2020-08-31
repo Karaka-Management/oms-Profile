@@ -16,7 +16,6 @@ namespace Modules\Profile\Controller;
 
 use Modules\Media\Models\MediaMapper;
 use Modules\Profile\Models\ProfileMapper;
-
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\RequestAbstract;
