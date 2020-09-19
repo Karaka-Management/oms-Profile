@@ -39,8 +39,8 @@ final class ProfileMapper extends DataMapperAbstract
         'profile_account_id'       => ['name' => 'profile_account_id',       'type' => 'int',      'internal' => 'id'],
         'profile_account_image'    => ['name' => 'profile_account_image',    'type' => 'int',      'internal' => 'image',    'annotations' => ['gdpr' => true]],
         'profile_account_birthday' => ['name' => 'profile_account_birthday', 'type' => 'DateTime', 'internal' => 'birthday', 'annotations' => ['gdpr' => true]],
-        'profile_account_gender' => ['name' => 'profile_account_gender', 'type' => 'int', 'internal' => 'gender', 'annotations' => ['gdpr' => true]],
-        'profile_account_sex' => ['name' => 'profile_account_sex', 'type' => 'int', 'internal' => 'sex', 'annotations' => ['gdpr' => true]],
+        'profile_account_gender'   => ['name' => 'profile_account_gender', 'type' => 'int', 'internal' => 'gender', 'annotations' => ['gdpr' => true]],
+        'profile_account_sex'      => ['name' => 'profile_account_sex', 'type' => 'int', 'internal' => 'sex', 'annotations' => ['gdpr' => true]],
         'profile_account_account'  => ['name' => 'profile_account_account',  'type' => 'int',      'internal' => 'account'],
     ];
 
