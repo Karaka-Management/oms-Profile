@@ -53,7 +53,7 @@ echo $this->getData('nav')->render();
         <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-1' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12">
                     <div class="portlet" itemscope itemtype="http://schema.org/Person" itemtype="http://schema.org/Organization">
                         <div class="portlet-head">
                             <?php if (!empty($account->getName3()) || !empty($account->getName2())) : ?>
@@ -141,16 +141,6 @@ echo $this->getData('nav')->render();
                         <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
                         <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0'); ?></button></div>
                         <?php endif; ?>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-md-6">
-                    <div class="portlet">
-                        <div class="portlet-head"><?= $this->getHtml('Visibility'); ?></div>
-                        <div class="portlet-body">
-                            <p>Define which users and user groups can see your profile</p>
-                            <?= $this->getData('accGrpSelector')->render('iVisibility', 'visibility', true); ?>
-                        </div>
                     </div>
                 </div>
 

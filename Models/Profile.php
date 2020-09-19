@@ -19,6 +19,7 @@ use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\Media;
 use Modules\Media\Models\NullMedia;
 use phpOMS\Stdlib\Base\Location;
+use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 /**
  * Profile class.
@@ -79,6 +80,22 @@ class Profile implements \JsonSerializable
     protected array $contactElements = [];
 
     /**
+     * Gender.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected int $gender = GenderType::OTHER;
+
+    /**
+     * Sex.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected int $sex = SexType::OTHER;
+
+    /**
      * Constructor.
      *
      * @param null|Account $account Account to initialize this profile with
@@ -102,6 +119,70 @@ class Profile implements \JsonSerializable
     public function getId() : int
     {
         return $this->id;
+    }
+
+    /**
+     * Get gender.
+     *
+     * @return int Returns the gender (GenderType)
+     *
+     * @since 1.0.0
+     */
+    public function getGender() : int
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Get gender.
+     *
+     * @param int $gender Gender
+     *
+     * @return void
+     *
+     * @throws InvalidEnumValue This exception is thrown if a invalid gender is used
+     *
+     * @since 1.0.0
+     */
+    public function setGender(int $gender) : void
+    {
+        if (!GenderType::isValidValue($gender)) {
+            throw new InvalidEnumValue($gender);
+        }
+
+        $this->gender = $gender;
+    }
+
+    /**
+     * Get sex.
+     *
+     * @return int Returns the sex (SexType)
+     *
+     * @since 1.0.0
+     */
+    public function getSex() : int
+    {
+        return $this->sex;
+    }
+
+    /**
+     * Get sex.
+     *
+     * @param int $sex Sex
+     *
+     * @return void
+     *
+     * @throws InvalidEnumValue This exception is thrown if a invalid sex is used
+     *
+     * @since 1.0.0
+     */
+    public function setSex(int $sex) : void
+    {
+        if (!SexType::isValidValue($sex)) {
+            throw new InvalidEnumValue($sex);
+        }
+
+        $this->sex = $sex;
     }
 
     /**

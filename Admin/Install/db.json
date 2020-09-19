@@ -20,6 +20,14 @@
                     "gdpr": true
                 }
             },
+            "profile_account_gender": {
+                "name": "profile_account_gender",
+                "type": "INT"
+            },
+            "profile_account_sex": {
+                "name": "profile_account_sex",
+                "type": "INT"
+            },
             "profile_account_birthday": {
                 "name": "profile_account_birthday",
                 "type": "DATETIME",
