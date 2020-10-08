@@ -21,6 +21,10 @@ use Modules\Profile\Models\Profile;
  */
 class ProfileTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\Profile\Models\Profile
+     * @group module
+     */
     public function testDefault() : void
     {
         $profile = new Profile();
@@ -30,6 +34,10 @@ class ProfileTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTime', $profile->getBirthday());
     }
 
+    /**
+     * @covers Modules\Profile\Models\Profile
+     * @group module
+     */
     public function testSetGet() : void
     {
         $profile = new Profile();
