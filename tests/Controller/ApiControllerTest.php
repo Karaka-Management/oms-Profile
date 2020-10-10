@@ -12,10 +12,12 @@
  */
 declare(strict_types=1);
 
-namespace Modules\Profile\tests;
+namespace Modules\Profile\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
+use Modules\Profile\Models\Profile;
+use Modules\Profile\Models\ProfileMapper;
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
 use phpOMS\Account\PermissionType;
@@ -28,11 +30,13 @@ use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
 use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\TestUtils;
+use phpOMS\System\MimeType;
+use phpOMS\Message\Http\RequestStatusCode;
 
 /**
  * @internal
  */
-class ControllerTest extends \PHPUnit\Framework\TestCase
+class ApiControllerTest extends \PHPUnit\Framework\TestCase
 {
     protected $app    = null;
 
@@ -47,7 +51,6 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->app->dbPool         = $GLOBALS['dbpool'];
         $this->app->orgId          = 1;
-        $this->app->appName        = 'Backend';
         $this->app->accountManager = new AccountManager($GLOBALS['session']);
         $this->app->appSettings    = new CoreSettings($this->app->dbPool->get());
         $this->app->moduleManager  = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
@@ -83,7 +86,7 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
      * @covers Modules\Profile\Controller\ApiController
      * @group module
      */
-    public function testCreateProfile() : void
+    public function testApiProfileCreate() : void
     {
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
@@ -95,5 +98,66 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('admin', $response->get('')['response'][0]->getAccount()->getName());
         self::assertGreaterThan(0, $response->get('')['response'][0]->getId());
+    }
+
+    /**
+     * @covers Modules\Profile\Controller\ApiController
+     * @group module
+     */
+    public function testApiProfileCreateDbEntry() : void
+    {
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->getHeader()->setAccount(1);
+
+        $profile = new Profile(new \Modules\Admin\Models\Account());
+        $profile->getAccount()->setName('ProfileCreateDb');
+        $profile->getAccount()->setEmail('profile_create_db@email.com');
+
+        $this->module->apiProfileCreateDbEntry($profile, $request);
+    }
+
+    /**
+     * @covers Modules\Profile\Controller\ApiController
+     * @group module
+     */
+    public function testApiProfileImageSet() : void
+    {
+        \copy(__DIR__ . '/icon.png', __DIR__ . '/temp_icon.png');
+
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->getHeader()->setAccount(1);
+        $request->setData('name', 'Profile Logo');
+        $request->setData('id', 1);
+
+        TestUtils::setMember($request, 'files', [
+            'file1' => [
+                'name'     => 'icon.png',
+                'type'     => MimeType::M_PNG,
+                'tmp_name' => __DIR__ . '/temp_icon.png',
+                'error'    => \UPLOAD_ERR_OK,
+                'size'     => \filesize(__DIR__ . '/icon.png'),
+            ],
+        ]);
+        $this->module->apiSettingsAccountImageSet($request, $response);
+
+        $image = ProfileMapper::get(3)->getImage();
+        self::assertEquals('Profile Logo', $image->getName());
+    }
+
+    /**
+     * @covers Modules\Profile\Controller\ApiController
+     * @group module
+     */
+    public function testApiProfileImageSetInvalid() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $this->module->apiSettingsAccountImageSet($request, $response);
+
+        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
     }
 }

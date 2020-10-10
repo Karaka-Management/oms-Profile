@@ -20,6 +20,7 @@ use Modules\Profile\Models\ProfileMapper;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
+use phpOMS\Message\Http\RequestStatusCode;
 
 /**
  * Profile class.
@@ -139,6 +140,9 @@ final class ApiController extends Controller
         $uploadedFiles = $request->getFiles() ?? [];
 
         if (empty($uploadedFiles)) {
+            $this->fillJsonResponse($request, $response, NotificationLevel::ERROR, 'Profile', 'Invalid profile image', $uploadedFiles);
+            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+
             return;
         }
 

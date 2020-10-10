@@ -226,15 +226,15 @@ class Profile implements \JsonSerializable
     /**
      * Add contact element.
      *
-     * @param ContactElement $contactElements Contact Element
+     * @param ContactElement $contactElement Contact Element
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function addContactElements(ContactElement $contactElements) : void
+    public function addContactElement(ContactElement $contactElement) : void
     {
-        $this->contactElements[] = $contactElements;
+        $this->contactElements[] = $contactElement;
     }
 
     /**
@@ -321,11 +321,14 @@ class Profile implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id'             => $this->id,
-            'account'        => $this->account,
-            'image'          => $this->image,
-            'location'       => $this->location,
-            'contactelement' => $this->contactElements,
+            'id'              => $this->id,
+            'sex'             => $this->sex,
+            'gender'          => $this->gender,
+            'account'         => $this->account,
+            'image'           => $this->image,
+            'birthday'        => $this->birthday,
+            'locations'       => $this->location,
+            'contactelements' => $this->contactElements,
         ];
     }
 }
