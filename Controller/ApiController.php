@@ -17,10 +17,10 @@ namespace Modules\Profile\Controller;
 use Modules\Admin\Models\AccountMapper;
 use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\ProfileMapper;
+use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Message\Http\RequestStatusCode;
 
 /**
  * Profile class.

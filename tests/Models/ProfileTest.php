@@ -15,12 +15,12 @@ declare(strict_types=1);
 namespace Modules\Profile\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
+use Modules\Media\Models\NullMedia;
+use Modules\Profile\Models\ContactElement;
 use Modules\Profile\Models\GenderType;
 use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\SexType;
-use Modules\Media\Models\NullMedia;
 use phpOMS\Stdlib\Base\Location;
-use Modules\Profile\Models\ContactElement;
 
 /**
  * @internal
@@ -29,7 +29,7 @@ class ProfileTest extends \PHPUnit\Framework\TestCase
 {
     private Profile $profile;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->profile = new Profile();
     }
