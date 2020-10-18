@@ -33,15 +33,15 @@ final class ContactElementMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'profile_contact_id' => ['name' => 'profile_contact_id', 'type' => 'int', 'internal' => 'id'],
-        'profile_contact_name1' => ['name' => 'profile_contact_name1', 'type' => 'string', 'internal' => 'name1'],
-        'profile_contact_name2' => ['name' => 'profile_contact_name2', 'type' => 'string', 'internal' => 'name2'],
-        'profile_contact_name3' => ['name' => 'profile_contact_name3', 'type' => 'string', 'internal' => 'name3'],
+        'profile_contact_id'          => ['name' => 'profile_contact_id', 'type' => 'int', 'internal' => 'id'],
+        'profile_contact_name1'       => ['name' => 'profile_contact_name1', 'type' => 'string', 'internal' => 'name1'],
+        'profile_contact_name2'       => ['name' => 'profile_contact_name2', 'type' => 'string', 'internal' => 'name2'],
+        'profile_contact_name3'       => ['name' => 'profile_contact_name3', 'type' => 'string', 'internal' => 'name3'],
         'profile_contact_description' => ['name' => 'profile_contact_description', 'type' => 'string', 'internal' => 'description'],
-        'profile_contact_company' => ['name' => 'profile_contact_company', 'type' => 'string', 'internal' => 'company'],
-        'profile_contact_job' => ['name' => 'profile_contact_job', 'type' => 'string', 'internal' => 'job'],
-        'profile_contact_birthday' => ['name' => 'profile_contact_birthday', 'type' => 'DateTime', 'internal' => 'birthday'],
-        'profile_contact_profile' => ['name' => 'profile_contact_profile', 'type' => 'int', 'internal' => 'profile'],
+        'profile_contact_company'     => ['name' => 'profile_contact_company', 'type' => 'string', 'internal' => 'company'],
+        'profile_contact_job'         => ['name' => 'profile_contact_job', 'type' => 'string', 'internal' => 'job'],
+        'profile_contact_birthday'    => ['name' => 'profile_contact_birthday', 'type' => 'DateTime', 'internal' => 'birthday'],
+        'profile_contact_profile'     => ['name' => 'profile_contact_profile', 'type' => 'int', 'internal' => 'profile'],
     ];
 
     /**
