@@ -41,12 +41,28 @@ class ContactElement
     private int $type = 0;
 
     /**
+     * Contact element subtype.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private int $subtype = 0;
+
+    /**
      * Content.
      *
      * @var string
      * @since 1.0.0
      */
     private string $content = '';
+
+    /**
+     * Order.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private int $order = 0;
 
     /**
      * Get id.
@@ -84,6 +100,58 @@ class ContactElement
     public function getType() : int
     {
         return $this->type;
+    }
+
+    /**
+     * Set order
+     *
+     * @param int $order Type
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setOrder(int $order) : void
+    {
+        $this->order = $order;
+    }
+
+    /**
+     * Get order
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function getOrder() : int
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set subtype
+     *
+     * @param int $subtype Subtype
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setSubtype(int $subtype) : void
+    {
+        $this->subtype = $subtype;
+    }
+
+    /**
+     * Get subtype
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function getSubtype() : int
+    {
+        return $this->subtype;
     }
 
     /**

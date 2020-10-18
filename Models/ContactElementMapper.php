@@ -33,7 +33,11 @@ final class ContactElementMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'profile_contactelement_id' => ['name' => 'profile_contactelement_id', 'type' => 'int', 'internal' => 'id'],
+        'profile_contact_element_id' => ['name' => 'profile_contact_element_id', 'type' => 'int', 'internal' => 'id'],
+        'profile_contact_element_type' => ['name' => 'profile_contact_element_type', 'type' => 'int', 'internal' => 'type'],
+        'profile_contact_element_subtype' => ['name' => 'profile_contact_element_subtype', 'type' => 'int', 'internal' => 'subtype'],
+        'profile_contact_element_order' => ['name' => 'profile_contact_element_order', 'type' => 'int', 'internal' => 'order'],
+        'profile_contact_element_content' => ['name' => 'profile_contact_element_content', 'type' => 'string', 'internal' => 'content'],
     ];
 
     /**
@@ -42,7 +46,7 @@ final class ContactElementMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'profile_contactelement';
+    protected static string $table = 'profile_contact_element';
 
     /**
      * Primary field name.
@@ -50,5 +54,5 @@ final class ContactElementMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'profile_contactelement_id';
+    protected static string $primaryField = 'profile_contact_element_id';
 }

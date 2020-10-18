@@ -70,15 +70,15 @@ final class ProfileMapper extends DataMapperAbstract
     protected static array $hasMany = [
         'location' => [
             'mapper'   => AddressMapper::class,
-            'table'    => 'profile_address',
-            'external' => 'profile_address_address',
-            'self'     => 'profile_address_profile',
+            'table'    => 'profile_addressrel',
+            'external' => 'profile_addressrel_address',
+            'self'     => 'profile_addressrel_profile',
         ],
         'contactElements' => [
             'mapper'   => ContactElementMapper::class,
-            'table'    => 'profile_contactelement',
-            'self'     => null,
-            'external' => 'profile_contactelement_contact',
+            'table'    => 'profile_contactelementrel',
+            'self'     => 'profile_contactelementrel_element',
+            'external' => 'profile_contactelementrel_profile',
         ],
     ];
 
