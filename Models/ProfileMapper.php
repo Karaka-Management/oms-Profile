@@ -52,11 +52,11 @@ final class ProfileMapper extends DataMapperAbstract
      */
     protected static array $ownsOne = [
         'account'  => [
-            'mapper' => AccountMapper::class,
+            'mapper'     => AccountMapper::class,
             'external'   => 'profile_account_account',
         ],
         'image'    => [
-            'mapper' => MediaMapper::class,
+            'mapper'     => MediaMapper::class,
             'external'   => 'profile_account_image',
         ],
     ];

@@ -52,7 +52,7 @@ final class ContactElementMapper extends DataMapperAbstract
      */
     protected static array $ownsOne = [
         'image'    => [
-            'mapper' => MediaMapper::class,
+            'mapper'     => MediaMapper::class,
             'external'   => 'profile_contact_image',
         ],
     ];
