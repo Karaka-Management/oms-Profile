@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\Profile\Models;
 
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+use Modules\Media\Models\MediaMapper;
 
 /**
  * Contact mapper class.
@@ -47,7 +48,7 @@ final class ContactMapper extends DataMapperAbstract
     /**
      * Has one relation.
      *
-     * @var array<string, array{mapper:string, self:string, by?:string, column?:string}>
+     * @var array<string, array{mapper:string, external:string, by?:string, column?:string, conditional?:bool}>
      * @since 1.0.0
      */
     protected static array $ownsOne = [

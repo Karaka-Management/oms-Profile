@@ -59,7 +59,7 @@ class ContactElement
     /**
      * Order.
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
     private int $order = 0;
