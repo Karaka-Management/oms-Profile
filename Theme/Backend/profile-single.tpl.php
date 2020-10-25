@@ -13,27 +13,14 @@
 declare(strict_types=1);
 
 use Modules\Media\Models\NullMedia;
+use phpOMS\Localization\ISO3166NameEnum;
+use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Uri\UriFactory;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\Profile\Models\Profile $profile */
 $profile = $this->getData('account');
 $media   = $this->getDatA('media') ?? [];
-
-$countryCodes    = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
-$countries       = \phpOMS\Localization\ISO3166NameEnum::getConstants();
-$timezones       = \phpOMS\Localization\TimeZoneEnumArray::getConstants();
-$timeformats     = \phpOMS\Localization\ISO8601EnumArray::getConstants();
-$languages       = \phpOMS\Localization\ISO639Enum::getConstants();
-$currencies      = \phpOMS\Localization\ISO4217Enum::getConstants();
-$l11nDefinitions = \phpOMS\System\File\Local\Directory::list(__DIR__ . '/../../../../phpOMS/Localization/Defaults/Definitions');
-
-$weights      = \phpOMS\Utils\Converter\WeightType::getConstants();
-$speeds       = \phpOMS\Utils\Converter\SpeedType::getConstants();
-$areas        = \phpOMS\Utils\Converter\AreaType::getConstants();
-$lengths      = \phpOMS\Utils\Converter\LengthType::getConstants();
-$volumes      = \phpOMS\Utils\Converter\VolumeType::getConstants();
-$temperatures = \phpOMS\Utils\Converter\TemperatureType::getConstants();
 
 $account = $profile->getAccount();
 $l11n    = $account->getL11n();
@@ -105,12 +92,20 @@ echo $this->getData('nav')->render();
                                 <tr>
                                     <th>
                                     <td>No address specified
-                                <?php endif; ?>
-                                <?php foreach ($locations as $location) : ?>
-                                <tr>
-                                    <th class="vT">Private
-                                    <td itemprop="address">SMALLSYS INC<br>795 E DRAGRAM<br>TUCSON AZ 85705<br>USA
-                                <?php endforeach; ?>
+                                <?php else: foreach($locations as $location) : ?>
+                                    <tr>
+                                        <th><?= $this->getHtml('aType' . $location->getType()); ?>
+                                        <td>
+                                    <tr>
+                                        <th>
+                                        <td><?= $this->printHtml($location->getAddress()); ?>
+                                    <tr>
+                                        <th>
+                                        <td><?= $this->printHtml($location->getPostal() . ', ' . $location->getCity()); ?>
+                                    <tr>
+                                        <th>
+                                        <td><?= $this->printHtml(ISO3166NameEnum::getByName(ISO3166TwoEnum::getName($location->getCountry()))); ?>
+                                <?php endforeach; endif; ?>
                                 <tr>
                                     <th><?= $this->getHtml('Contact'); ?>
                                     <td>
@@ -121,12 +116,11 @@ echo $this->getData('nav')->render();
                                 <tr>
                                     <th>
                                     <td>No contact specified
-                                <?php endif; ?>
-                                <?php foreach ($contacts as $location) : ?>
-                                <tr>
-                                    <th>Private
-                                    <td itemprop="telephone">+01 12345-4567
-                                <?php endforeach; ?>
+                                <?php else: foreach($contacts as $contact) : ?>
+                                    <tr>
+                                        <th><?= $this->getHtml('cType' . $contact->getType()); ?>
+                                        <td><?= $contact->getContent(); ?>
+                                <?php endforeach; endif; ?>
                                 <tr>
                                     <th><?= $this->getHtml('Registered'); ?>
                                     <td><?= $this->printHtml($account->getCreatedAt()->format('Y-m-d')); ?>
@@ -155,7 +149,22 @@ echo $this->getData('nav')->render();
                 </div>
             </div>
         </div>
-        <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
+        <?php if ($this->request->getHeader()->getAccount() === $account->getId()) :
+            $countryCodes    = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
+            $countries       = \phpOMS\Localization\ISO3166NameEnum::getConstants();
+            $timezones       = \phpOMS\Localization\TimeZoneEnumArray::getConstants();
+            $timeformats     = \phpOMS\Localization\ISO8601EnumArray::getConstants();
+            $languages       = \phpOMS\Localization\ISO639Enum::getConstants();
+            $currencies      = \phpOMS\Localization\ISO4217Enum::getConstants();
+            $l11nDefinitions = \phpOMS\System\File\Local\Directory::list(__DIR__ . '/../../../../phpOMS/Localization/Defaults/Definitions');
+
+            $weights      = \phpOMS\Utils\Converter\WeightType::getConstants();
+            $speeds       = \phpOMS\Utils\Converter\SpeedType::getConstants();
+            $areas        = \phpOMS\Utils\Converter\AreaType::getConstants();
+            $lengths      = \phpOMS\Utils\Converter\LengthType::getConstants();
+            $volumes      = \phpOMS\Utils\Converter\VolumeType::getConstants();
+            $temperatures = \phpOMS\Utils\Converter\TemperatureType::getConstants();
+        ?>
         <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-2' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
