@@ -162,6 +162,7 @@ final class ApiController extends Controller
             $request->getHeader()->getAccount(),
             'Modules/Media/Files/Accounts/' . $profile->getAccount()->getId() . ' ' . $profile->getAccount()->getName(),
             '/Accounts/' . $profile->getAccount()->getId() . ' ' . $profile->getAccount()->getName(),
+            'profile_image',
             '',
             '',
             PathSettings::FILE_PATH
@@ -214,7 +215,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateContactElementCreate(RequestAbstract $request) : array
+    public function validateContactElementCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['account'] = (empty($request->getData('account')) && empty($request->getData('profile'))))
