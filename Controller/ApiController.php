@@ -15,7 +15,10 @@ declare(strict_types=1);
 namespace Modules\Profile\Controller;
 
 use Modules\Admin\Models\AccountMapper;
+use Modules\Admin\Models\Address;
+use Modules\Admin\Models\AddressMapper;
 use Modules\Media\Models\PathSettings;
+use Modules\Profile\Models\ContactElement;
 use Modules\Profile\Models\ContactElementMapper;
 use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\ProfileMapper;
@@ -23,10 +26,7 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use Modules\Profile\Models\ContactElement;
 use phpOMS\Model\Message\FormValidation;
-use Modules\Admin\Models\Address;
-use Modules\Admin\Models\AddressMapper;
 
 /**
  * Profile class.

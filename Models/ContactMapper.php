@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\Profile\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
 use Modules\Media\Models\MediaMapper;
+use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 /**
  * Contact mapper class.
