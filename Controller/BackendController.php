@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\Profile\Controller;
 
 use Modules\Media\Models\MediaMapper;
+use Modules\Media\Models\NullMedia;
 use Modules\Profile\Models\ProfileMapper;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
@@ -128,7 +129,8 @@ final class BackendController extends Controller
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('accGrpSelector', $accGrpSelector);
 
-        $view->setData('media', MediaMapper::getFor((int) $profile->account->getId(), 'createdBy'));
+        $media = MediaMapper::getFor((int) $profile->account->getId(), 'createdBy');
+        $view->setData('media', $media instanceof NullMedia ? [] : $media);
 
         return $view;
     }

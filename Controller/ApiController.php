@@ -317,13 +317,13 @@ final class ApiController extends Controller
     public function createAddressFromRequest(RequestAbstract $request) : Address
     {
         /** @var Address $element */
-        $element = new Address();
-        $element->name = (string) ($request->getData('name') ?? '');
+        $element           = new Address();
+        $element->name     = (string) ($request->getData('name') ?? '');
         $element->addition = (string) ($request->getData('addition') ?? '');
-        $element->postal = (string) ($request->getData('postal') ?? '');
-        $element->city = (string) ($request->getData('city') ?? '');
-        $element->address = (string) ($request->getData('address') ?? '');
-        $element->state = (string) ($request->getData('state') ?? '');
+        $element->postal   = (string) ($request->getData('postal') ?? '');
+        $element->city     = (string) ($request->getData('city') ?? '');
+        $element->address  = (string) ($request->getData('address') ?? '');
+        $element->state    = (string) ($request->getData('state') ?? '');
         $element->setCountry((string) ($request->getData('country') ?? ''));
         $element->setType((int) ($request->getData('type') ?? 0));
 

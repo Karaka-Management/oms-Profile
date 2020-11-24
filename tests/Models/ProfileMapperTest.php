@@ -31,26 +31,26 @@ class ProfileMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testCRUD() : void
     {
-        $media = new Media();
-        $media->createdBy = new NullAccount(1);
+        $media              = new Media();
+        $media->createdBy   = new NullAccount(1);
         $media->description = 'desc';
         $media->setPath('Web/Backend/img/default-user.jpg');
-        $media->size = 11;
+        $media->size      = 11;
         $media->extension = 'png';
-        $media->name = 'Image';
+        $media->name      = 'Image';
 
         if (($profile = ProfileMapper::getFor(1, 'account'))->getId() === 0) {
             $profile = new Profile();
 
-            $profile->account = AccountMapper::get(1);
-            $profile->image = $media;
+            $profile->account  = AccountMapper::get(1);
+            $profile->image    = $media;
             $profile->birthday =  new \DateTime('now');
 
             $id = ProfileMapper::create($profile);
             self::assertGreaterThan(0, $profile->getId());
             self::assertEquals($id, $profile->getId());
         } else {
-            $profile->image = $media;
+            $profile->image    = $media;
             $profile->birthday =  new \DateTime('now');
 
             ProfileMapper::update($profile);

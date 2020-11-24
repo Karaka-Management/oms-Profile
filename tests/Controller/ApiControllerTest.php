@@ -110,7 +110,7 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $request->header->account = 1;
 
-        $profile = new Profile(new \Modules\Admin\Models\Account());
+        $profile                 = new Profile(new \Modules\Admin\Models\Account());
         $profile->account->login = 'ProfileCreateDb';
         $profile->account->setEmail('profile_create_db@email.com');
 
