@@ -17,6 +17,7 @@ namespace Modules\Profile\Controller;
 use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\Address;
 use Modules\Admin\Models\AddressMapper;
+use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
 use Modules\Profile\Models\ContactElement;
 use Modules\Profile\Models\ContactElementMapper;
@@ -92,7 +93,7 @@ final class ApiController extends Controller
             return false;
         }
 
-        $this->createModel($request->getHeader()->getAccount(), $profile, ProfileMapper::class, 'profile', $request->getOrigin());
+        $this->createModel($request->header->account, $profile, ProfileMapper::class, 'profile', $request->getOrigin());
 
         return true;
     }
@@ -147,30 +148,30 @@ final class ApiController extends Controller
 
         if (empty($uploadedFiles)) {
             $this->fillJsonResponse($request, $response, NotificationLevel::ERROR, 'Profile', 'Invalid profile image', $uploadedFiles);
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         /** @var Profile $profile */
-        $profile = ProfileMapper::getFor($request->getHeader()->getAccount(), 'account');
+        $profile = ProfileMapper::getFor($request->header->account, 'account');
         $old     = clone $profile;
 
         $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
             $request->getData('name') ?? '',
             $uploadedFiles,
-            $request->getHeader()->getAccount(),
-            'Modules/Media/Files/Accounts/' . $profile->getAccount()->getId() . ' ' . $profile->getAccount()->getName(),
-            '/Accounts/' . $profile->getAccount()->getId() . ' ' . $profile->getAccount()->getName(),
+            $request->header->account,
+            'Modules/Media/Files/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
+            '/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
             'profile_image',
             '',
             '',
             PathSettings::FILE_PATH
         );
 
-        $profile->setImage(\reset($uploaded));
+        $profile->image = !empty($uploaded) ? \reset($uploaded) : new NullMedia();
 
-        $this->updateModel($request->getHeader()->getAccount(), $old, $profile, ProfileMapper::class, 'profile', $request->getOrigin());
+        $this->updateModel($request->header->account, $old, $profile, ProfileMapper::class, 'profile', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Profile', 'Profile successfully updated', $profile);
     }
 
@@ -191,7 +192,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateContactElementCreate($request))) {
             $response->set('contact_element_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
@@ -201,8 +202,8 @@ final class ApiController extends Controller
 
         $contactElement = $this->createContactElementFromRequest($request);
 
-        $this->createModel($request->getHeader()->getAccount(), $contactElement, ContactElementMapper::class, 'profile-contactElement', $request->getOrigin());
-        $this->createModelRelation($request->getHeader()->getAccount(), $profile, $contactElement->getId(), ProfileMapper::class, 'contactElements', '', $request->getOrigin());
+        $this->createModel($request->header->account, $contactElement, ContactElementMapper::class, 'profile-contactElement', $request->getOrigin());
+        $this->createModelRelation($request->header->account, $profile, $contactElement->getId(), ProfileMapper::class, 'contactElements', '', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Contact Element', 'Contact element successfully created', $contactElement);
     }
 
@@ -265,7 +266,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateAddressCreate($request))) {
             $response->set('address_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
@@ -275,8 +276,8 @@ final class ApiController extends Controller
 
         $address = $this->createAddressFromRequest($request);
 
-        $this->createModel($request->getHeader()->getAccount(), $address, AddressMapper::class, 'profile-address', $request->getOrigin());
-        $this->createModelRelation($request->getHeader()->getAccount(), $profile, $address->getId(), ProfileMapper::class, 'location', '', $request->getOrigin());
+        $this->createModel($request->header->account, $address, AddressMapper::class, 'profile-address', $request->getOrigin());
+        $this->createModelRelation($request->header->account, $profile, $address->getId(), ProfileMapper::class, 'location', '', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Address', 'Address successfully created', $address);
     }
 
@@ -317,13 +318,13 @@ final class ApiController extends Controller
     {
         /** @var Address $element */
         $element = new Address();
-        $element->setName((string) ($request->getData('name') ?? ''));
-        $element->setAddition((string) ($request->getData('addition') ?? ''));
-        $element->setPostal((string) ($request->getData('postal') ?? ''));
-        $element->setCity((string) ($request->getData('city') ?? ''));
-        $element->setAddress((string) ($request->getData('address') ?? ''));
+        $element->name = (string) ($request->getData('name') ?? '');
+        $element->addition = (string) ($request->getData('addition') ?? '');
+        $element->postal = (string) ($request->getData('postal') ?? '');
+        $element->city = (string) ($request->getData('city') ?? '');
+        $element->address = (string) ($request->getData('address') ?? '');
+        $element->state = (string) ($request->getData('state') ?? '');
         $element->setCountry((string) ($request->getData('country') ?? ''));
-        $element->setState((string) ($request->getData('state') ?? ''));
         $element->setType((int) ($request->getData('type') ?? 0));
 
         return $element;

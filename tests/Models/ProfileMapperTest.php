@@ -32,33 +32,33 @@ class ProfileMapperTest extends \PHPUnit\Framework\TestCase
     public function testCRUD() : void
     {
         $media = new Media();
-        $media->setCreatedBy(new NullAccount(1));
-        $media->setDescription('desc');
+        $media->createdBy = new NullAccount(1);
+        $media->description = 'desc';
         $media->setPath('Web/Backend/img/default-user.jpg');
-        $media->setSize(11);
-        $media->setExtension('png');
-        $media->setName('Image');
+        $media->size = 11;
+        $media->extension = 'png';
+        $media->name = 'Image';
 
         if (($profile = ProfileMapper::getFor(1, 'account'))->getId() === 0) {
             $profile = new Profile();
 
-            $profile->setAccount(AccountMapper::get(1));
-            $profile->setImage($media);
-            $profile->setBirthday($date = new \DateTime('now'));
+            $profile->account = AccountMapper::get(1);
+            $profile->image = $media;
+            $profile->birthday =  new \DateTime('now');
 
             $id = ProfileMapper::create($profile);
             self::assertGreaterThan(0, $profile->getId());
             self::assertEquals($id, $profile->getId());
         } else {
-            $profile->setImage($media);
-            $profile->setBirthday($date = new \DateTime('now'));
+            $profile->image = $media;
+            $profile->birthday =  new \DateTime('now');
 
             ProfileMapper::update($profile);
         }
 
         $profileR = ProfileMapper::get($profile->getId());
-        self::assertEquals($profile->getBirthday()->format('Y-m-d'), $profileR->getBirthday()->format('Y-m-d'));
-        self::assertEquals($profile->getImage()->getName(), $profileR->getImage()->getName());
-        self::assertEquals($profile->getAccount()->getName1(), $profileR->getAccount()->getName1());
+        self::assertEquals($profile->birthday->format('Y-m-d'), $profileR->birthday->format('Y-m-d'));
+        self::assertEquals($profile->image->name, $profileR->image->name);
+        self::assertEquals($profile->account->name1, $profileR->account->name1);
     }
 }

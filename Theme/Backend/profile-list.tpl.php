@@ -40,11 +40,11 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                     <tr tabindex="0" tabindex="0" data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><img width="30" loading="lazy" class="profile-image"
                             src="<?=
-                                    $account->getImage() instanceof NullMedia ?
+                                    $account->image instanceof NullMedia ?
                                         UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                        UriFactory::build('{/prefix}' . $account->getImage()->getPath()); ?>"></a>
-                        <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->getAccount()->getName3() . ' ' . $account->getAccount()->getName2() . ' ' . $account->getAccount()->getName1()); ?></a>
-                        <td  data-label="<?= $this->getHtml('Activity'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->getAccount()->getLastActive()->format('Y-m-d')); ?></a>
+                                        UriFactory::build('{/prefix}' . $account->image->getPath()); ?>"></a>
+                        <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->account->name3 . ' ' . $account->account->name2 . ' ' . $account->account->name1); ?></a>
+                        <td  data-label="<?= $this->getHtml('Activity'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->account->getLastActive()->format('Y-m-d')); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
                 <tr><td colspan="3" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

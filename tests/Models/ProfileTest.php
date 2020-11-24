@@ -45,9 +45,9 @@ class ProfileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(SexType::OTHER, $this->profile->getSex());
         self::assertEquals([], $this->profile->getLocation());
         self::assertEquals([], $this->profile->getContactElements());
-        self::assertInstanceOf('\Modules\Media\Models\Media', $this->profile->getImage());
-        self::assertInstanceOf('\Modules\Admin\Models\Account', $this->profile->getAccount());
-        self::assertInstanceOf('\DateTime', $this->profile->getBirthday());
+        self::assertInstanceOf('\Modules\Media\Models\Media', $this->profile->image);
+        self::assertInstanceOf('\Modules\Admin\Models\Account', $this->profile->account);
+        self::assertEquals(null, $this->profile->birthday);
     }
 
     /**
@@ -98,8 +98,8 @@ class ProfileTest extends \PHPUnit\Framework\TestCase
      */
     public function testBirthdayInputOutput() : void
     {
-        $this->profile->setBirthday($date = new \DateTime('now'));
-        self::assertEquals($date, $this->profile->getBirthday());
+        $this->profile->birthday = ($date = new \DateTime('now'));
+        self::assertEquals($date, $this->profile->birthday);
     }
 
     /**
@@ -108,8 +108,8 @@ class ProfileTest extends \PHPUnit\Framework\TestCase
      */
     public function testImageInputOutput() : void
     {
-        $this->profile->setImage(new NullMedia(1));
-        self::assertEquals(1, $this->profile->getImage()->getId());
+        $this->profile->image = new NullMedia(1);
+        self::assertEquals(1, $this->profile->image->getId());
     }
 
     /**
@@ -138,11 +138,11 @@ class ProfileTest extends \PHPUnit\Framework\TestCase
      */
     public function testAccountInputOutput() : void
     {
-        $this->profile->setAccount(new NullAccount(1));
-        self::assertEquals(1, $this->profile->getAccount()->getId());
+        $this->profile->account = new NullAccount(1);
+        self::assertEquals(1, $this->profile->account->getId());
 
         $profile = new Profile(new NullAccount(1));
-        self::assertEquals(1, $profile->getAccount()->getId());
+        self::assertEquals(1, $profile->account->getId());
     }
 
     /**
@@ -153,10 +153,9 @@ class ProfileTest extends \PHPUnit\Framework\TestCase
     {
         $this->profile->setGender(GenderType::FEMALE);
         $this->profile->setSex(SexType::FEMALE);
-        $this->profile->setBirthday($date = new \DateTime('now'));
-        $this->profile->setImage(new NullMedia(1));
-        $this->profile->setAccount($a = new NullAccount(1));
-        $this->profile->setImage($i = new NullMedia(1));
+        $this->profile->birthday = ($date = new \DateTime('now'));
+        $this->profile->account = ($a = new NullAccount(1));
+        $this->profile->image = ($i = new NullMedia(1));
 
         self::assertEquals(
             [

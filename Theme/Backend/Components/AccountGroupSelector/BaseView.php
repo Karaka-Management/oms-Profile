@@ -52,7 +52,7 @@ class BaseView extends View
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    public string $name = '';
 
     /**
      * {@inheritdoc}
@@ -76,18 +76,6 @@ class BaseView extends View
     public function getId() : string
     {
         return $this->id;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string
-    {
-        return $this->name;
     }
 
     /**

@@ -128,7 +128,7 @@ final class BackendController extends Controller
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('accGrpSelector', $accGrpSelector);
 
-        $view->setData('media', MediaMapper::getFor((int) $profile->getAccount()->getId(), 'createdBy'));
+        $view->setData('media', MediaMapper::getFor((int) $profile->account->getId(), 'createdBy'));
 
         return $view;
     }

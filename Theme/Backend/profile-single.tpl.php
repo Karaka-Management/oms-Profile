@@ -22,8 +22,8 @@ use phpOMS\Uri\UriFactory;
 $profile = $this->getData('account');
 $media   = $this->getDatA('media') ?? [];
 
-$account = $profile->getAccount();
-$l11n    = $account->getL11n();
+$account = $profile->account;
+$l11n    = $account->l11n;
 
 echo $this->getData('nav')->render();
 ?>
@@ -31,24 +31,24 @@ echo $this->getData('nav')->render();
     <div class="box wf-100 col-xs-12">
         <ul class="tab-links">
             <li><label for="c-tab-1"><?= $this->getHtml('General'); ?></label></li>
-            <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
+            <?php if ($this->request->header->account === $account->getId()) : ?>
             <li><label for="c-tab-2"><?= $this->getHtml('Localization'); ?></label></li>
             <?php endif; ?>
         </ul>
     </div>
     <div class="tab-content">
-        <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-1' ? ' checked' : ''; ?>>
+        <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-1' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="portlet" itemscope itemtype="http://schema.org/Person" itemtype="http://schema.org/Organization">
                         <div class="portlet-head">
-                            <?php if (!empty($account->getName3()) || !empty($account->getName2())) : ?>
+                            <?php if (!empty($account->name3) || !empty($account->name2)) : ?>
                                 <span itemprop="familyName" itemprop="legalName">
-                                    <?= $this->printHtml(empty($account->getName3()) ? $account->getName2() : $account->getName3()); ?></span>,
+                                    <?= $this->printHtml(empty($account->name3) ? $account->name2 : $account->name3); ?></span>,
                             <?php endif; ?>
                             <span itemprop="givenName" itemprop="legalName">
-                                <?= $this->printHtml($account->getName1()); ?>
+                                <?= $this->printHtml($account->name1); ?>
                             </span>
                         </div>
                         <div class="portlet-body">
@@ -57,11 +57,11 @@ echo $this->getData('nav')->render();
                                     alt="<?= $this->getHtml('ProfileImage'); ?>"
                                     itemprop="logo" loading="lazy"
                                     src="<?=
-                                        $profile->getImage() instanceof NullMedia ?
+                                        $profile->image instanceof NullMedia ?
                                             UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                            UriFactory::build('{/prefix}' . $profile->getImage()->getPath()); ?>"
+                                            UriFactory::build('{/prefix}' . $profile->image->getPath()); ?>"
                                 width="100px"></div>
-                                <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
+                                <?php if ($this->request->header->account === $account->getId()) : ?>
                                     <div><a id="iProfileUploadButton" href="#upload" data-action='[
                                         {"listener": "click", "key": 1, "action": [
                                             {"key": 1, "type": "event.prevent"},
@@ -78,7 +78,7 @@ echo $this->getData('nav')->render();
                             <table class="list" style="table-layout: fixed">
                                 <tr>
                                     <th><?= $this->getHtml('Birthday'); ?>
-                                    <td itemprop="birthDate" itemprop="foundingDate"><?= $this->getDateTime($profile->getBirthday()); ?>
+                                    <td itemprop="birthDate" itemprop="foundingDate"><?= $this->getDateTime($profile->birthday); ?>
                                 <tr>
                                     <th><?= $this->getHtml('Email'); ?>
                                     <td itemprop="email"><a href="mailto:>donald.duck@email.com<"><?= $this->printHtml($account->getEmail()); ?></a>
@@ -98,10 +98,10 @@ echo $this->getData('nav')->render();
                                         <td>
                                     <tr>
                                         <th>
-                                        <td><?= $this->printHtml($location->getAddress()); ?>
+                                        <td><?= $this->printHtml($location->address); ?>
                                     <tr>
                                         <th>
-                                        <td><?= $this->printHtml($location->getPostal() . ', ' . $location->getCity()); ?>
+                                        <td><?= $this->printHtml($location->postal . ', ' . $location->city); ?>
                                     <tr>
                                         <th>
                                         <td><?= $this->printHtml(ISO3166NameEnum::getByName(ISO3166TwoEnum::getName($location->getCountry()))); ?>
@@ -123,7 +123,7 @@ echo $this->getData('nav')->render();
                                 <?php endforeach; endif; ?>
                                 <tr>
                                     <th><?= $this->getHtml('Registered'); ?>
-                                    <td><?= $this->printHtml($account->getCreatedAt()->format('Y-m-d')); ?>
+                                    <td><?= $this->printHtml($account->createdAt->format('Y-m-d')); ?>
                                 <tr>
                                     <th><?= $this->getHtml('LastLogin'); ?>
                                     <td><?= $this->printHtml($account->getLastActive()->format('Y-m-d')); ?>
@@ -132,7 +132,7 @@ echo $this->getData('nav')->render();
                                     <td><span class="tag green"><?= $this->getHtml(':s' . $account->getStatus(), 'Admin'); ?></span>
                             </table>
                         </div>
-                        <?php if ($this->request->getHeader()->getAccount() === $account->getId()) : ?>
+                        <?php if ($this->request->header->account === $account->getId()) : ?>
                         <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0'); ?></button></div>
                         <?php endif; ?>
                     </div>
@@ -149,7 +149,7 @@ echo $this->getData('nav')->render();
                 </div>
             </div>
         </div>
-        <?php if ($this->request->getHeader()->getAccount() === $account->getId()) :
+        <?php if ($this->request->header->account === $account->getId()) :
             $countryCodes    = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
             $countries       = \phpOMS\Localization\ISO3166NameEnum::getConstants();
             $timezones       = \phpOMS\Localization\TimeZoneEnumArray::getConstants();
@@ -165,7 +165,7 @@ echo $this->getData('nav')->render();
             $volumes      = \phpOMS\Utils\Converter\VolumeType::getConstants();
             $temperatures = \phpOMS\Utils\Converter\TemperatureType::getConstants();
         ?>
-        <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->getUri()->getFragment() === 'c-tab-2' ? ' checked' : ''; ?>>
+        <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-2' ? ' checked' : ''; ?>>
         <div class="tab">
             <div class="row">
                 <div class="col-xs-12 col-md-4">

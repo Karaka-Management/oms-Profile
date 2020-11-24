@@ -91,12 +91,12 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('iaccount-idlist', '1');
 
         $this->module->apiProfileCreate($request, $response);
 
-        self::assertEquals('admin', $response->get('')['response'][0]->getAccount()->getName());
+        self::assertEquals('admin', $response->get('')['response'][0]->account->login);
         self::assertGreaterThan(0, $response->get('')['response'][0]->getId());
     }
 
@@ -108,11 +108,11 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
     {
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
 
         $profile = new Profile(new \Modules\Admin\Models\Account());
-        $profile->getAccount()->setName('ProfileCreateDb');
-        $profile->getAccount()->setEmail('profile_create_db@email.com');
+        $profile->account->login = 'ProfileCreateDb';
+        $profile->account->setEmail('profile_create_db@email.com');
 
         $this->module->apiProfileCreateDbEntry($profile, $request);
     }
@@ -128,7 +128,7 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('name', 'Profile Logo');
         $request->setData('id', 1);
 
@@ -143,8 +143,8 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->module->apiSettingsAccountImageSet($request, $response);
 
-        $image = ProfileMapper::get(3)->getImage();
-        self::assertEquals('Profile Logo', $image->getName());
+        $image = ProfileMapper::get(3)->image;
+        self::assertEquals('Profile Logo', $image->name);
     }
 
     /**
@@ -158,6 +158,6 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiSettingsAccountImageSet($request, $response);
 
-        self::assertEquals(RequestStatusCode::R_400, $response->getHeader()->getStatusCode());
+        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 }

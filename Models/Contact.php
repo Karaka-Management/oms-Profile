@@ -41,7 +41,7 @@ class Contact
      * @var string
      * @since 1.0.0
      */
-    protected string $name1 = '';
+    public string $name1 = '';
 
     /**
      * Name2
@@ -49,7 +49,7 @@ class Contact
      * @var string
      * @since 1.0.0
      */
-    protected string $name2 = '';
+    public string $name2 = '';
 
     /**
      * Name2
@@ -57,7 +57,7 @@ class Contact
      * @var string
      * @since 1.0.0
      */
-    protected string $name3 = '';
+    public string $name3 = '';
 
     /**
      * Description
@@ -65,7 +65,7 @@ class Contact
      * @var string
      * @since 1.0.0
      */
-    protected string $description = '';
+    public string $description = '';
 
     /**
      * Company name
@@ -73,7 +73,7 @@ class Contact
      * @var string
      * @since 1.0.0
      */
-    protected string $company = '';
+    public string $company = '';
 
     /**
      * Job title
@@ -81,7 +81,7 @@ class Contact
      * @var string
      * @since 1.0.0
      */
-    protected string $job = '';
+    public string $job = '';
 
     /**
      * Birthday
@@ -89,7 +89,7 @@ class Contact
      * @var null|\DateTime
      * @since 1.0.0
      */
-    protected ?\DateTime $birthday = null;
+    public ?\DateTime $birthday = null;
 
     /**
      * Contact image
@@ -97,7 +97,7 @@ class Contact
      * @var Media
      * @since 1.0.0
      */
-    protected Media $image;
+    public Media $image;
 
     /**
      * Profile this contact belongs to
@@ -127,135 +127,5 @@ class Contact
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Get name1.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName1() : string
-    {
-        return $this->name1;
-    }
-
-    /**
-     * Set name1
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName1(string $name) : void
-    {
-        $this->name1 = $name;
-    }
-
-    /**
-     * Get name2.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName2() : string
-    {
-        return $this->name2;
-    }
-
-    /**
-     * Set name2
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName2(string $name) : void
-    {
-        $this->name2 = $name;
-    }
-
-    /**
-     * Get name3.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName3() : string
-    {
-        return $this->name3;
-    }
-
-    /**
-     * Set name3
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName3(string $name) : void
-    {
-        $this->name3 = $name;
-    }
-
-    /**
-     * Get the contact description
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getDescription() : string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set the description
-     *
-     * @param string $description Description
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDescription(string $description) : void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * Set the image
-     *
-     * @param Media $image Image
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setImage(Media $image) : void
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * Get the image
-     *
-     * @return Media
-     *
-     * @since 1.0.0
-     */
-    public function getImage() : Media
-    {
-        return $this->image;
     }
 }

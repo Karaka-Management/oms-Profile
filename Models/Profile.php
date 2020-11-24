@@ -45,7 +45,7 @@ class Profile implements \JsonSerializable
      * @var Media
      * @since 1.0.0
      */
-    protected Media $image;
+    public Media $image;
 
     /**
      * Birthday.
@@ -53,7 +53,7 @@ class Profile implements \JsonSerializable
      * @var null|\DateTime
      * @since 1.0.0
      */
-    protected ?\DateTime $birthday = null;
+    public ?\DateTime $birthday = null;
 
     /**
      * Account.
@@ -61,7 +61,7 @@ class Profile implements \JsonSerializable
      * @var Account
      * @since 1.0.0
      */
-    protected Account $account;
+    public Account $account;
 
     /**
      * Location data.
@@ -105,7 +105,6 @@ class Profile implements \JsonSerializable
     public function __construct(Account $account = null)
     {
         $this->image    = new NullMedia();
-        $this->birthday = new \DateTime('now');
         $this->account  = $account ?? new NullAccount();
     }
 
@@ -235,84 +234,6 @@ class Profile implements \JsonSerializable
     public function addContactElement(ContactElement $contactElement) : void
     {
         $this->contactElements[] = $contactElement;
-    }
-
-    /**
-     * Get account image.
-     *
-     * @return Media
-     *
-     * @since 1.0.0
-     */
-    public function getImage() : Media
-    {
-        return $this->image ?? new NullMedia();
-    }
-
-    /**
-     * Set account image.
-     *
-     * @param Media $image Profile image
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setImage(Media $image) : void
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * Set account.
-     *
-     * @param Account $account Profile account
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setAccount(Account $account) : void
-    {
-        $this->account = $account;
-    }
-
-    /**
-     * Get account.
-     *
-     * @return Account
-     *
-     * @since 1.0.0
-     */
-    public function getAccount() : Account
-    {
-        return $this->account ?? new NullAccount();
-    }
-
-    /**
-     * Set birthday.
-     *
-     * @param null|\DateTime $birthday Birthday
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setBirthday(?\DateTime $birthday) : void
-    {
-        $this->birthday = $birthday;
-    }
-
-    /**
-     * Get birthday.
-     *
-     * @return null|\DateTime
-     *
-     * @since 1.0.0
-     */
-    public function getBirthday() : ?\DateTime
-    {
-        return $this->birthday;
     }
 
     /**
