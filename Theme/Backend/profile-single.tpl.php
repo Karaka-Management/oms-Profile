@@ -133,7 +133,7 @@ echo $this->getData('nav')->render();
                             </table>
                         </div>
                         <?php if ($this->request->header->account === $account->getId()) : ?>
-                        <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0'); ?></button></div>
+                            <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0'); ?></button></div>
                         <?php endif; ?>
                     </div>
                 </div>
