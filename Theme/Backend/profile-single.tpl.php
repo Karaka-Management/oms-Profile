@@ -288,19 +288,19 @@ echo $this->getData('nav')->render();
                                     <tbody>
                                     <tr><td><label for="iPrecisionVeryShort"><?= $this->getHtml('VeryShort'); ?></label>
                                     <tr><td>
-                                        <input form="fLocalization" id="iPrecisionVeryShort" name="settings_precision_vs" value="<?= $this->printHtml($l11n->getPrecision()['very_short']); ?>" type="number">
+                                        <input form="fLocalization" id="iPrecisionVeryShort" name="settings_precision_vs" value="<?= $l11n->getPrecision()['very_short']; ?>" type="number">
                                     <tr><td><label for="iPrecisionShort"><?= $this->getHtml('Short'); ?></label>
                                     <tr><td>
-                                        <input form="fLocalization" id="iPrecisionLight" name="settings_precision_s" value="<?= $this->printHtml($l11n->getPrecision()['short']); ?>" type="number">
+                                        <input form="fLocalization" id="iPrecisionLight" name="settings_precision_s" value="<?= $l11n->getPrecision()['short']; ?>" type="number">
                                     <tr><td><label for="iPrecisionMedium"><?= $this->getHtml('Medium'); ?></label>
                                     <tr><td>
-                                        <input form="fLocalization" id="iPrecisionMedium" name="settings_precision_m" value="<?= $this->printHtml($l11n->getPrecision()['medium']); ?>" type="number">
+                                        <input form="fLocalization" id="iPrecisionMedium" name="settings_precision_m" value="<?= $l11n->getPrecision()['medium']; ?>" type="number">
                                     <tr><td><label for="iPrecisionLong"><?= $this->getHtml('Long'); ?></label>
                                     <tr><td>
-                                        <input form="fLocalization" id="iPrecisionLong" name="settings_precision_l" value="<?= $this->printHtml($l11n->getPrecision()['long']); ?>" type="number">
+                                        <input form="fLocalization" id="iPrecisionLong" name="settings_precision_l" value="<?= $l11n->getPrecision()['long']; ?>" type="number">
                                     <tr><td><label for="iPrecisionVeryLong"><?= $this->getHtml('VeryLong'); ?></label>
                                     <tr><td>
-                                        <input form="fLocalization" id="iPrecisionVeryLong" name="settings_precision_vl" value="<?= $this->printHtml($l11n->getPrecision()['very_long']); ?>" type="number">
+                                        <input form="fLocalization" id="iPrecisionVeryLong" name="settings_precision_vl" value="<?= $l11n->getPrecision()['very_long']; ?>" type="number">
                                 </table>
                             </form>
                         </div>
