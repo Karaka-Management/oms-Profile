@@ -104,7 +104,7 @@ final class ApiController extends Controller
      */
     public function apiProfileTempLoginCreate(Profile $profile, RequestAbstract $request) : void
     {
-        $account = AccountMapper::get($reqeust->header->account);
+        $account               = AccountMapper::get($reqeust->header->account);
         $account->tempPassword = \password_hash(\random_bytes(64), \PASSWORD_DEFAULT);
 
         $this->updateModel($request->header->account, $old, $profile, AccountMapper::class, 'profile', $request->getOrigin());
