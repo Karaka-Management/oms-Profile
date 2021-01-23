@@ -120,7 +120,7 @@ final class BackendController extends Controller
         $view->addData('accGrpSelector', $accGrpSelector);
 
         $media = MediaMapper::getFor((int) $profile->account->getId(), 'createdBy');
-        $view->setData('media', $media instanceof NullMedia ? [] : $media);
+        $view->setData('media', $media instanceof NullMedia ? [] : (!\is_array($media) ? [$media] : $media));
 
         return $view;
     }
