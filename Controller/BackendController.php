@@ -102,7 +102,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Profile/Theme/Backend/profile-single');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000301001, $request, $response));
 
-        $mediaListView = new \Modules\Media\Theme\Backend\Components\Media\BaseView($this->app->l11nManager, $request, $response);
+        $mediaListView = new \Modules\Media\Theme\Backend\Components\Media\ListView($this->app->l11nManager, $request, $response);
         $mediaListView->setTemplate('/Modules/Media/Theme/Backend/Components/Media/list');
         $view->addData('medialist', $mediaListView);
 
