@@ -181,7 +181,7 @@ final class ApiController extends Controller
             $request->getData('name') ?? '',
             $uploadedFiles,
             $request->header->account,
-            'Modules/Media/Files/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
+            __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
             '/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
             'profile_image',
             '',
