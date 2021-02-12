@@ -13,7 +13,7 @@
             <div class="tab-content">
                 <input type="radio" id="c-tab-1" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-1' ? ' checked' : ''; ?>>
                 <div class="tab">
-                    <label for="iSearchAcc">Search</label>
+                    <label for="iSearchAcc"><?= $this->getHtml('Search'); ?></label>
                     <input type="text" id="iSearchAcc" name="receiver-search" data-action='[
                         {
                             "key": 1, "listener": "keyup", "action": [
@@ -56,7 +56,7 @@
                 </div>
                 <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-2' ? ' checked' : ''; ?>>
                 <div class="tab">
-                    <label for="iSearchGrp">Search</label>
+                    <label for="iSearchGrp"><?= $this->getHtml('Search'); ?></label>
                     <input type="text" id="iSearchGrp" name="receiver-search" data-action='[
                         {
                             "key": 1, "listener": "keyup", "action": [
