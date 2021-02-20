@@ -13,9 +13,21 @@
 declare(strict_types=1);
 
 use Modules\Media\Models\NullMedia;
+use Modules\Profile\Models\ContactType;
 use phpOMS\Localization\ISO3166NameEnum;
 use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Uri\UriFactory;
+use phpOMS\System\File\Local\Directory;
+use phpOMS\Localization\TimeZoneEnumArray;
+use phpOMS\Localization\ISO8601EnumArray;
+use phpOMS\Localization\ISO639Enum;
+use phpOMS\Localization\ISO4217Enum;
+use phpOMS\Utils\Converter\WeightType;
+use phpOMS\Utils\Converter\SpeedType;
+use phpOMS\Utils\Converter\AreaType;
+use phpOMS\Utils\Converter\LengthType;
+use phpOMS\Utils\Converter\VolumeType;
+use phpOMS\Utils\Converter\TemperatureType;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\Profile\Models\Profile $profile */
@@ -91,7 +103,7 @@ echo $this->getData('nav')->render();
                                 ?>
                                 <tr>
                                     <th>
-                                    <td>No address specified
+                                    <td><?= $this->getHtml('NoAddressSpecified'); ?>
                                 <?php else: foreach($locations as $location) : ?>
                                     <tr>
                                         <th><?= $this->getHtml('aType' . $location->getType()); ?>
@@ -115,11 +127,13 @@ echo $this->getData('nav')->render();
                                 ?>
                                 <tr>
                                     <th>
-                                    <td>No contact specified
+                                    <td><?= $this->getHtml('NoContactSpecified'); ?>
                                 <?php else: foreach($contacts as $contact) : ?>
                                     <tr>
                                         <th><?= $this->getHtml('cType' . $contact->getType()); ?>
-                                        <td><?= $contact->getContent(); ?>
+                                        <td><?= $contact->getType() === ContactType::WEBSITE ? '<a href="' . $contact->getContent() . '">' : ''; ?>
+                                                <?= $contact->getContent(); ?>
+                                            <?= $contact->getType() === ContactType::WEBSITE ? '</a>' : ''; ?>
                                 <?php endforeach; endif; ?>
                                 <tr>
                                     <th><?= $this->getHtml('Registered'); ?>
@@ -150,20 +164,20 @@ echo $this->getData('nav')->render();
             </div>
         </div>
         <?php if ($this->request->header->account === $account->getId()) :
-            $countryCodes    = \phpOMS\Localization\ISO3166TwoEnum::getConstants();
-            $countries       = \phpOMS\Localization\ISO3166NameEnum::getConstants();
-            $timezones       = \phpOMS\Localization\TimeZoneEnumArray::getConstants();
-            $timeformats     = \phpOMS\Localization\ISO8601EnumArray::getConstants();
-            $languages       = \phpOMS\Localization\ISO639Enum::getConstants();
-            $currencies      = \phpOMS\Localization\ISO4217Enum::getConstants();
-            $l11nDefinitions = \phpOMS\System\File\Local\Directory::list(__DIR__ . '/../../../../phpOMS/Localization/Defaults/Definitions');
+            $countryCodes    = ISO3166TwoEnum::getConstants();
+            $countries       = ISO3166NameEnum::getConstants();
+            $timezones       = TimeZoneEnumArray::getConstants();
+            $timeformats     = ISO8601EnumArray::getConstants();
+            $languages       = ISO639Enum::getConstants();
+            $currencies      = ISO4217Enum::getConstants();
+            $l11nDefinitions = Directory::list(__DIR__ . '/../../../../phpOMS/Localization/Defaults/Definitions');
 
-            $weights      = \phpOMS\Utils\Converter\WeightType::getConstants();
-            $speeds       = \phpOMS\Utils\Converter\SpeedType::getConstants();
-            $areas        = \phpOMS\Utils\Converter\AreaType::getConstants();
-            $lengths      = \phpOMS\Utils\Converter\LengthType::getConstants();
-            $volumes      = \phpOMS\Utils\Converter\VolumeType::getConstants();
-            $temperatures = \phpOMS\Utils\Converter\TemperatureType::getConstants();
+            $weights      = WeightType::getConstants();
+            $speeds       = SpeedType::getConstants();
+            $areas        = AreaType::getConstants();
+            $lengths      = LengthType::getConstants();
+            $volumes      = VolumeType::getConstants();
+            $temperatures = TemperatureType::getConstants();
         ?>
         <input type="radio" id="c-tab-2" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-2' ? ' checked' : ''; ?>>
         <div class="tab">
