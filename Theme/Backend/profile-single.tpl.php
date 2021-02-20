@@ -16,18 +16,18 @@ use Modules\Media\Models\NullMedia;
 use Modules\Profile\Models\ContactType;
 use phpOMS\Localization\ISO3166NameEnum;
 use phpOMS\Localization\ISO3166TwoEnum;
-use phpOMS\Uri\UriFactory;
-use phpOMS\System\File\Local\Directory;
-use phpOMS\Localization\TimeZoneEnumArray;
-use phpOMS\Localization\ISO8601EnumArray;
-use phpOMS\Localization\ISO639Enum;
 use phpOMS\Localization\ISO4217Enum;
-use phpOMS\Utils\Converter\WeightType;
-use phpOMS\Utils\Converter\SpeedType;
+use phpOMS\Localization\ISO639Enum;
+use phpOMS\Localization\ISO8601EnumArray;
+use phpOMS\Localization\TimeZoneEnumArray;
+use phpOMS\System\File\Local\Directory;
+use phpOMS\Uri\UriFactory;
 use phpOMS\Utils\Converter\AreaType;
 use phpOMS\Utils\Converter\LengthType;
-use phpOMS\Utils\Converter\VolumeType;
+use phpOMS\Utils\Converter\SpeedType;
 use phpOMS\Utils\Converter\TemperatureType;
+use phpOMS\Utils\Converter\VolumeType;
+use phpOMS\Utils\Converter\WeightType;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\Profile\Models\Profile $profile */
