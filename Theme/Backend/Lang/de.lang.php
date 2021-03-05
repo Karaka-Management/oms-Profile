@@ -4,6 +4,7 @@
  *
  * PHP Version 8.0
  *
+ * @package   Modules\Localization
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -47,6 +48,8 @@ return ['Profile' => [
     'Long'               => 'Lang',
     'Medium'             => 'Mittel',
     'Name'               => 'Name',
+    'NoAddressSpecified' => '',
+    'NoContactSpecified' => '',
     'Numberformat'       => 'Zahlenformat',
     'Numeric'            => 'Zahlen',
     'OFF'                => 'OFF',
