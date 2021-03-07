@@ -39,7 +39,7 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                         </label>
                         <label for="profileList-sort-2">
                             <input type="radio" name="profileList-sort" id="profileList-sort-2">
-                             <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc fa fa-chevron-down"></i>
                         </label>
                         <label>
                             <i class="filter fa fa-filter"></i>
@@ -51,7 +51,7 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                         </label>
                         <label for="profileList-sort-4">
                             <input type="radio" name="profileList-sort" id="profileList-sort-4">
-                             <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc fa fa-chevron-down"></i>
                         </label>
                         <label>
                             <i class="filter fa fa-filter"></i>
