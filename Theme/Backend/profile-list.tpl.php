@@ -33,7 +33,29 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                 <tr>
                     <td>
                     <td class="wf-100"><?= $this->getHtml('Name'); ?>
+                        <label for="profileList-sort-1">
+                            <input type="radio" name="profileList-sort" id="profileList-sort-1">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="profileList-sort-2">
+                            <input type="radio" name="profileList-sort" id="profileList-sort-2">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
                     <td><?= $this->getHtml('Activity'); ?>
+                        <label for="profileList-sort-3">
+                            <input type="radio" name="profileList-sort" id="profileList-sort-3">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="profileList-sort-4">
+                            <input type="radio" name="profileList-sort" id="profileList-sort-4">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
                 <tbody>
                 <?php $count = 0; foreach ($accounts as $key => $account) : ++$count;
                 $url         = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId()); ?>
