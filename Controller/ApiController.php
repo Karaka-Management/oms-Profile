@@ -102,17 +102,17 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiProfileTempLoginCreate(Profile $profile, RequestAbstract $request) : void
+    public function apiProfileTempLoginCreate(Profile $profile, RequestAbstract $request, ResponseAbstract $response) : void
     {
-        $account               = AccountMapper::get($reqeust->header->account);
+        $account               = AccountMapper::get($request->header->account);
         $account->tempPassword = \password_hash(\random_bytes(64), \PASSWORD_DEFAULT);
 
-        $this->updateModel($request->header->account, $old, $profile, AccountMapper::class, 'profile', $request->getOrigin());
+        $this->updateModel($request->header->account, $account, $account, AccountMapper::class, 'profile', $request->getOrigin());
 
         $this->fillJsonResponse(
             $request, $response,
-            $status ? NotificationLevel::OK : NotificationLevel::WARNING,
-            'Profil',
+            NotificationLevel::OK,
+            'Profile',
             'Temp password successfully created.',
             $account->tempPassword
         );

@@ -51,13 +51,22 @@ final class ProfileMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $ownsOne = [
-        'account'  => [
-            'mapper'     => AccountMapper::class,
-            'external'   => 'profile_account_account',
-        ],
         'image'    => [
             'mapper'     => MediaMapper::class,
             'external'   => 'profile_account_image',
+        ],
+    ];
+
+    /**
+     * Belongs to.
+     *
+     * @var array<string, array{mapper:string, external:string}>
+     * @since 1.0.0
+     */
+    protected static array $belongsTo = [
+        'account'  => [
+            'mapper'     => AccountMapper::class,
+            'external'   => 'profile_account_account',
         ],
     ];
 
