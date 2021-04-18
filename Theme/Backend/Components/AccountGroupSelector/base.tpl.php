@@ -1,4 +1,4 @@
-<div class="ipt-wrap">
+<div class="ipt-wrap wf-100">
     <div class="ipt-first">
         <span class="input">
             <button type="button" id="<?= $this->getId(); ?>-book-button" data-action='[

@@ -28,7 +28,7 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
     <div class="col-xs-12">
         <div class="portlet">
             <div class="portlet-head"><?= $this->getHtml('Profiles'); ?><i class="fa fa-download floatRight download btn"></i></div>
-            <table id="profileList" class="default">
+            <table id="profileList" class="default sticky">
                 <thead>
                 <tr>
                     <td>
