@@ -143,7 +143,7 @@ class ApiControllerTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->module->apiSettingsAccountImageSet($request, $response);
 
-        $image = ProfileMapper::get(3)->image;
+        $image = ProfileMapper::get($response->get('')['response']->getId())->image;
         self::assertEquals('Profile Logo', $image->name);
     }
 
