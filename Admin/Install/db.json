@@ -258,6 +258,12 @@
                 "foreignTable": "profile_account",
                 "foreignKey": "profile_account_id"
             },
+            "profile_addressrel_public": {
+                "name": "profile_addressrel_public",
+                "type": "TINYINT",
+                "default": 1,
+                "null": false
+            },
             "profile_addressrel_address": {
                 "name": "profile_addressrel_address",
                 "type": "INT",
