@@ -32,6 +32,8 @@ use phpOMS\Utils\Converter\WeightType;
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\Profile\Models\Profile $profile */
 $profile = $this->getData('account');
+
+/** @var \Modules\Media\Models\Media[] $media */
 $media   = $this->getDatA('media') ?? [];
 
 $account = $profile->account;
