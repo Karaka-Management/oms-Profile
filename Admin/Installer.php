@@ -37,9 +37,9 @@ final class Installer extends InstallerAbstract
      */
     public static function install(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
     {
-    	parent::install($dbPool, $info, $cfgHandler);
+        parent::install($dbPool, $info, $cfgHandler);
 
-		$profile = new Profile(AccountMapper::get(1));
-		ProfileMapper::create($profile);
-	}
+        $profile = new Profile(AccountMapper::get(1));
+        ProfileMapper::create($profile);
+    }
 }
