@@ -1,3 +1,3 @@
 # Developer Content
 
-* [UML]({%}&page=Dev/uml)
+* [Structure]({%}&page=Dev/structure)
