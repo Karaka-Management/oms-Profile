@@ -39,7 +39,19 @@ final class Installer extends InstallerAbstract
     {
         parent::install($dbPool, $info, $cfgHandler);
 
-        $profile = new Profile(AccountMapper::get(1));
+        self::createProfiles();
+    }
+
+    /**
+     * Create profiles for already installed accounts
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private static function createProfiles() : void
+    {
+    	$profile = new Profile(AccountMapper::get(1));
         ProfileMapper::create($profile);
     }
 }

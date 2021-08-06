@@ -1,0 +1,20 @@
+[
+    {
+        "type": "collection",
+        "create_directory": true,
+        "name": "Profile",
+        "virtualPath": "/Modules",
+        "user": 1
+    },
+    {
+        "type": "upload",
+        "create_collection": false,
+        "name": "Default Profile Image",
+        "virtualPath": "/Modules/Profile",
+        "path": "/Modules/Media/Files/Modules/Profile",
+        "files": [
+            "/Modules/Profile/Admin/Install/Media/default_profile.png"
+        ],
+        "user": 1
+    }
+]
