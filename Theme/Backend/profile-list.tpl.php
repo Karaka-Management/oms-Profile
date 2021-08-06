@@ -57,19 +57,21 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                             <i class="filter fa fa-filter"></i>
                         </label>
                 <tbody>
-                <?php $count = 0; foreach ($accounts as $key => $account) : ++$count;
-                $url         = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId()); ?>
+                <?php $count = 0;
+                    foreach ($accounts as $key => $account) : ++$count;
+                        $url = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId());
+                ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><img width="30" loading="lazy" class="profile-image"
                             src="<?=
-                                    $account->image instanceof NullMedia ?
-                                        UriFactory::build('Web/Backend/img/user_default_' . \mt_rand(1, 6) .'.png') :
-                                        UriFactory::build('{/prefix}' . $account->image->getPath()); ?>"></a>
+                                    $account->image instanceof NullMedia
+                                        ? UriFactory::build('{/prefix}' . $this->getData('defaultImage')->getPath())
+                                        : UriFactory::build('{/prefix}' . $account->image->getPath()); ?>"></a>
                         <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->account->name3 . ' ' . $account->account->name2 . ' ' . $account->account->name1); ?></a>
-                        <td  data-label="<?= $this->getHtml('Activity'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->account->getLastActive()->format('Y-m-d')); ?></a>
+                        <td data-label="<?= $this->getHtml('Activity'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->account->getLastActive()->format('Y-m-d')); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
-                <tr><td colspan="3" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
+                    <tr><td colspan="3" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
                 <?php endif; ?>
             </table>
             <div class="portlet-foot">

@@ -18,12 +18,13 @@
     "directory": "Profile",
     "dependencies": {
         "Admin": "1.0.0",
+        "Media": "1.0.0",
         "Home": "1.0.0",
-        "Contact": "1.0.0",
-        "Media": "1.0.0"
+        "Contact": "1.0.0"
     },
     "providing": {
-        "Navigation": "*"
+        "Navigation": "*",
+        "Media": "1.0.0"
     },
     "load": [
         {
