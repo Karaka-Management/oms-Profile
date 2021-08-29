@@ -29,6 +29,9 @@ class ProfileTest extends \PHPUnit\Framework\TestCase
 {
     private Profile $profile;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->profile = new Profile();
