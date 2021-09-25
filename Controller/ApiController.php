@@ -183,7 +183,7 @@ final class ApiController extends Controller
             $request->header->account,
             __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
             '/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
-            'profile_image',
+            $request->getData('type', 'int'),
             '',
             '',
             PathSettings::FILE_PATH

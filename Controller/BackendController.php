@@ -77,7 +77,7 @@ final class BackendController extends Controller
             $view->setData('accounts', ProfileMapper::getAfterPivot(0, null, 25));
         }
 
-        $profileImage = $this->app->appSettings->get(null, 'default_profile_image', 'Profile');
+        $profileImage = $this->app->appSettings->get(null, 'default_profile_image', null, 'Profile');
         $image        = MediaMapper::get((int) $profileImage['content']);
 
         $view->setData('defaultImage', $image);
@@ -127,7 +127,7 @@ final class BackendController extends Controller
         $media = MediaMapper::getFor((int) $profile->account->getId(), 'createdBy');
         $view->setData('media', $media instanceof NullMedia ? [] : (!\is_array($media) ? [$media] : $media));
 
-        $profileImage = $this->app->appSettings->get(null, 'default_profile_image', 'Profile');
+        $profileImage = $this->app->appSettings->get(null, 'default_profile_image', null, 'Profile');
         $image        = MediaMapper::get((int) $profileImage['content']);
 
         $view->setData('defaultImage', $image);
