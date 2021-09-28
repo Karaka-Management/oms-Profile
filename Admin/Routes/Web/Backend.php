@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\Profile\Controller\BackendController:setupProfileStyles',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::PROFILE,
             ],
@@ -34,7 +34,7 @@ return [
             'dest'       => '\Modules\Profile\Controller\BackendController:viewProfileList',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::PROFILE,
             ],
@@ -45,7 +45,7 @@ return [
             'dest'       => '\Modules\Profile\Controller\BackendController:viewProfileSingle',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::PROFILE,
             ],
@@ -56,7 +56,7 @@ return [
             'dest'       => '\Modules\Profile\Controller\BackendController:viewProfileAdminSettings',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::PROFILE,
             ],
@@ -67,7 +67,7 @@ return [
             'dest'       => '\Modules\Profile\Controller\BackendController:viewProfileAdminCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::PROFILE,
             ],

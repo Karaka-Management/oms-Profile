@@ -25,7 +25,7 @@ return [
             'dest'       => '\Modules\Profile\Controller\ApiController:apiProfileCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::PROFILE,
             ],
@@ -37,7 +37,7 @@ return [
             'dest'       => '\Modules\Admin\Controller\ApiController:apiSettingsAccountLocalizationSet',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => AdminApiController::MODULE_NAME,
+                'module' => AdminApiController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => AdminPermissionState::ACCOUNT_SETTINGS,
             ],
@@ -48,7 +48,7 @@ return [
             'dest'       => '\Modules\Profile\Controller\ApiController:apiSettingsAccountImageSet',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => PermissionState::PROFILE,
             ],

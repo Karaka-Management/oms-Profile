@@ -19,7 +19,7 @@ namespace Modules\Profile\tests\Admin;
  */
 class AdminTest extends \PHPUnit\Framework\TestCase
 {
-    protected const MODULE_NAME = 'Profile';
+    protected const NAME = 'Profile';
 
     protected const URI_LOAD = 'http://127.0.0.1/en/backend/profile';
 
