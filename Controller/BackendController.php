@@ -78,7 +78,7 @@ final class BackendController extends Controller
         }
 
         $profileImage = $this->app->appSettings->get(null, 'default_profile_image', null, 'Profile');
-        $image        = MediaMapper::get((int) $profileImage['content']);
+        $image        = MediaMapper::get((int) $profileImage->content);
 
         $view->setData('defaultImage', $image);
 
@@ -128,7 +128,7 @@ final class BackendController extends Controller
         $view->setData('media', $media instanceof NullMedia ? [] : (!\is_array($media) ? [$media] : $media));
 
         $profileImage = $this->app->appSettings->get(null, 'default_profile_image', null, 'Profile');
-        $image        = MediaMapper::get((int) $profileImage['content']);
+        $image        = MediaMapper::get((int) $profileImage->content);
 
         $view->setData('defaultImage', $image);
 
