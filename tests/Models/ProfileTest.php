@@ -25,7 +25,7 @@ use phpOMS\Stdlib\Base\Location;
 /**
  * @internal
  */
-class ProfileTest extends \PHPUnit\Framework\TestCase
+final class ProfileTest extends \PHPUnit\Framework\TestCase
 {
     private Profile $profile;
 
