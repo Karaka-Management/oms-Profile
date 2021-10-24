@@ -14,29 +14,29 @@ declare(strict_types=1);
 
 namespace Modules\Profile\tests\Models;
 
-use Modules\Profile\Models\NullProfile;
+use Modules\Profile\Models\NullContact;
 
 /**
  * @internal
  */
-final class Null extends \PHPUnit\Framework\TestCase
+final class NullContactTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Profile\Models\NullProfile
+     * @covers Modules\Profile\Models\NullContact
      * @group framework
      */
     public function testNull() : void
     {
-        self::assertInstanceOf('\Modules\Profile\Models\Profile', new NullProfile());
+        self::assertInstanceOf('\Modules\Profile\Models\Contact', new NullContact());
     }
 
     /**
-     * @covers Modules\Profile\Models\NullProfile
+     * @covers Modules\Profile\Models\NullContact
      * @group framework
      */
     public function testId() : void
     {
-        $null = new NullProfile(2);
+        $null = new NullContact(2);
         self::assertEquals(2, $null->getId());
     }
 }
