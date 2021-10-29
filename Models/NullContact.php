@@ -24,7 +24,7 @@ namespace Modules\Profile\Models;
  */
 final class NullContact extends Contact
 {
-	/**
+    /**
      * Constructor
      *
      * @param int $id Model id

@@ -281,8 +281,8 @@ echo $this->getData('nav')->render();
                                     <tr><td colspan="2"><label><?= $this->getHtml('Currencyformat'); ?></label>
                                     <tr><td colspan="2">
                                             <select form="fLocalization" name="settings_currencyformat">
-                                                <option value="0"<?= $this->printHtml('0' === $l11n->getCurrencyFormat() ? ' selected' : ''); ?>><?= $this->getHtml('Amount') , ' ' , $this->printHtml($l11n->getCurrency()); ?>
-                                                <option value="1"<?= $this->printHtml('1' === $l11n->getCurrencyFormat() ? ' selected' : ''); ?>><?= $this->printHtml($l11n->getCurrency()) , ' ' , $this->getHtml('Amount'); ?>
+                                                <option value="0"<?= $this->printHtml($l11n->getCurrencyFormat() === '0' ? ' selected' : ''); ?>><?= $this->getHtml('Amount') , ' ' , $this->printHtml($l11n->getCurrency()); ?>
+                                                <option value="1"<?= $this->printHtml($l11n->getCurrencyFormat() === '1' ? ' selected' : ''); ?>><?= $this->printHtml($l11n->getCurrency()) , ' ' , $this->getHtml('Amount'); ?>
                                             </select>
                                     <tr><td colspan="2"><h2><?= $this->getHtml('Numberformat'); ?></h2>
                                     <tr><td><label for="iDecimalPoint"><?= $this->getHtml('DecimalPoint'); ?></label>

@@ -132,7 +132,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request  = new HttpRequest(new HttpUri(''));
 
         $request->header->account = 1;
-        $request->setData('name', 'Profile Logo');
+        $request->setData('names', 'Profile Logo');
         $request->setData('id', 1);
 
         TestUtils::setMember($request, 'files', [
