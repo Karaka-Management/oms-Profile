@@ -17,6 +17,8 @@ namespace Modules\Profile\Models;
 /**
  * Contact element class.
  *
+ * Information such as phone number, email, ...
+ *
  * @package Modules\Profile\Models
  * @license OMS License 1.0
  * @link    https://orange-management.org
@@ -54,7 +56,7 @@ class ContactElement
      * @var string
      * @since 1.0.0
      */
-    private string $content = '';
+    public string $content = '';
 
     /**
      * Order.
@@ -62,7 +64,7 @@ class ContactElement
      * @var int
      * @since 1.0.0
      */
-    private int $order = 0;
+    public int $order = 0;
 
     /**
      * Get id.
@@ -103,32 +105,6 @@ class ContactElement
     }
 
     /**
-     * Set order
-     *
-     * @param int $order Type
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setOrder(int $order) : void
-    {
-        $this->order = $order;
-    }
-
-    /**
-     * Get order
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getOrder() : int
-    {
-        return $this->order;
-    }
-
-    /**
      * Set subtype
      *
      * @param int $subtype Subtype
@@ -152,31 +128,5 @@ class ContactElement
     public function getSubtype() : int
     {
         return $this->subtype;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getContent() : string
-    {
-        return $this->content;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content Content
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setContent(string $content) : void
-    {
-        $this->content = $content;
     }
 }

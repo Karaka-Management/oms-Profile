@@ -102,7 +102,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiProfileTempLoginCreate(Profile $profile, RequestAbstract $request, ResponseAbstract $response) : void
+    public function apiProfileTempLoginCreate(RequestAbstract $request, ResponseAbstract $response) : void
     {
         $account               = AccountMapper::get($request->header->account);
         $account->tempPassword = \password_hash(\random_bytes(64), \PASSWORD_BCRYPT);
@@ -265,7 +265,7 @@ final class ApiController extends Controller
         $element = new ContactElement();
         $element->setType((int) ($request->getData('type') ?? 0));
         $element->setSubtype((int) ($request->getData('subtype') ?? 0));
-        $element->setContent((string) ($request->getData('content') ?? ''));
+        $element->content = (string) ($request->getData('content') ?? '');
 
         return $element;
     }

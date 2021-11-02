@@ -16,6 +16,7 @@ namespace Modules\Profile\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
+use Modules\Profile\Models\ContactType;
 use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\ProfileMapper;
 use phpOMS\Account\Account;
@@ -32,15 +33,21 @@ use phpOMS\Router\WebRouter;
 use phpOMS\System\MimeType;
 use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\TestUtils;
+use phpOMS\Module\ModuleAbstract;
+use phpOMS\Stdlib\Base\AddressType;
+use phpOMS\Localization\ISO3166TwoEnum;
 
 /**
  * @internal
  */
 final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 {
-    protected $app    = null;
+    protected ApplicationAbstract $app;
 
-    protected $module = null;
+    /**
+     * @var \Modules\Profile\Controller\ApiController
+     */
+    protected ModuleAbstract $module;
 
     /**
      * {@inheritdoc}
@@ -117,7 +124,22 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $profile->account->login = 'ProfileCreateDb';
         $profile->account->setEmail('profile_create_db@email.com');
 
-        $this->module->apiProfileCreateDbEntry($profile, $request);
+        self::assertTrue($this->module->apiProfileCreateDbEntry($profile, $request));
+    }
+
+    /**
+     * @covers Modules\Profile\Controller\ApiController
+     * @group module
+     */
+    public function testApiProfileTempLoginCreate() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->header->account = 1;
+
+        $this->module->apiProfileTempLoginCreate($request, $response);
+        self::assertGreaterThan(31, \strlen($response->get('')['response']));
     }
 
     /**
@@ -160,7 +182,77 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request  = new HttpRequest(new HttpUri(''));
 
         $this->module->apiSettingsAccountImageSet($request, $response);
+        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
+    }
 
+    /**
+     * @covers Modules\Profile\Controller\ApiController
+     * @group module
+     */
+    public function testApiContactElementCreate() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->header->account = 1;
+        $request->setData('account', '1');
+        $request->setData('type', ContactType::PHONE);
+        $request->setData('content', '+0123-456-789');
+
+        $this->module->apiContactElementCreate($request, $response);
+        self::assertGreaterThan(0, $response->get('')['response']->getId());
+    }
+
+    /**
+     * @covers Modules\Profile\Controller\ApiController
+     * @group module
+     */
+    public function testApiContactElementCreateInvalidData() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->header->account = 1;
+        $request->setData('invalid', '1');
+
+        $this->module->apiContactElementCreate($request, $response);
+        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
+    }
+
+    /**
+     * @covers Modules\Profile\Controller\ApiController
+     * @group module
+     */
+    public function testApiAddressCreate() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->header->account = 1;
+        $request->setData('account', '1');
+        $request->setData('type', AddressType::BUSINESS);
+        $request->setData('name', 'Test Addr.');
+        $request->setData('address', 'Address here');
+        $request->setData('postal', '123456');
+        $request->setData('City', 'TestCity');
+        $request->setData('Country', ISO3166TwoEnum::_USA);
+
+        $this->module->apiAddressCreate($request, $response);
+        self::assertGreaterThan(0, $response->get('')['response']->getId());
+    }
+    /**
+     * @covers Modules\Profile\Controller\ApiController
+     * @group module
+     */
+    public function testApiAddressCreateInvalidData() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->header->account = 1;
+        $request->setData('invalid', '1');
+
+        $this->module->apiAddressCreate($request, $response);
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 }
