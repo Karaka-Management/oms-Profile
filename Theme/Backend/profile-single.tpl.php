@@ -133,8 +133,8 @@ echo $this->getData('nav')->render();
                                 <?php else: foreach($contacts as $contact) : ?>
                                     <tr>
                                         <th><?= $this->getHtml('cType' . $contact->getType()); ?>
-                                        <td><?= $contact->getType() === ContactType::WEBSITE ? '<a href="' . $contact->getContent() . '">' : ''; ?>
-                                                <?= $contact->getContent(); ?>
+                                        <td><?= $contact->getType() === ContactType::WEBSITE ? '<a href="' . $contact->content . '">' : ''; ?>
+                                                <?= $contact->content; ?>
                                             <?= $contact->getType() === ContactType::WEBSITE ? '</a>' : ''; ?>
                                 <?php endforeach; endif; ?>
                                 <tr>

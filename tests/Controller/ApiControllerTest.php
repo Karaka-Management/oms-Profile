@@ -25,17 +25,17 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Event\EventManager;
+use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
+use phpOMS\Module\ModuleAbstract;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
+use phpOMS\Stdlib\Base\AddressType;
 use phpOMS\System\MimeType;
 use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\TestUtils;
-use phpOMS\Module\ModuleAbstract;
-use phpOMS\Stdlib\Base\AddressType;
-use phpOMS\Localization\ISO3166TwoEnum;
 
 /**
  * @internal
@@ -240,6 +240,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->module->apiAddressCreate($request, $response);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
     }
+
     /**
      * @covers Modules\Profile\Controller\ApiController
      * @group module

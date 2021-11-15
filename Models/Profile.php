@@ -239,7 +239,7 @@ class Profile implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function toArray() : array
     {
         return [
             'id'              => $this->id,
@@ -251,5 +251,13 @@ class Profile implements \JsonSerializable
             'locations'       => $this->location,
             'contactelements' => $this->contactElements,
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

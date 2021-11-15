@@ -44,7 +44,7 @@ final class ContactTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->contact->description);
         self::assertEquals('', $this->contact->company);
         self::assertEquals('', $this->contact->job);
-        self::assertEquals(null, $this->contact->birthday);
+        self::assertNull($this->contact->birthday);
         self::assertInstanceOf('\Modules\Media\Models\Media', $this->contact->image);
     }
 }
