@@ -104,7 +104,7 @@ final class ApiController extends Controller
      */
     public function apiProfileTempLoginCreate(RequestAbstract $request, ResponseAbstract $response) : void
     {
-        $account               = AccountMapper::get($request->header->account);
+        $account               = AccountMapper::get()->where('id', $request->header->account)->execute();
         $account->tempPassword = \password_hash(\random_bytes(64), \PASSWORD_BCRYPT);
 
         $this->updateModel($request->header->account, $account, $account, AccountMapper::class, 'profile', $request->getOrigin());
@@ -136,14 +136,14 @@ final class ApiController extends Controller
             $account = (int) \trim($account);
 
             /** @var Profile $isInDb */
-            $isInDb = ProfileMapper::getFor($account, 'account');
+            $isInDb = ProfileMapper::get()->where('account', $account)->execute();
 
             if ($isInDb->getId() !== 0) {
                 $profiles[] = $isInDb;
                 continue;
             }
 
-            $profiles[] = new Profile(AccountMapper::get($account));
+            $profiles[] = new Profile(AccountMapper::get()->where('id', $account)->execute());
         }
 
         return $profiles;
@@ -174,7 +174,7 @@ final class ApiController extends Controller
         }
 
         /** @var Profile $profile */
-        $profile = ProfileMapper::getFor($request->header->account, 'account');
+        $profile = ProfileMapper::get()->where('account', $request->header->account)->execute();
         $old     = clone $profile;
 
         $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
@@ -219,7 +219,7 @@ final class ApiController extends Controller
         }
 
         /** @var Profile $profile */
-        $profile = (int) ($request->getData('profile') ?? ProfileMapper::getFor($request->getData('account'), 'account')->getId());
+        $profile = (int) ($request->getData('profile') ?? ProfileMapper::get()->where('account', $request->getData('account'))->execute()->getId());
 
         $contactElement = $this->createContactElementFromRequest($request);
 
@@ -293,7 +293,7 @@ final class ApiController extends Controller
         }
 
         /** @var Profile $profile */
-        $profile = (int) ($request->getData('profile') ?? ProfileMapper::getFor($request->getData('account'), 'account')->getId());
+        $profile = (int) ($request->getData('profile') ?? ProfileMapper::get()->where('account', $request->getData('account'))->execute()->getId());
 
         $address = $this->createAddressFromRequest($request);
 

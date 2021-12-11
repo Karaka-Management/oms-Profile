@@ -34,10 +34,10 @@ use phpOMS\Utils\Converter\WeightType;
 $profile = $this->getData('account');
 
 /** @var \Modules\Media\Models\Media[] $media */
-$media   = $this->getDatA('media') ?? [];
+$media   = $this->getData('media') ?? [];
 
 $account = $profile->account;
-$l11n    = $account->l11n;
+$l11n    = $this->getData('l11n');
 
 echo $this->getData('nav')->render();
 ?>

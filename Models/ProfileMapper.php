@@ -17,7 +17,7 @@ namespace Modules\Profile\Models;
 use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\AddressMapper;
 use Modules\Media\Models\MediaMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Profile mapper.
@@ -27,7 +27,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class ProfileMapper extends DataMapperAbstract
+final class ProfileMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -35,7 +35,7 @@ final class ProfileMapper extends DataMapperAbstract
      * @var array<string, array<string, bool|string|array>>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'profile_account_id'       => ['name' => 'profile_account_id',       'type' => 'int',      'internal' => 'id'],
         'profile_account_image'    => ['name' => 'profile_account_image',    'type' => 'int',      'internal' => 'image',    'annotations' => ['gdpr' => true]],
         'profile_account_birthday' => ['name' => 'profile_account_birthday', 'type' => 'DateTime', 'internal' => 'birthday', 'annotations' => ['gdpr' => true]],
@@ -50,7 +50,7 @@ final class ProfileMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string, by?:string, column?:string, conditional?:bool}>
      * @since 1.0.0
      */
-    protected static array $ownsOne = [
+    public const OWNS_ONE = [
         'image'    => [
             'mapper'     => MediaMapper::class,
             'external'   => 'profile_account_image',
@@ -63,7 +63,7 @@ final class ProfileMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'account'  => [
             'mapper'     => AccountMapper::class,
             'external'   => 'profile_account_account',
@@ -76,7 +76,7 @@ final class ProfileMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
      * @since 1.0.0
      */
-    protected static array $hasMany = [
+    public const HAS_MANY = [
         'location' => [
             'mapper'   => AddressMapper::class,
             'table'    => 'profile_addressrel',
@@ -97,7 +97,7 @@ final class ProfileMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $model = Profile::class;
+    public const MODEL = Profile::class;
 
     /**
      * Primary table.
@@ -105,7 +105,7 @@ final class ProfileMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'profile_account';
+    public const TABLE = 'profile_account';
 
     /**
      * Primary field name.
@@ -113,5 +113,5 @@ final class ProfileMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'profile_account_id';
+    public const PRIMARYFIELD ='profile_account_id';
 }

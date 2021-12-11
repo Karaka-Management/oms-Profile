@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Modules\Profile\Models;
 
 use Modules\Media\Models\MediaMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Contact mapper class.
@@ -25,7 +25,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class ContactMapper extends DataMapperAbstract
+final class ContactMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -33,7 +33,7 @@ final class ContactMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'profile_contact_id'          => ['name' => 'profile_contact_id', 'type' => 'int', 'internal' => 'id'],
         'profile_contact_name1'       => ['name' => 'profile_contact_name1', 'type' => 'string', 'internal' => 'name1'],
         'profile_contact_name2'       => ['name' => 'profile_contact_name2', 'type' => 'string', 'internal' => 'name2'],
@@ -51,7 +51,7 @@ final class ContactMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string, by?:string, column?:string, conditional?:bool}>
      * @since 1.0.0
      */
-    protected static array $ownsOne = [
+    public const OWNS_ONE = [
         'image'    => [
             'mapper'     => MediaMapper::class,
             'external'   => 'profile_contact_image',
@@ -64,7 +64,7 @@ final class ContactMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'profile_contact';
+    public const TABLE = 'profile_contact';
 
     /**
      * Primary field name.
@@ -72,5 +72,5 @@ final class ContactMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'profile_contact_id';
+    public const PRIMARYFIELD ='profile_contact_id';
 }

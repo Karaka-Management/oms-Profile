@@ -106,7 +106,6 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiProfileCreate($request, $response);
 
-        self::assertEquals('admin', $response->get('')['response'][0]->account->login);
         self::assertGreaterThan(0, $response->get('')['response'][0]->getId());
     }
 
@@ -168,7 +167,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->module->apiSettingsAccountImageSet($request, $response);
 
-        $image = ProfileMapper::get($response->get('')['response']->getId())->image;
+        $image = ProfileMapper::get()->with('image')->where('id', $response->get('')['response']->getId())->execute()->image;
         self::assertEquals('Profile Logo', $image->name);
     }
 

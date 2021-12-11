@@ -14,11 +14,13 @@ declare(strict_types=1);
 
 namespace Modules\Profile\Controller;
 
+use Modules\Admin\Models\LocalizationMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
 use Modules\Profile\Models\ProfileMapper;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\Localization\NullLocalization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
@@ -70,15 +72,33 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Profile/Theme/Backend/profile-list');
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('accounts', ProfileMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25));
+            $view->setData('accounts',
+                ProfileMapper::getAll()
+                    ->with('account')
+                    ->with('image')
+                    ->where('id', (int) ($request->getData('id') ?? 0), '<')
+                    ->limit(25)->execute()
+                );
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('accounts', ProfileMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25));
+            $view->setData('accounts',
+                ProfileMapper::getAll()
+                    ->with('account')
+                    ->with('image')
+                    ->where('id', (int) ($request->getData('id') ?? 0), '>')
+                    ->limit(25)->execute()
+                );
         } else {
-            $view->setData('accounts', ProfileMapper::getAfterPivot(0, null, 25));
+            $view->setData('accounts',
+                ProfileMapper::getAll()
+                    ->with('account')
+                    ->with('image')
+                    ->where('id', 0, '>')
+                    ->limit(25)->execute()
+            );
         }
 
         $profileImage = $this->app->appSettings->get(null, 'default_profile_image', null, 'Profile');
-        $image        = MediaMapper::get((int) $profileImage->content);
+        $image        = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
 
         $view->setData('defaultImage', $image);
 
@@ -115,20 +135,29 @@ final class BackendController extends Controller
         $calendarView->setTemplate('/Modules/Calendar/Theme/Backend/Components/Calendar/mini');
         $view->addData('calendar', $calendarView);
 
+        $mapperQuery = ProfileMapper::get()->with('account')->with('image')->with('location')->with('contactElements');
+
         $profile = $request->getData('for') !== null
-            ? ProfileMapper::getFor((int) $request->getData('for'), 'account')
-            : ProfileMapper::get((int) $request->getData('id'));
+            ? $mapperQuery->where('account', (int) $request->getData('for'))->execute()
+            : $mapperQuery->where('id', (int) $request->getData('id'))->execute();
 
         $view->setData('account', $profile);
+
+        $l11n = null;
+        if ($profile->account->getId() === $request->header->account) {
+            $l11n = LocalizationMapper::get()->where('id', $profile->account->l11n->getId())->execute();
+        }
+
+        $view->setData('l11n', $l11n ?? new NullLocalization());
 
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('accGrpSelector', $accGrpSelector);
 
-        $media = MediaMapper::getFor((int) $profile->account->getId(), 'createdBy');
+        $media = MediaMapper::get()->where('createdBy', (int) $profile->account->getId())->limit(25)->execute();
         $view->setData('media', $media instanceof NullMedia ? [] : (!\is_array($media) ? [$media] : $media));
 
         $profileImage = $this->app->appSettings->get(null, 'default_profile_image', null, 'Profile');
-        $image        = MediaMapper::get((int) $profileImage->content);
+        $image        = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
 
         $view->setData('defaultImage', $image);
 

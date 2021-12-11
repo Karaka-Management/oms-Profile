@@ -59,7 +59,7 @@ final class Installer extends InstallerAbstract
      */
     private static function createProfiles() : void
     {
-        $profile = new Profile(AccountMapper::get(1));
-        ProfileMapper::create($profile);
+        $profile = new Profile(AccountMapper::get()->where('id', 1)->execute());
+        ProfileMapper::create()->execute($profile);
     }
 }
