@@ -93,8 +93,11 @@ final class ApiController extends Controller
     }
 
     /**
-     * @param Profile         $profile Profile to create in the database
-     * @param RequestAbstract $request Request
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
      *
      * @return void
      *
@@ -102,7 +105,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiProfileTempLoginCreate(RequestAbstract $request, ResponseAbstract $response) : void
+    public function apiProfileTempLoginCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $account               = AccountMapper::get()->where('id', $request->header->account)->execute();
         $account->tempPassword = \password_hash(\random_bytes(64), \PASSWORD_BCRYPT);
