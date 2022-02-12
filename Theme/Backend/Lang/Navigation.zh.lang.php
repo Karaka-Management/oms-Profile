@@ -13,9 +13,9 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'List'     => 'Aufführen',
-    'Overview' => 'Überblick',
-    'Profile'  => 'Profil',
-    'Profiles' => 'Profile',
-    'Settings' => 'Einstellungen',
+    'List'     => '列表',
+    'Overview' => '概述',
+    'Profile'  => '轮廓',
+    'Profiles' => '概要文件',
+    'Settings' => '设置',
 ]];

@@ -13,9 +13,9 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'List'     => 'Aufführen',
-    'Overview' => 'Überblick',
-    'Profile'  => 'Profil',
-    'Profiles' => 'Profile',
-    'Settings' => 'Einstellungen',
+    'List'     => 'Λίστα',
+    'Overview' => 'ΣΦΑΙΡΙΚΗ ΕΙΚΟΝΑ',
+    'Profile'  => 'Προφίλ',
+    'Profiles' => 'Προφίλ',
+    'Settings' => 'Ρυθμίσεις',
 ]];
