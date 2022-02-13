@@ -177,7 +177,7 @@ final class ApiController extends Controller
         }
 
         /** @var Profile $profile */
-        $profile = ProfileMapper::get()->where('account', $request->header->account)->execute();
+        $profile = ProfileMapper::get()->with('account')->where('account', $request->header->account)->execute();
         $old     = clone $profile;
 
         $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
@@ -185,7 +185,7 @@ final class ApiController extends Controller
             $request->getDataList('filenames') ?? [],
             $uploadedFiles,
             $request->header->account,
-            __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
+            __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->getId(),
             '/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
             $request->getData('type', 'int'),
             '',
