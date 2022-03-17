@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 use Modules\Profile\Controller\BackendController;
-use Modules\Profile\Models\PermissionState;
+use Modules\Profile\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
@@ -25,7 +25,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::PROFILE,
+                'state'  => PermissionCategory::PROFILE,
             ],
         ],
     ],
@@ -36,7 +36,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::PROFILE,
+                'state'  => PermissionCategory::PROFILE,
             ],
         ],
     ],
@@ -47,7 +47,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::PROFILE,
+                'state'  => PermissionCategory::PROFILE,
             ],
         ],
     ],
@@ -58,7 +58,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::PROFILE,
+                'state'  => PermissionCategory::PROFILE,
             ],
         ],
     ],
@@ -69,7 +69,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::PROFILE,
+                'state'  => PermissionCategory::PROFILE,
             ],
         ],
     ],

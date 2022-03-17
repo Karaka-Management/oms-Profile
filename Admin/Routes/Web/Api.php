@@ -13,9 +13,9 @@
 declare(strict_types=1);
 
 use Modules\Admin\Controller\ApiController as AdminApiController;
-use Modules\Admin\Models\PermissionState as AdminPermissionState;
+use Modules\Admin\Models\PermissionCategory as AdminPermissionCategory;
 use Modules\Profile\Controller\ApiController;
-use Modules\Profile\Models\PermissionState;
+use Modules\Profile\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
@@ -27,7 +27,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::PROFILE,
+                'state'  => PermissionCategory::PROFILE,
             ],
         ],
     ],
@@ -39,7 +39,7 @@ return [
             'permission' => [
                 'module' => AdminApiController::NAME,
                 'type'   => PermissionType::MODIFY,
-                'state'  => AdminPermissionState::ACCOUNT_SETTINGS,
+                'state'  => AdminPermissionCategory::ACCOUNT_SETTINGS,
             ],
         ],
     ],
@@ -50,7 +50,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
-                'state'  => PermissionState::PROFILE,
+                'state'  => PermissionCategory::PROFILE,
             ],
         ],
     ],
