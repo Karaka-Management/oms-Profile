@@ -17,6 +17,7 @@ namespace Modules\Profile\Admin;
 use Modules\Admin\Models\AccountMapper;
 use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\ProfileMapper;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\Module\InstallerAbstract;
@@ -43,9 +44,9 @@ final class Installer extends InstallerAbstract
     /**
      * {@inheritdoc}
      */
-    public static function install(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
+    public static function install(ApplicationAbstract $app, ModuleInfo $info, SettingsInterface $cfgHandler) : void
     {
-        parent::install($dbPool, $info, $cfgHandler);
+        parent::install($app, $info, $cfgHandler);
 
         self::createProfiles();
     }
