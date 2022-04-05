@@ -167,7 +167,7 @@ final class ApiController extends Controller
      */
     public function apiSettingsAccountImageSet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $uploadedFiles = $request->getFiles() ?? [];
+        $uploadedFiles = $request->getFiles();
 
         if (empty($uploadedFiles)) {
             $this->fillJsonResponse($request, $response, NotificationLevel::ERROR, 'Profile', 'Invalid profile image', $uploadedFiles);
@@ -181,8 +181,8 @@ final class ApiController extends Controller
         $old     = clone $profile;
 
         $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
-            $request->getDataList('names') ?? [],
-            $request->getDataList('filenames') ?? [],
+            $request->getDataList('names'),
+            $request->getDataList('filenames'),
             $uploadedFiles,
             $request->header->account,
             __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->getId(),
