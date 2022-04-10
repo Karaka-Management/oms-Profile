@@ -19,7 +19,6 @@ use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\ProfileMapper;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Config\SettingsInterface;
-use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
 
