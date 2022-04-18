@@ -45,6 +45,6 @@ class Media
         $defaultProfileImage = \reset($media['upload'][0]);
 
         $setting = new Setting();
-        SettingMapper::create()->execute($setting->with(0, 'default_profile_image', (string) $defaultProfileImage->getId(), '\\d+', null, 'Profile'));
+        SettingMapper::create()->execute($setting->with(0, 'default_profile_image', (string) $defaultProfileImage, '\\d+', null, 'Profile'));
     }
 }
