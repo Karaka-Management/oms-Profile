@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   Modules\Profile\Admin\Install
  * @copyright Dennis Eichhorn
@@ -42,7 +42,7 @@ class Media
     {
         $media = \Modules\Media\Admin\Installer::installExternal($app, ['path' => __DIR__ . '/Media.install.json']);
 
-        $defaultProfileImage = \reset($media['upload'][0]);
+        $defaultProfileImage = $media['upload'][0]->getId();
 
         $setting = new Setting();
         SettingMapper::create()->execute($setting->with(0, 'default_profile_image', (string) $defaultProfileImage, '\\d+', null, 'Profile'));

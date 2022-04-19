@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   Modules\Profile
  * @copyright Dennis Eichhorn
@@ -107,6 +107,7 @@ final class ApiController extends Controller
      */
     public function apiProfileTempLoginCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
+        /** @var \Modules\Admin\Models\Account $account */
         $account               = AccountMapper::get()->where('id', $request->header->account)->execute();
         $account->tempPassword = \password_hash(\random_bytes(64), \PASSWORD_BCRYPT);
 
@@ -132,6 +133,7 @@ final class ApiController extends Controller
      */
     private function createProfilesFromRequest(RequestAbstract $request) : array
     {
+        /** @var \Modules\Profile\Models\Profile[] $profiles */
         $profiles = [];
         $accounts = $request->getDataList('iaccount-idlist');
 
