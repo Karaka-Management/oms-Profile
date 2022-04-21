@@ -18,6 +18,7 @@ use Modules\Admin\Models\LocalizationMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
 use Modules\Profile\Models\ProfileMapper;
+use Modules\Profile\Models\SettingsEnum;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Localization\NullLocalization;
@@ -47,7 +48,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function setupProfileStyles(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function setupProfileStyles(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var \phpOMS\Model\Html\Head $head */
         $head = $response->get('Content')->getData('head');
@@ -65,7 +66,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function viewProfileList(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewProfileList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -97,8 +98,10 @@ final class BackendController extends Controller
             );
         }
 
-        $profileImage = $this->app->appSettings->get(null, 'default_profile_image', null, 'Profile');
-        $image        = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
+        $profileImage = $this->app->appSettings->get(names: SettingsEnum::DEFAULT_PROFILE_IMAGE, module: 'Profile');
+
+        /** @var \Modules\Media\Modles\Media $image */
+        $image = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
 
         $view->setData('defaultImage', $image);
 
@@ -116,7 +119,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function viewProfileSingle(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewProfileSingle(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -135,8 +138,13 @@ final class BackendController extends Controller
         $calendarView->setTemplate('/Modules/Calendar/Theme/Backend/Components/Calendar/mini');
         $view->addData('calendar', $calendarView);
 
-        $mapperQuery = ProfileMapper::get()->with('account')->with('image')->with('location')->with('contactElements');
+        $mapperQuery = ProfileMapper::get()
+            ->with('account')
+            ->with('image')
+            ->with('location')
+            ->with('contactElements');
 
+        /** @var \Modules\Profile\Modles\Profile $profile */
         $profile = $request->getData('for') !== null
             ? $mapperQuery->where('account', (int) $request->getData('for'))->execute()
             : $mapperQuery->where('id', (int) $request->getData('id'))->execute();
@@ -145,6 +153,7 @@ final class BackendController extends Controller
 
         $l11n = null;
         if ($profile->account->getId() === $request->header->account) {
+            /** @var \phpOMS\Localization\Localization $l11n */
             $l11n = LocalizationMapper::get()->where('id', $profile->account->l11n->getId())->execute();
         }
 
@@ -153,10 +162,16 @@ final class BackendController extends Controller
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('accGrpSelector', $accGrpSelector);
 
-        $media = MediaMapper::get()->where('createdBy', (int) $profile->account->getId())->limit(25)->execute();
+        /** @var \Modules\Media\Modles\Media[] $media */
+        $media = MediaMapper::getAll()
+            ->with('createdBy')
+            ->where('createdBy', (int) $profile->account->getId())
+            ->limit(25)
+            ->execute();
+
         $view->setData('media', $media instanceof NullMedia ? [] : (!\is_array($media) ? [$media] : $media));
 
-        $profileImage = $this->app->appSettings->get(null, 'default_profile_image', null, 'Profile');
+        $profileImage = $this->app->appSettings->get(names: SettingsEnum::DEFAULT_PROFILE_IMAGE, module: 'Profile');
         $image        = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
 
         $view->setData('defaultImage', $image);
@@ -175,7 +190,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function viewProfileAdminSettings(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewProfileAdminSettings(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/Profile/Theme/Backend/modules-settings');
@@ -195,7 +210,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function viewProfileAdminCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewProfileAdminCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/Profile/Theme/Backend/modules-create');

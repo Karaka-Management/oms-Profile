@@ -16,6 +16,7 @@ namespace Modules\Profile\Admin\Install;
 
 use Model\Setting;
 use Model\SettingMapper;
+use Modules\Profile\Models\SettingsEnum;
 use phpOMS\Application\ApplicationAbstract;
 
 /**
@@ -42,9 +43,9 @@ class Media
     {
         $media = \Modules\Media\Admin\Installer::installExternal($app, ['path' => __DIR__ . '/Media.install.json']);
 
-        $defaultProfileImage = $media['upload'][0]->getId();
+        $defaultProfileImage = (int) \reset($media['upload'][0]);
 
         $setting = new Setting();
-        SettingMapper::create()->execute($setting->with(0, 'default_profile_image', (string) $defaultProfileImage, '\\d+', null, 'Profile'));
+        SettingMapper::create()->execute($setting->with(0, SettingsEnum::DEFAULT_PROFILE_IMAGE, (string) $defaultProfileImage, '\\d+', null, 'Profile'));
     }
 }
