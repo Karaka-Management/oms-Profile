@@ -195,13 +195,13 @@ echo $this->getData('nav')->render();
                                     <tr><td>
                                         <div class="ipt-wrap">
                                             <div class="ipt-first"><select id="iDefaultLocalizations" name="localization_load">
-                                                    <option selected disabled><?= $this->getHtml('Customized'); ?>
+                                                    <option value="-1" selected disabled><?= $this->getHtml('Customized'); ?>
                                                     <?php foreach ($l11nDefinitions as $def) : ?>
                                                         <option value="<?= $this->printHtml(\explode('.', $def)[0]); ?>"><?= $this->printHtml(\explode('.', $def)[0]); ?>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="ipt-second"><input type="submit" name="loadDefaultLocalization" formaction="<?= UriFactory::build('{/api}profile/settings/localization?load=1'); ?>" value="<?= $this->getHtml('Load'); ?>"></div>
+                                            <div class="ipt-second"><input type="submit" name="loadDefaultLocalization" formaction="<?= UriFactory::build('{/api}profile/settings/localization'); ?>" value="<?= $this->getHtml('Load'); ?>"></div>
                                         </div>
                                     <tr><td colspan="2"><label for="iCountries"><?= $this->getHtml('Country'); ?></label>
                                     <tr><td colspan="2">

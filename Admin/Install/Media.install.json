@@ -11,7 +11,7 @@
         "create_collection": false,
         "name": "Default Profile Image",
         "virtualPath": "/Modules/Profile",
-        "path": "/Modules/Media/Files/Modules/Profile",
+        "path": "/Modules/Profile",
         "files": [
             "/Modules/Profile/Admin/Install/Media/default_profile.png"
         ],
