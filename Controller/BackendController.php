@@ -52,7 +52,7 @@ final class BackendController extends Controller
     {
         /** @var \phpOMS\Model\Html\Head $head */
         $head = $response->get('Content')->getData('head');
-        $head->addAsset(AssetType::CSS, 'Modules/Profile/Theme/Backend/css/styles.css');
+        $head->addAsset(AssetType::CSS, 'Modules/Profile/Theme/Backend/css/styles.css?v=1.0.0');
     }
 
     /**
@@ -125,7 +125,7 @@ final class BackendController extends Controller
 
         /** @var \phpOMS\Model\Html\Head $head */
         $head = $response->get('Content')->getData('head');
-        $head->addAsset(AssetType::CSS, '/Modules/Calendar/Theme/Backend/css/styles.css');
+        $head->addAsset(AssetType::CSS, '/Modules/Calendar/Theme/Backend/css/styles.css?v=1.0.0');
 
         $view->setTemplate('/Modules/Profile/Theme/Backend/profile-single');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000301001, $request, $response));
