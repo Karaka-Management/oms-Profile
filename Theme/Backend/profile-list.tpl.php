@@ -63,7 +63,7 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                         $url = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId());
                 ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
-                        <td><a href="<?= $url; ?>"><img width="30" loading="lazy" class="profile-image"
+                        <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_user'); ?>" width="30" loading="lazy" class="profile-image"
                             src="<?=
                                     $account->image instanceof NullMedia
                                         ? UriFactory::build('{/prefix}' . $this->getData('defaultImage')->getPath())

@@ -101,4 +101,5 @@ return ['Profile' => [
     'cType2'             => 'Fax',
     'cType3'             => 'Website',
     'cType4'             => 'Email',
+    'IMG_alt_user'             => 'User image',
 ]];
