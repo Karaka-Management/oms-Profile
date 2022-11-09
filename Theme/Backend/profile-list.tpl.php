@@ -21,8 +21,8 @@ use phpOMS\Uri\UriFactory;
  */
 $accounts = $this->getData('accounts') ?? [];
 
-$previous = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?{?}&id=' . \reset($accounts)->getId() . '&ptype=p';
-$next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?{?}&id=' . \end($accounts)->getId() . '&ptype=n';
+$previous = empty($accounts) ? 'profile/list' : 'profile/list?{?}&id=' . \reset($accounts)->getId() . '&ptype=p';
+$next     = empty($accounts) ? 'profile/list' : 'profile/list?{?}&id=' . \end($accounts)->getId() . '&ptype=n';
 ?>
 <div class="row">
     <div class="col-xs-12">
@@ -60,14 +60,14 @@ $next     = empty($accounts) ? '{/prefix}profile/list' : '{/prefix}profile/list?
                 <tbody>
                 <?php $count = 0;
                     foreach ($accounts as $key => $account) : ++$count;
-                        $url = UriFactory::build('{/prefix}profile/single?{?}&id=' . $account->getId());
+                        $url = UriFactory::build('profile/single?{?}&id=' . $account->getId());
                 ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_user'); ?>" width="30" loading="lazy" class="profile-image"
                             src="<?=
                                     $account->image instanceof NullMedia
-                                        ? UriFactory::build('{/prefix}' . $this->getData('defaultImage')->getPath())
-                                        : UriFactory::build('{/prefix}' . $account->image->getPath()); ?>"></a>
+                                        ? UriFactory::build('' . $this->getData('defaultImage')->getPath())
+                                        : UriFactory::build('' . $account->image->getPath()); ?>"></a>
                         <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->account->name3 . ' ' . $account->account->name2 . ' ' . $account->account->name1); ?></a>
                         <td data-label="<?= $this->getHtml('Activity'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->account->getLastActive()->format('Y-m-d')); ?></a>
                 <?php endforeach; ?>

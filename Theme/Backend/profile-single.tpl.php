@@ -72,8 +72,8 @@ echo $this->getData('nav')->render();
                                     itemprop="logo" loading="lazy"
                                     src="<?=
                                         $profile->image instanceof NullMedia
-                                            ? UriFactory::build('{/prefix}' . $this->getData('defaultImage')->getPath())
-                                            : UriFactory::build('{/prefix}' . $profile->image->getPath()); ?>"
+                                            ? UriFactory::build('' . $this->getData('defaultImage')->getPath())
+                                            : UriFactory::build('' . $profile->image->getPath()); ?>"
                                 width="100px"></div>
                                 <?php if ($this->request->header->account === $account->getId()) : ?>
                                     <div><a id="iProfileUploadButton" href="#upload" data-action='[
