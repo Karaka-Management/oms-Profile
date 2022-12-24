@@ -16,7 +16,6 @@ namespace Modules\Profile\Controller;
 
 use Modules\Admin\Models\LocalizationMapper;
 use Modules\Media\Models\MediaMapper;
-use Modules\Media\Models\NullMedia;
 use Modules\Profile\Models\ProfileMapper;
 use Modules\Profile\Models\SettingsEnum;
 use phpOMS\Asset\AssetType;
