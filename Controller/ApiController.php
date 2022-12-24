@@ -194,6 +194,9 @@ final class ApiController extends Controller
         );
 
         $profile->image = !empty($uploaded) ? \reset($uploaded) : new NullMedia();
+        if (!($profile->image instanceof NullMedia)) {
+            $profile->image = $this->app->moduleManager->get('Media')->resizeImage($profile->image, 100, 100, false);
+        }
 
         $this->updateModel($request->header->account, $old, $profile, ProfileMapper::class, 'profile', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Profile', 'Profile successfully updated', $profile);

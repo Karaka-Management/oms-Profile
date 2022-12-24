@@ -105,7 +105,7 @@ class Contact
      * @var int
      * @since 1.0.0
      */
-    private int $profile = 0;
+    public int $profile = 0;
 
     /**
      * Constructor.

@@ -100,8 +100,10 @@ final class BackendController extends Controller
 
         $profileImage = $this->app->appSettings->get(names: SettingsEnum::DEFAULT_PROFILE_IMAGE, module: 'Profile');
 
-        /** @var \Modules\Media\Modles\Media $image */
-        $image = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
+        /** @var \Modules\Media\Models\Media $image */
+        $image = MediaMapper::get()
+            ->where('id', (int) $profileImage->content)
+            ->execute();
 
         $view->setData('defaultImage', $image);
 
@@ -144,7 +146,7 @@ final class BackendController extends Controller
             ->with('location')
             ->with('contactElements');
 
-        /** @var \Modules\Profile\Modles\Profile $profile */
+        /** @var \Modules\Profile\Models\Profile $profile */
         $profile = $request->getData('for') !== null
             ? $mapperQuery->where('account', (int) $request->getData('for'))->execute()
             : $mapperQuery->where('id', (int) $request->getData('id'))->execute();
@@ -162,14 +164,14 @@ final class BackendController extends Controller
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('accGrpSelector', $accGrpSelector);
 
-        /** @var \Modules\Media\Modles\Media[] $media */
+        /** @var \Modules\Media\Models\Media[] $media */
         $media = MediaMapper::getAll()
             ->with('createdBy')
             ->where('createdBy', (int) $profile->account->getId())
             ->limit(25)
             ->execute();
 
-        $view->setData('media', $media instanceof NullMedia ? [] : (!\is_array($media) ? [$media] : $media));
+        $view->setData('media', $media);
 
         $profileImage = $this->app->appSettings->get(names: SettingsEnum::DEFAULT_PROFILE_IMAGE, module: 'Profile');
         $image        = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
