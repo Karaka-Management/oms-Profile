@@ -224,8 +224,17 @@ final class ApiController extends Controller
             return;
         }
 
-        /** @var Profile $profile */
-        $profile = (int) ($request->getData('profile') ?? ProfileMapper::get()->where('account', $request->getData('account'))->execute()->getId());
+        $profile = 0;
+        if ($request->hasData('profile')) {
+            $profile = (int) ($request->getData('profile') ?? 0);
+        } else {
+            /** @var \Modules\Profile\Models\Profile $profileObj */
+            $profileObj = ProfileMapper::get()
+                ->where('account', (int) ($request->getData('account') ?? 0))
+                ->execute();
+
+            $profile = $profileObj->getId();
+        }
 
         $contactElement = $this->createContactElementFromRequest($request);
 
@@ -298,8 +307,17 @@ final class ApiController extends Controller
             return;
         }
 
-        /** @var Profile $profile */
-        $profile = (int) ($request->getData('profile') ?? ProfileMapper::get()->where('account', $request->getData('account'))->execute()->getId());
+        $profile = 0;
+        if ($request->hasData('profile')) {
+            $profile = (int) ($request->getData('profile') ?? 0);
+        } else {
+            /** @var \Modules\Profile\Models\Profile $profileObj */
+            $profileObj = ProfileMapper::get()
+                ->where('account', (int) ($request->getData('account') ?? 0))
+                ->execute();
+
+            $profile = $profileObj->getId();
+        }
 
         $address = $this->createAddressFromRequest($request);
 

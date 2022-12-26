@@ -97,6 +97,7 @@ final class BackendController extends Controller
             );
         }
 
+        /** @var \Model\Setting $profileImage */
         $profileImage = $this->app->appSettings->get(names: SettingsEnum::DEFAULT_PROFILE_IMAGE, module: 'Profile');
 
         /** @var \Modules\Media\Models\Media $image */
@@ -172,8 +173,11 @@ final class BackendController extends Controller
 
         $view->setData('media', $media);
 
+        /** @var \Model\Setting $profileImage */
         $profileImage = $this->app->appSettings->get(names: SettingsEnum::DEFAULT_PROFILE_IMAGE, module: 'Profile');
-        $image        = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
+
+        /** @var \Modules\Media\Models\Media $image */
+        $image = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
 
         $view->setData('defaultImage', $image);
 
