@@ -51,17 +51,6 @@ return [
             ],
         ],
     ],
-    '^.*/admin/module/settings/profile/settings.*$' => [
-        [
-            'dest'       => '\Modules\Profile\Controller\BackendController:viewProfileAdminSettings',
-            'verb'       => RouteVerb::GET,
-            'permission' => [
-                'module' => BackendController::NAME,
-                'type'   => PermissionType::READ,
-                'state'  => PermissionCategory::PROFILE,
-            ],
-        ],
-    ],
     '^.*/admin/module/settings/profile/create.*$' => [
         [
             'dest'       => '\Modules\Profile\Controller\BackendController:viewProfileAdminCreate',
