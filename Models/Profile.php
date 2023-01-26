@@ -64,22 +64,6 @@ class Profile implements \JsonSerializable
     public Account $account;
 
     /**
-     * Location data.
-     *
-     * @var Location[]
-     * @since 1.0.0
-     */
-    protected array $location = [];
-
-    /**
-     * Contact data.
-     *
-     * @var ContactElement[]
-     * @since 1.0.0
-     */
-    protected array $contactElements = [];
-
-    /**
      * Gender.
      *
      * @var int
@@ -96,6 +80,14 @@ class Profile implements \JsonSerializable
     protected int $sex = SexType::OTHER;
 
     /**
+     * Confirmation key.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $confirmation = '';
+
+    /**
      * Constructor.
      *
      * @param null|Account $account Account to initialize this profile with
@@ -104,8 +96,8 @@ class Profile implements \JsonSerializable
      */
     public function __construct(Account $account = null)
     {
-        $this->image   = new NullMedia();
-        $this->account = $account ?? new NullAccount();
+        $this->image     = new NullMedia();
+        $this->account   = $account ?? new NullAccount();
     }
 
     /**
@@ -185,58 +177,6 @@ class Profile implements \JsonSerializable
     }
 
     /**
-     * Get account locations.
-     *
-     * @return Location[]
-     *
-     * @since 1.0.0
-     */
-    public function getLocation() : array
-    {
-        return $this->location;
-    }
-
-    /**
-     * Add location.
-     *
-     * @param Location $location Location
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addLocation(Location $location) : void
-    {
-        $this->location[] = $location;
-    }
-
-    /**
-     * Get account contact element.
-     *
-     * @return ContactElement[]
-     *
-     * @since 1.0.0
-     */
-    public function getContactElements() : array
-    {
-        return $this->contactElements;
-    }
-
-    /**
-     * Add contact element.
-     *
-     * @param ContactElement $contactElement Contact Element
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addContactElement(ContactElement $contactElement) : void
-    {
-        $this->contactElements[] = $contactElement;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toArray() : array
@@ -248,8 +188,6 @@ class Profile implements \JsonSerializable
             'account'         => $this->account,
             'image'           => $this->image,
             'birthday'        => $this->birthday,
-            'locations'       => $this->location,
-            'contactelements' => $this->contactElements,
         ];
     }
 

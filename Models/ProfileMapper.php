@@ -71,27 +71,6 @@ final class ProfileMapper extends DataMapperFactory
     ];
 
     /**
-     * Has many relation.
-     *
-     * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
-     * @since 1.0.0
-     */
-    public const HAS_MANY = [
-        'location' => [
-            'mapper'   => AddressMapper::class,
-            'table'    => 'profile_addressrel',
-            'external' => 'profile_addressrel_address',
-            'self'     => 'profile_addressrel_profile',
-        ],
-        'contactElements' => [
-            'mapper'   => ContactElementMapper::class,
-            'table'    => 'profile_contactelementrel',
-            'self'     => 'profile_contactelementrel_profile',
-            'external' => 'profile_contactelementrel_element',
-        ],
-    ];
-
-    /**
      * Model to use by the mapper.
      *
      * @var string

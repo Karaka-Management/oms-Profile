@@ -29,4 +29,6 @@ abstract class PermissionCategory extends Enum
     public const PROFILE = 1;
 
     public const PROFILE_SETTINGS = 2;
+
+    public const LOGIN = 3;
 }

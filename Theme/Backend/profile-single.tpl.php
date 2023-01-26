@@ -44,9 +44,10 @@ echo $this->getData('nav')->render();
 <div class="tabview tab-2">
     <div class="box wf-100 col-xs-12">
         <ul class="tab-links">
-            <li><label for="c-tab-1"><?= $this->getHtml('General'); ?></label></li>
+            <li><label for="c-tab-1"><?= $this->getHtml('Profile'); ?></label></li>
             <?php if ($this->request->header->account === $account->getId()) : ?>
             <li><label for="c-tab-2"><?= $this->getHtml('Localization'); ?></label></li>
+            <li><label for="c-tab-3"><?= $this->getHtml('Password'); ?></label></li>
             <?php endif; ?>
         </ul>
     </div>
@@ -165,7 +166,9 @@ echo $this->getData('nav')->render();
                 </div>
             </div>
         </div>
-        <?php if ($this->request->header->account === $account->getId()) :
+        <?php
+
+        if ($this->request->header->account === $account->getId()) :
             $countryCodes    = ISO3166TwoEnum::getConstants();
             $countries       = ISO3166NameEnum::getConstants();
             $timezones       = TimeZoneEnumArray::getConstants();
@@ -598,6 +601,39 @@ echo $this->getData('nav')->render();
                     </div>
                 </div>
             </div>
+        </div>
+
+        <input type="radio" id="c-tab-3" name="tabular-2"<?= $this->request->uri->fragment === 'c-tab-3' ? ' checked' : ''; ?>>
+        <div class="tab">
+            <div class="row">
+                <div class="col-xs-12 col-md-4">
+                    <div class="portlet">
+                        <form id="fPassword" name="fPassword" action="<?= UriFactory::build('{/api}profile/settings/password'); ?>" method="post">
+                            <div class="portlet-head"><?= $this->getHtml('Password'); ?></div>
+                            <div class="portlet-body">
+                                <div class="form-group">
+                                    <label for="iOldPass"><?= $this->getHtml('OldPassword'); ?></label>
+                                    <input id="iOldPass" name="oldpass" type="password" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="iNewPass"><?= $this->getHtml('NewPassword'); ?></label>
+                                    <input id="iNewPass" name="newpass" type="password" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="iRepPass"><?= $this->getHtml('RepeatPassword'); ?></label>
+                                    <input id="iRepPass" name="reppass" type="password" required>
+                                </div>
+                            </div>
+                            <div class="portlet-foot">
+                                <input type="submit" name="saveButton" id="iSavePassButton" value="<?= $this->getHtml('Save', '0', '0'); ?>">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?php endif; ?>
     </div>
 </div>

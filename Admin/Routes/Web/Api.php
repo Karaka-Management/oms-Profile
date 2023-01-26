@@ -20,7 +20,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/profile.*$' => [
+    '^.*/profile$' => [
         [
             'dest'       => '\Modules\Profile\Controller\ApiController:apiProfileCreate',
             'verb'       => RouteVerb::PUT,
@@ -35,6 +35,17 @@ return [
     '^.*/profile/settings/localization(\?.*|$)' => [
         [
             'dest'       => '\Modules\Admin\Controller\ApiController:apiSettingsAccountLocalizationSet',
+            'verb'       => RouteVerb::SET,
+            'permission' => [
+                'module' => AdminApiController::NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => AdminPermissionCategory::ACCOUNT_SETTINGS,
+            ],
+        ],
+    ],
+    '^.*/profile/settings/password(\?.*|$)' => [
+        [
+            'dest'       => '\Modules\Admin\Controller\ApiController:apiSettingsAccountPasswordSet',
             'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => AdminApiController::NAME,

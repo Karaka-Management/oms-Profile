@@ -160,58 +160,13 @@
                 "name": "profile_contact_element_content",
                 "type": "VARCHAR(255)",
                 "null": false
-            }
-        }
-    },
-    "profile_contact_elementrel": {
-        "name": "profile_contact_elementrel",
-        "fields": {
-            "profile_contact_elementrel_id": {
-                "name": "profile_contact_elementrel_id",
-                "type": "INT",
-                "null": false,
-                "primary": true,
-                "autoincrement": true
             },
-            "profile_contact_elementrel_contact": {
-                "name": "profile_contact_elementrel_contact",
+            "profile_contact_element_contact": {
+                "name": "profile_contact_element_contact",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "profile_contact",
                 "foreignKey": "profile_contact_id"
-            },
-            "profile_contact_elementrel_element": {
-                "name": "profile_contact_elementrel_element",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "profile_contact_element",
-                "foreignKey": "profile_contact_element_id"
-            }
-        }
-    },
-    "profile_contactelementrel": {
-        "name": "profile_contactelementrel",
-        "fields": {
-            "profile_contactelementrel_id": {
-                "name": "profile_contactelementrel_id",
-                "type": "INT",
-                "null": false,
-                "primary": true,
-                "autoincrement": true
-            },
-            "profile_contactelementrel_profile": {
-                "name": "profile_contactelementrel_profile",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "profile_account",
-                "foreignKey": "profile_account_id"
-            },
-            "profile_contactelementrel_element": {
-                "name": "profile_contactelementrel_element",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "profile_contact_element",
-                "foreignKey": "profile_contact_element_id"
             }
         }
     },
@@ -234,38 +189,6 @@
             },
             "profile_contact_addressrel_address": {
                 "name": "profile_contact_addressrel_address",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "address",
-                "foreignKey": "address_id"
-            }
-        }
-    },
-    "profile_addressrel": {
-        "name": "profile_addressrel",
-        "fields": {
-            "profile_addressrel_id": {
-                "name": "profile_addressrel_id",
-                "type": "INT",
-                "null": false,
-                "primary": true,
-                "autoincrement": true
-            },
-            "profile_addressrel_profile": {
-                "name": "profile_addressrel_profile",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "profile_account",
-                "foreignKey": "profile_account_id"
-            },
-            "profile_addressrel_public": {
-                "name": "profile_addressrel_public",
-                "type": "TINYINT",
-                "default": 1,
-                "null": false
-            },
-            "profile_addressrel_address": {
-                "name": "profile_addressrel_address",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "address",
