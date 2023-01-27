@@ -66,6 +66,8 @@ class ContactElement
      */
     public int $order = 0;
 
+    public int $contact = 0;
+
     /**
      * Get id.
      *

@@ -38,6 +38,7 @@ final class ContactElementMapper extends DataMapperFactory
         'profile_contact_element_subtype' => ['name' => 'profile_contact_element_subtype', 'type' => 'int', 'internal' => 'subtype'],
         'profile_contact_element_order'   => ['name' => 'profile_contact_element_order', 'type' => 'int', 'internal' => 'order'],
         'profile_contact_element_content' => ['name' => 'profile_contact_element_content', 'type' => 'string', 'internal' => 'content'],
+        'profile_contact_element_contact' => ['name' => 'profile_contact_element_contact', 'type' => 'int', 'internal' => 'contact'],
     ];
 
     /**

@@ -16,6 +16,7 @@ namespace Modules\Profile\Models;
 
 use Modules\Media\Models\Media;
 use Modules\Media\Models\NullMedia;
+use phpOMS\Stdlib\Base\Location;
 
 /**
  * Contact element class.
@@ -100,12 +101,28 @@ class Contact
     public Media $image;
 
     /**
-     * Profile this contact belongs to
+     * Account this contact belongs to
      *
      * @var int
      * @since 1.0.0
      */
     public int $profile = 0;
+
+    /**
+     * Location data.
+     *
+     * @var Location[]
+     * @since 1.0.0
+     */
+    protected array $locations = [];
+
+    /**
+     * Contact data.
+     *
+     * @var Contact[]
+     * @since 1.0.0
+     */
+    protected array $contacts = [];
 
     /**
      * Constructor.
@@ -115,6 +132,58 @@ class Contact
     public function __construct()
     {
         $this->image = new NullMedia();
+    }
+
+    /**
+     * Get account locations.
+     *
+     * @return Location[]
+     *
+     * @since 1.0.0
+     */
+    public function getLocations() : array
+    {
+        return $this->locations;
+    }
+
+    /**
+     * Add location.
+     *
+     * @param Location $location Location
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addLocation(Location $location) : void
+    {
+        $this->locations[] = $location;
+    }
+
+    /**
+     * Get account contact element.
+     *
+     * @return Contact[]
+     *
+     * @since 1.0.0
+     */
+    public function getContacts() : array
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * Add contact element.
+     *
+     * @param Contact $contact Contact Element
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addContact(Contact $contact) : void
+    {
+        $this->contacts[] = $contact;
     }
 
     /**

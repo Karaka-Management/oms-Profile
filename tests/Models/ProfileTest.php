@@ -46,8 +46,6 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->profile->getId());
         self::assertEquals(GenderType::OTHER, $this->profile->getGender());
         self::assertEquals(SexType::OTHER, $this->profile->getSex());
-        self::assertEquals([], $this->profile->getLocation());
-        self::assertEquals([], $this->profile->getContactElements());
         self::assertInstanceOf('\Modules\Media\Models\Media', $this->profile->image);
         self::assertInstanceOf('\Modules\Admin\Models\Account', $this->profile->account);
         self::assertNull($this->profile->birthday);
@@ -119,26 +117,6 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
      * @covers Modules\Profile\Models\Profile
      * @group module
      */
-    public function testLocationInputOutput() : void
-    {
-        $this->profile->addLocation(new Location());
-        self::assertCount(1, $this->profile->getLocation());
-    }
-
-    /**
-     * @covers Modules\Profile\Models\Profile
-     * @group module
-     */
-    public function testContactElementInputOutput() : void
-    {
-        $this->profile->addContactElement(new ContactElement());
-        self::assertCount(1, $this->profile->getContactElements());
-    }
-
-    /**
-     * @covers Modules\Profile\Models\Profile
-     * @group module
-     */
     public function testAccountInputOutput() : void
     {
         $this->profile->account = new NullAccount(1);
@@ -168,8 +146,6 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
                 'account'         => $a,
                 'image'           => $i,
                 'birthday'        => $date,
-                'locations'       => [],
-                'contactelements' => [],
             ],
             $this->profile->jsonSerialize()
         );

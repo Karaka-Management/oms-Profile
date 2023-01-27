@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Profile\Models;
 
+use Modules\Admin\Models\AddressMapper;
 use Modules\Media\Models\MediaMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
@@ -48,7 +49,7 @@ final class ContactMapper extends DataMapperFactory
     /**
      * Has one relation.
      *
-     * @var array<string, array{mapper:string, external:string, by?:string, column?:string, conditional?:bool}>
+     * @var array<string, array{mapper:class-string, external:string, by?:string, column?:string, conditional?:bool}>
      * @since 1.0.0
      */
     public const OWNS_ONE = [
@@ -73,4 +74,25 @@ final class ContactMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const PRIMARYFIELD ='profile_contact_id';
+
+    /**
+     * Has many relation.
+     *
+     * @var array<string, array{mapper:class-string, table:string, self?:?string, external?:?string, column?:string}>
+     * @since 1.0.0
+     */
+    public const HAS_MANY = [
+        'locations' => [
+            'mapper'   => AddressMapper::class,
+            'table'    => 'profile_contact_addressrel',
+            'external' => 'profile_contact_addressrel_address',
+            'self'     => 'profile_contact_addressrel_contact',
+        ],
+        'contacts' => [
+            'mapper'   => ContactElementMapper::class,
+            'table'    => 'profile_contact_element',
+            'self'     => 'profile_contact_element_contact',
+            'external' => null,
+        ],
+    ];
 }

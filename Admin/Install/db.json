@@ -22,11 +22,13 @@
             },
             "profile_account_gender": {
                 "name": "profile_account_gender",
-                "type": "INT"
+                "type": "INT",
+                "null": false
             },
             "profile_account_sex": {
                 "name": "profile_account_sex",
-                "type": "INT"
+                "type": "INT",
+                "null": false
             },
             "profile_account_birthday": {
                 "name": "profile_account_birthday",

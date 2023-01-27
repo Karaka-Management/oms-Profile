@@ -183,15 +183,28 @@ final class ApiController extends Controller
         $old     = clone $profile;
 
         $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
-            $request->getDataList('names'),
-            $request->getDataList('filenames'),
-            $uploadedFiles,
-            $request->header->account,
-            __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->getId(),
-            '/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
-            $request->getData('type', 'int'),
+            names: $request->getDataList('names'),
+            fileNames: $request->getDataList('filenames'),
+            files: $uploadedFiles,
+            account: $request->header->account,
+            basePath: __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->getId(),
+            virtualPath: '/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
             pathSettings: PathSettings::FILE_PATH
         );
+
+        if ($request->hasData('type')) {
+            foreach ($uploaded as $file) {
+                $this->createModelRelation(
+                    $request->header->account,
+                    $file->getId(),
+                    $request->getData('type', 'int'),
+                    MediaMapper::class,
+                    'types',
+                    '',
+                    $request->getOrigin()
+                );
+            }
+        }
 
         $profile->image = !empty($uploaded) ? \reset($uploaded) : new NullMedia();
         if (!($profile->image instanceof NullMedia)) {
@@ -258,6 +271,7 @@ final class ApiController extends Controller
         if (($val['account'] = (empty($request->getData('account')) && empty($request->getData('profile'))))
             || ($val['type'] = !\is_numeric($request->getData('type')))
             || ($val['content'] = empty($request->getData('content')))
+            || ($val['contact'] = empty($request->getData('contact')))
         ) {
             return $val;
         }
@@ -281,6 +295,7 @@ final class ApiController extends Controller
         $element->setType((int) ($request->getData('type') ?? 0));
         $element->setSubtype((int) ($request->getData('subtype') ?? 0));
         $element->content = (string) ($request->getData('content') ?? '');
+        $element->contact = (int) ($request->getData('contact') ?? 0);
 
         return $element;
     }

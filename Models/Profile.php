@@ -96,8 +96,8 @@ class Profile implements \JsonSerializable
      */
     public function __construct(Account $account = null)
     {
-        $this->image     = new NullMedia();
-        $this->account   = $account ?? new NullAccount();
+        $this->image   = new NullMedia();
+        $this->account = $account ?? new NullAccount();
     }
 
     /**
