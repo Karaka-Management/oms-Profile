@@ -101,7 +101,7 @@ echo $this->getData('nav')->render();
                                     <th><?= $this->getHtml('Address'); ?>
                                     <td>
                                 <?php
-                                    $locations = $profile->getLocation();
+                                    $locations = $profile->account->getLocations();
                                     if (empty($locations)) :
                                 ?>
                                 <tr>
@@ -125,7 +125,7 @@ echo $this->getData('nav')->render();
                                     <th><?= $this->getHtml('Contact'); ?>
                                     <td>
                                     <?php
-                                    $contacts = $profile->getContactElements();
+                                    $contacts = $profile->account->getContacts();
                                     if (empty($contacts)) :
                                 ?>
                                 <tr>

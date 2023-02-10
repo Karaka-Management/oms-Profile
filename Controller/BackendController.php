@@ -142,9 +142,8 @@ final class BackendController extends Controller
 
         $mapperQuery = ProfileMapper::get()
             ->with('account')
-            ->with('image')
-            ->with('location')
-            ->with('contactElements');
+            ->with('account/locations')
+            ->with('image');
 
         /** @var \Modules\Profile\Models\Profile $profile */
         $profile = $request->getData('for') !== null
