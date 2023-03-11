@@ -73,7 +73,7 @@ final class ContactMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='profile_contact_id';
+    public const PRIMARYFIELD = 'profile_contact_id';
 
     /**
      * Has many relation.

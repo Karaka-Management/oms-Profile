@@ -55,5 +55,5 @@ final class ContactElementMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='profile_contact_element_id';
+    public const PRIMARYFIELD = 'profile_contact_element_id';
 }

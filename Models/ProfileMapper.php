@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\Profile\Models;
 
 use Modules\Admin\Models\AccountMapper;
-use Modules\Admin\Models\AddressMapper;
 use Modules\Media\Models\MediaMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
@@ -92,5 +91,5 @@ final class ProfileMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='profile_account_id';
+    public const PRIMARYFIELD = 'profile_account_id';
 }
