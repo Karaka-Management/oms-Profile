@@ -6,7 +6,7 @@
  *
  * @package   Modules\Profile
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -29,7 +29,7 @@ use phpOMS\Views\View;
  * Profile class.
  *
  * @package Modules\Profile
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  * @codeCoverageIgnore
@@ -76,7 +76,7 @@ final class BackendController extends Controller
                 ProfileMapper::getAll()
                     ->with('account')
                     ->with('image')
-                    ->where('id', (int) ($request->getData('id') ?? 0), '<')
+                    ->where('id', $request->getDataInt('id') ?? 0, '<')
                     ->limit(25)->execute()
                 );
         } elseif ($request->getData('ptype') === 'n') {
@@ -84,7 +84,7 @@ final class BackendController extends Controller
                 ProfileMapper::getAll()
                     ->with('account')
                     ->with('image')
-                    ->where('id', (int) ($request->getData('id') ?? 0), '>')
+                    ->where('id', $request->getDataInt('id') ?? 0, '>')
                     ->limit(25)->execute()
                 );
         } else {
@@ -146,7 +146,7 @@ final class BackendController extends Controller
             ->with('image');
 
         /** @var \Modules\Profile\Models\Profile $profile */
-        $profile = $request->getData('for') !== null
+        $profile = $request->hasData('for')
             ? $mapperQuery->where('account', (int) $request->getData('for'))->execute()
             : $mapperQuery->where('id', (int) $request->getData('id'))->execute();
 

@@ -6,7 +6,7 @@
  *
  * @package   Modules\Profile\Admin
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -26,7 +26,7 @@ use phpOMS\Module\ModuleInfo;
  * Installer class.
  *
  * @package Modules\Profile\Admin
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -59,7 +59,9 @@ final class Installer extends InstallerAbstract
      */
     private static function createProfiles() : void
     {
-        $profile = new Profile(AccountMapper::get()->where('id', 1)->execute());
+        /** @var \Modules\Admin\Models\Account $account */
+        $account = AccountMapper::get()->where('id', 1)->execute();
+        $profile = new Profile($account);
         ProfileMapper::create()->execute($profile);
     }
 }

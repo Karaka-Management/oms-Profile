@@ -6,7 +6,7 @@
  *
  * @package   Modules\Profile
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -21,8 +21,8 @@ use phpOMS\Uri\UriFactory;
  */
 $accounts = $this->getData('accounts') ?? [];
 
-$previous = empty($accounts) ? '{/lang}/{/app}profile/list' : '{/lang}/{/app}/profile/list?{?}&id=' . \reset($accounts)->getId() . '&ptype=p';
-$next     = empty($accounts) ? '{/lang}/{/app}profile/list' : '{/lang}/{/app}/profile/list?{?}&id=' . \end($accounts)->getId() . '&ptype=n';
+$previous = empty($accounts) ? '{/base}profile/list' : '{/base}/profile/list?{?}&id=' . \reset($accounts)->getId() . '&ptype=p';
+$next     = empty($accounts) ? '{/base}profile/list' : '{/base}/profile/list?{?}&id=' . \end($accounts)->getId() . '&ptype=n';
 ?>
 <div class="row">
     <div class="col-xs-12">
@@ -60,7 +60,7 @@ $next     = empty($accounts) ? '{/lang}/{/app}profile/list' : '{/lang}/{/app}/pr
                 <tbody>
                 <?php $count = 0;
                     foreach ($accounts as $key => $account) : ++$count;
-                        $url = UriFactory::build('{/lang}/{/app}/profile/single?{?}&id=' . $account->getId());
+                        $url = UriFactory::build('{/base}/profile/single?{?}&id=' . $account->getId());
                 ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_user'); ?>" width="30" loading="lazy" class="profile-image"

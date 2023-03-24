@@ -6,7 +6,7 @@
  *
  * @package   Modules\Profile
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,6 +18,7 @@ use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\Address;
 use Modules\Admin\Models\AddressMapper;
 use Modules\Media\Models\NullMedia;
+use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\PathSettings;
 use Modules\Profile\Models\ContactElement;
 use Modules\Profile\Models\ContactElementMapper;
@@ -33,7 +34,7 @@ use phpOMS\Model\Message\FormValidation;
  * Profile class.
  *
  * @package Modules\Profile
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -148,7 +149,9 @@ final class ApiController extends Controller
                 continue;
             }
 
-            $profiles[] = new Profile(AccountMapper::get()->where('id', $account)->execute());
+            /** @var \Modules\Admin\Models\Account $dbAccount */
+            $dbAccount  = AccountMapper::get()->where('id', $account)->execute();
+            $profiles[] = new Profile($dbAccount);
         }
 
         return $profiles;
@@ -197,7 +200,7 @@ final class ApiController extends Controller
                 $this->createModelRelation(
                     $request->header->account,
                     $file->getId(),
-                    $request->getData('type', 'int'),
+                    $request->getDataInt('type'),
                     MediaMapper::class,
                     'types',
                     '',
@@ -239,11 +242,11 @@ final class ApiController extends Controller
 
         $profile = 0;
         if ($request->hasData('profile')) {
-            $profile = (int) ($request->getData('profile') ?? 0);
+            $profile = $request->getDataInt('profile') ?? 0;
         } else {
             /** @var \Modules\Profile\Models\Profile $profileObj */
             $profileObj = ProfileMapper::get()
-                ->where('account', (int) ($request->getData('account') ?? 0))
+                ->where('account', $request->getDataInt('account') ?? 0)
                 ->execute();
 
             $profile = $profileObj->getId();
@@ -292,10 +295,10 @@ final class ApiController extends Controller
     {
         /** @var ContactElement $element */
         $element = new ContactElement();
-        $element->setType((int) ($request->getData('type') ?? 0));
-        $element->setSubtype((int) ($request->getData('subtype') ?? 0));
-        $element->content = (string) ($request->getData('content') ?? '');
-        $element->contact = (int) ($request->getData('contact') ?? 0);
+        $element->setType($request->getDataInt('type') ?? 0);
+        $element->setSubtype($request->getDataInt('subtype') ?? 0);
+        $element->content = $request->getDataString('content') ?? '';
+        $element->contact = $request->getDataInt('contact') ?? 0;
 
         return $element;
     }
@@ -324,11 +327,11 @@ final class ApiController extends Controller
 
         $profile = 0;
         if ($request->hasData('profile')) {
-            $profile = (int) ($request->getData('profile') ?? 0);
+            $profile = $request->getDataInt('profile') ?? 0;
         } else {
             /** @var \Modules\Profile\Models\Profile $profileObj */
             $profileObj = ProfileMapper::get()
-                ->where('account', (int) ($request->getData('account') ?? 0))
+                ->where('account', $request->getDataInt('account') ?? 0)
                 ->execute();
 
             $profile = $profileObj->getId();
@@ -378,14 +381,14 @@ final class ApiController extends Controller
     {
         /** @var Address $element */
         $element           = new Address();
-        $element->name     = (string) ($request->getData('name') ?? '');
-        $element->addition = (string) ($request->getData('addition') ?? '');
-        $element->postal   = (string) ($request->getData('postal') ?? '');
-        $element->city     = (string) ($request->getData('city') ?? '');
-        $element->address  = (string) ($request->getData('address') ?? '');
-        $element->state    = (string) ($request->getData('state') ?? '');
-        $element->setCountry((string) ($request->getData('country') ?? ''));
-        $element->setType((int) ($request->getData('type') ?? 0));
+        $element->name     = $request->getDataString('name') ?? '';
+        $element->addition = $request->getDataString('addition') ?? '';
+        $element->postal   = $request->getDataString('postal') ?? '';
+        $element->city     = $request->getDataString('city') ?? '';
+        $element->address  = $request->getDataString('address') ?? '';
+        $element->state    = $request->getDataString('state') ?? '';
+        $element->setCountry($request->getDataString('country') ?? '');
+        $element->setType($request->getDataInt('type') ?? 0);
 
         return $element;
     }
