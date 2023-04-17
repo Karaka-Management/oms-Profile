@@ -17,8 +17,8 @@ namespace Modules\Profile\Controller;
 use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\Address;
 use Modules\Admin\Models\AddressMapper;
-use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\MediaMapper;
+use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
 use Modules\Profile\Models\ContactElement;
 use Modules\Profile\Models\ContactElementMapper;
@@ -271,10 +271,10 @@ final class ApiController extends Controller
     public function validateContactElementCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['account'] = (empty($request->getData('account')) && empty($request->getData('profile'))))
+        if (($val['account'] = (!$request->hasData('account') && !$request->hasData('profile')))
             || ($val['type'] = !\is_numeric($request->getData('type')))
-            || ($val['content'] = empty($request->getData('content')))
-            || ($val['contact'] = empty($request->getData('contact')))
+            || ($val['content'] = !$request->hasData('content'))
+            || ($val['contact'] = !$request->hasData('contact'))
         ) {
             return $val;
         }
@@ -356,11 +356,11 @@ final class ApiController extends Controller
     private function validateAddressCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['account'] = (empty($request->getData('account')) && empty($request->getData('profile'))))
+        if (($val['account'] = (!$request->hasData('account') && !$request->hasData('profile')))
             || ($val['type'] = !\is_numeric($request->getData('type')))
-            || ($val['country'] = empty($request->getData('country')))
-            || ($val['city'] = empty($request->getData('city')))
-            || ($val['address'] = empty($request->getData('address')))
+            || ($val['country'] = !$request->hasData('country'))
+            || ($val['city'] = !$request->hasData('city'))
+            || ($val['address'] = !$request->hasData('address'))
         ) {
             return $val;
         }
