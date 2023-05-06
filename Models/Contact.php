@@ -34,7 +34,7 @@ class Contact
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Name1
@@ -132,58 +132,6 @@ class Contact
     public function __construct()
     {
         $this->image = new NullMedia();
-    }
-
-    /**
-     * Get account locations.
-     *
-     * @return Location[]
-     *
-     * @since 1.0.0
-     */
-    public function getLocations() : array
-    {
-        return $this->locations;
-    }
-
-    /**
-     * Add location.
-     *
-     * @param Location $location Location
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addLocation(Location $location) : void
-    {
-        $this->locations[] = $location;
-    }
-
-    /**
-     * Get account contact element.
-     *
-     * @return Contact[]
-     *
-     * @since 1.0.0
-     */
-    public function getContacts() : array
-    {
-        return $this->contacts;
-    }
-
-    /**
-     * Add contact element.
-     *
-     * @param Contact $contact Contact Element
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addContact(Contact $contact) : void
-    {
-        $this->contacts[] = $contact;
     }
 
     /**

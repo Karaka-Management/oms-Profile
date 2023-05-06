@@ -45,7 +45,7 @@ echo $this->getData('nav')->render();
     <div class="box wf-100 col-xs-12">
         <ul class="tab-links">
             <li><label for="c-tab-1"><?= $this->getHtml('Profile'); ?></label></li>
-            <?php if ($this->request->header->account === $account->getId()) : ?>
+            <?php if ($this->request->header->account === $account->id) : ?>
             <li><label for="c-tab-2"><?= $this->getHtml('Localization'); ?></label></li>
             <li><label for="c-tab-3"><?= $this->getHtml('Password'); ?></label></li>
             <?php endif; ?>
@@ -71,12 +71,11 @@ echo $this->getData('nav')->render();
                                 <div><img id="preview-profileImage" class="m-profile rf"
                                     alt="<?= $this->getHtml('ProfileImage'); ?>"
                                     itemprop="logo" loading="lazy"
-                                    src="<?=
-                                        $profile->image instanceof NullMedia
+                                    src="<?= $profile->image->id === 0
                                             ? UriFactory::build($this->getData('defaultImage')->getPath())
                                             : UriFactory::build($profile->image->getPath()); ?>"
                                 width="100px"></div>
-                                <?php if ($this->request->header->account === $account->getId()) : ?>
+                                <?php if ($this->request->header->account === $account->id) : ?>
                                     <div><a id="iProfileUploadButton" href="#upload" data-action='[
                                         {"listener": "click", "key": 1, "action": [
                                             {"key": 1, "type": "event.prevent"},
@@ -101,7 +100,7 @@ echo $this->getData('nav')->render();
                                     <th><?= $this->getHtml('Address'); ?>
                                     <td>
                                 <?php
-                                    $locations = $profile->account->getLocations();
+                                    $locations = $profile->account->locations;
                                     if (empty($locations)) :
                                 ?>
                                 <tr>
@@ -125,7 +124,7 @@ echo $this->getData('nav')->render();
                                     <th><?= $this->getHtml('Contact'); ?>
                                     <td>
                                     <?php
-                                    $contacts = $profile->account->getContacts();
+                                    $contacts = $profile->account->contacts;
                                     if (empty($contacts)) :
                                 ?>
                                 <tr>
@@ -149,7 +148,7 @@ echo $this->getData('nav')->render();
                                     <td><span class="tag green"><?= $this->getHtml(':s' . $account->getStatus(), 'Admin'); ?></span>
                             </table>
                         </div>
-                        <?php if ($this->request->header->account === $account->getId()) : ?>
+                        <?php if ($this->request->header->account === $account->id) : ?>
                             <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0'); ?></button></div>
                         <?php endif; ?>
                     </div>
@@ -168,7 +167,7 @@ echo $this->getData('nav')->render();
         </div>
         <?php
 
-        if ($this->request->header->account === $account->getId()) :
+        if ($this->request->header->account === $account->id) :
             $countryCodes    = ISO3166TwoEnum::getConstants();
             $countries       = ISO3166NameEnum::getConstants();
             $timezones       = TimeZoneEnumArray::getConstants();
@@ -230,7 +229,7 @@ echo $this->getData('nav')->render();
                                 </table>
                             </div>
                             <div class="portlet-foot">
-                                <input type="hidden" name="account_id" value="<?= $account->getId(); ?>">
+                                <input type="hidden" name="account_id" value="<?= $account->id; ?>">
                                 <input id="iSubmitLocalization" name="submitLocalization" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                             </div>
                         </form>

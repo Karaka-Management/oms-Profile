@@ -37,7 +37,7 @@ final class ContactTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->contact->getId());
+        self::assertEquals(0, $this->contact->id);
         self::assertEquals('', $this->contact->name1);
         self::assertEquals('', $this->contact->name2);
         self::assertEquals('', $this->contact->name3);

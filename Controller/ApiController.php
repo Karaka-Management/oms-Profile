@@ -84,7 +84,7 @@ final class ApiController extends Controller
      */
     public function apiProfileCreateDbEntry(Profile $profile, RequestAbstract $request) : bool
     {
-        if ($profile->getId() !== 0) {
+        if ($profile->id !== 0) {
             return false;
         }
 
@@ -144,7 +144,7 @@ final class ApiController extends Controller
             /** @var Profile $isInDb */
             $isInDb = ProfileMapper::get()->where('account', $account)->execute();
 
-            if ($isInDb->getId() !== 0) {
+            if ($isInDb->id !== 0) {
                 $profiles[] = $isInDb;
                 continue;
             }
@@ -190,8 +190,8 @@ final class ApiController extends Controller
             fileNames: $request->getDataList('filenames'),
             files: $uploadedFiles,
             account: $request->header->account,
-            basePath: __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->getId(),
-            virtualPath: '/Accounts/' . $profile->account->getId() . ' ' . $profile->account->login,
+            basePath: __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->id,
+            virtualPath: '/Accounts/' . $profile->account->id . ' ' . $profile->account->login,
             pathSettings: PathSettings::FILE_PATH
         );
 
@@ -199,7 +199,7 @@ final class ApiController extends Controller
             foreach ($uploaded as $file) {
                 $this->createModelRelation(
                     $request->header->account,
-                    $file->getId(),
+                    $file->id,
                     $request->getDataInt('type'),
                     MediaMapper::class,
                     'types',
@@ -210,7 +210,7 @@ final class ApiController extends Controller
         }
 
         $profile->image = !empty($uploaded) ? \reset($uploaded) : new NullMedia();
-        if (!($profile->image instanceof NullMedia)) {
+        if ($profile->image->id > 0) {
             $profile->image = $this->app->moduleManager->get('Media')->resizeImage($profile->image, 100, 100, false);
         }
 
@@ -249,13 +249,13 @@ final class ApiController extends Controller
                 ->where('account', $request->getDataInt('account') ?? 0)
                 ->execute();
 
-            $profile = $profileObj->getId();
+            $profile = $profileObj->id;
         }
 
         $contactElement = $this->createContactElementFromRequest($request);
 
         $this->createModel($request->header->account, $contactElement, ContactElementMapper::class, 'profile-contactElement', $request->getOrigin());
-        $this->createModelRelation($request->header->account, $profile, $contactElement->getId(), ProfileMapper::class, 'contactElements', '', $request->getOrigin());
+        $this->createModelRelation($request->header->account, $profile, $contactElement->id, ProfileMapper::class, 'contactElements', '', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Contact Element', 'Contact element successfully created', $contactElement);
     }
 
@@ -334,13 +334,13 @@ final class ApiController extends Controller
                 ->where('account', $request->getDataInt('account') ?? 0)
                 ->execute();
 
-            $profile = $profileObj->getId();
+            $profile = $profileObj->id;
         }
 
         $address = $this->createAddressFromRequest($request);
 
         $this->createModel($request->header->account, $address, AddressMapper::class, 'profile-address', $request->getOrigin());
-        $this->createModelRelation($request->header->account, $profile, $address->getId(), ProfileMapper::class, 'location', '', $request->getOrigin());
+        $this->createModelRelation($request->header->account, $profile, $address->id, ProfileMapper::class, 'location', '', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Address', 'Address successfully created', $address);
     }
 

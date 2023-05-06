@@ -39,7 +39,7 @@ final class ProfileMapperTest extends \PHPUnit\Framework\TestCase
         $media->extension = 'png';
         $media->name      = 'Image';
 
-        if (($profile = ProfileMapper::get()->where('account', 1)->execute())->getId() === 0) {
+        if (($profile = ProfileMapper::get()->where('account', 1)->execute())->id === 0) {
             $profile = new Profile();
 
             $profile->account  = AccountMapper::get()->where('id', 1)->execute();
@@ -47,8 +47,8 @@ final class ProfileMapperTest extends \PHPUnit\Framework\TestCase
             $profile->birthday =  new \DateTime('now');
 
             $id = ProfileMapper::create()->execute($profile);
-            self::assertGreaterThan(0, $profile->getId());
-            self::assertEquals($id, $profile->getId());
+            self::assertGreaterThan(0, $profile->id);
+            self::assertEquals($id, $profile->id);
         } else {
             $profile->image    = $media;
             $profile->birthday =  new \DateTime('now');
@@ -56,7 +56,7 @@ final class ProfileMapperTest extends \PHPUnit\Framework\TestCase
             ProfileMapper::update()->with('image')->execute($profile);
         }
 
-        $profileR = ProfileMapper::get()->with('image')->with('account')->where('id', $profile->getId())->execute();
+        $profileR = ProfileMapper::get()->with('image')->with('account')->where('id', $profile->id)->execute();
         self::assertEquals($profile->birthday->format('Y-m-d'), $profileR->birthday->format('Y-m-d'));
         self::assertEquals($profile->image->name, $profileR->image->name);
     }

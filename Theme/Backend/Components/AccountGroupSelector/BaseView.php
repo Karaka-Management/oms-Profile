@@ -44,7 +44,7 @@ class BaseView extends View
      * @var bool
      * @since 1.0.0
      */
-    private bool $isRequired = false;
+    public bool $isRequired = false;
 
     /**
      * Dom name

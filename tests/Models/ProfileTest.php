@@ -43,7 +43,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->profile->getId());
+        self::assertEquals(0, $this->profile->id);
         self::assertEquals(GenderType::OTHER, $this->profile->getGender());
         self::assertEquals(SexType::OTHER, $this->profile->getSex());
         self::assertInstanceOf('\Modules\Media\Models\Media', $this->profile->image);
@@ -110,7 +110,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     public function testImageInputOutput() : void
     {
         $this->profile->image = new NullMedia(1);
-        self::assertEquals(1, $this->profile->image->getId());
+        self::assertEquals(1, $this->profile->image->id);
     }
 
     /**
@@ -120,10 +120,10 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     public function testAccountInputOutput() : void
     {
         $this->profile->account = new NullAccount(1);
-        self::assertEquals(1, $this->profile->account->getId());
+        self::assertEquals(1, $this->profile->account->id);
 
         $profile = new Profile(new NullAccount(1));
-        self::assertEquals(1, $profile->account->getId());
+        self::assertEquals(1, $profile->account->id);
     }
 
     /**

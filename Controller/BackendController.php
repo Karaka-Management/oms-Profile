@@ -153,9 +153,9 @@ final class BackendController extends Controller
         $view->setData('account', $profile);
 
         $l11n = null;
-        if ($profile->account->getId() === $request->header->account) {
+        if ($profile->account->id === $request->header->account) {
             /** @var \phpOMS\Localization\Localization $l11n */
-            $l11n = LocalizationMapper::get()->where('id', $profile->account->l11n->getId())->execute();
+            $l11n = LocalizationMapper::get()->where('id', $profile->account->l11n->id)->execute();
         }
 
         $view->setData('l11n', $l11n ?? new NullLocalization());
@@ -166,7 +166,7 @@ final class BackendController extends Controller
         /** @var \Modules\Media\Models\Media[] $media */
         $media = MediaMapper::getAll()
             ->with('createdBy')
-            ->where('createdBy', (int) $profile->account->getId())
+            ->where('createdBy', (int) $profile->account->id)
             ->limit(25)
             ->execute();
 

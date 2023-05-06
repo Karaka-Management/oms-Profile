@@ -32,7 +32,7 @@ class ContactElement
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Contact element type.
@@ -40,7 +40,7 @@ class ContactElement
      * @var int
      * @since 1.0.0
      */
-    private int $type = 0;
+    public int $type = 0;
 
     /**
      * Contact element subtype.
