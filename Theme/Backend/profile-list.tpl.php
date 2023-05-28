@@ -12,7 +12,6 @@
  */
 declare(strict_types=1);
 
-use Modules\Media\Models\NullMedia;
 use phpOMS\Uri\UriFactory;
 
 /**
@@ -27,7 +26,7 @@ $next     = empty($accounts) ? '{/base}profile/list' : '{/base}/profile/list?{?}
 <div class="row">
     <div class="col-xs-12">
         <div class="portlet">
-            <div class="portlet-head"><?= $this->getHtml('Profiles'); ?><i class="fa fa-download floatRight download btn"></i></div>
+            <div class="portlet-head"><?= $this->getHtml('Profiles'); ?><i class="lni lni-download download btn end-xs"></i></div>
             <div class="slider">
             <table id="profileList" class="default sticky">
                 <thead>
