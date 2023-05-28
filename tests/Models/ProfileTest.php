@@ -16,11 +16,9 @@ namespace Modules\Profile\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\NullMedia;
-use Modules\Profile\Models\ContactElement;
 use Modules\Profile\Models\GenderType;
 use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\SexType;
-use phpOMS\Stdlib\Base\Location;
 
 /**
  * @internal
