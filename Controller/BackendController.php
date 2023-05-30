@@ -50,7 +50,7 @@ final class BackendController extends Controller
     public function setupProfileStyles(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var \phpOMS\Model\Html\Head $head */
-        $head = $response->get('Content')->getData('head');
+        $head = $response->get('Content')->head;
         $head->addAsset(AssetType::CSS, 'Modules/Profile/Theme/Backend/css/styles.css?v=1.0.0');
     }
 
@@ -72,29 +72,23 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Profile/Theme/Backend/profile-list');
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('accounts',
-                ProfileMapper::getAll()
+            $view->data['accounts'] = ProfileMapper::getAll()
                     ->with('account')
                     ->with('image')
                     ->where('id', $request->getDataInt('id') ?? 0, '<')
-                    ->limit(25)->execute()
-                );
+                    ->limit(25)->execute();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('accounts',
-                ProfileMapper::getAll()
+            $view->data['accounts'] = ProfileMapper::getAll()
                     ->with('account')
                     ->with('image')
                     ->where('id', $request->getDataInt('id') ?? 0, '>')
-                    ->limit(25)->execute()
-                );
+                    ->limit(25)->execute();
         } else {
-            $view->setData('accounts',
-                ProfileMapper::getAll()
+            $view->data['accounts'] = ProfileMapper::getAll()
                     ->with('account')
                     ->with('image')
                     ->where('id', 0, '>')
-                    ->limit(25)->execute()
-            );
+                    ->limit(25)->execute();
         }
 
         /** @var \Model\Setting $profileImage */
@@ -105,7 +99,7 @@ final class BackendController extends Controller
             ->where('id', (int) $profileImage->content)
             ->execute();
 
-        $view->setData('defaultImage', $image);
+        $view->data['defaultImage'] = $image;
 
         return $view;
     }
@@ -126,19 +120,19 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         /** @var \phpOMS\Model\Html\Head $head */
-        $head = $response->get('Content')->getData('head');
+        $head = $response->get('Content')->head;
         $head->addAsset(AssetType::CSS, '/Modules/Calendar/Theme/Backend/css/styles.css?v=1.0.0');
 
         $view->setTemplate('/Modules/Profile/Theme/Backend/profile-single');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000301001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000301001, $request, $response);
 
         $mediaListView = new \Modules\Media\Theme\Backend\Components\Media\ListView($this->app->l11nManager, $request, $response);
         $mediaListView->setTemplate('/Modules/Media/Theme/Backend/Components/Media/list');
-        $view->addData('medialist', $mediaListView);
+        $view->data['medialist'] = $mediaListView;
 
         $calendarView = new \Modules\Calendar\Theme\Backend\Components\Calendar\BaseView($this->app->l11nManager, $request, $response);
         $calendarView->setTemplate('/Modules/Calendar/Theme/Backend/Components/Calendar/mini');
-        $view->addData('calendar', $calendarView);
+        $view->data['calendar'] = $calendarView;
 
         $mapperQuery = ProfileMapper::get()
             ->with('account')
@@ -150,7 +144,7 @@ final class BackendController extends Controller
             ? $mapperQuery->where('account', (int) $request->getData('for'))->execute()
             : $mapperQuery->where('id', (int) $request->getData('id'))->execute();
 
-        $view->setData('account', $profile);
+        $view->data['account'] = $profile;
 
         $l11n = null;
         if ($profile->account->id === $request->header->account) {
@@ -158,10 +152,10 @@ final class BackendController extends Controller
             $l11n = LocalizationMapper::get()->where('id', $profile->account->l11n->id)->execute();
         }
 
-        $view->setData('l11n', $l11n ?? new NullLocalization());
+        $view->data['l11n'] = $l11n ?? new NullLocalization();
 
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
-        $view->addData('accGrpSelector', $accGrpSelector);
+        $view->data['accGrpSelector'] = $accGrpSelector;
 
         /** @var \Modules\Media\Models\Media[] $media */
         $media = MediaMapper::getAll()
@@ -170,7 +164,7 @@ final class BackendController extends Controller
             ->limit(25)
             ->execute();
 
-        $view->setData('media', $media);
+        $view->data['media'] = $media;
 
         /** @var \Model\Setting $profileImage */
         $profileImage = $this->app->appSettings->get(names: SettingsEnum::DEFAULT_PROFILE_IMAGE, module: 'Profile');
@@ -178,7 +172,7 @@ final class BackendController extends Controller
         /** @var \Modules\Media\Models\Media $image */
         $image = MediaMapper::get()->where('id', (int) $profileImage->content)->execute();
 
-        $view->setData('defaultImage', $image);
+        $view->data['defaultImage'] = $image;
 
         return $view;
     }
@@ -198,7 +192,7 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/' . static::NAME . '/Admin/Settings/Theme/Backend/settings');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000300000, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000300000, $request, $response);
 
         return $view;
     }
@@ -218,10 +212,10 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/Profile/Theme/Backend/modules-create');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000300000, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000300000, $request, $response);
 
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
-        $view->addData('accGrpSelector', $accGrpSelector);
+        $view->data['accGrpSelector'] = $accGrpSelector;
 
         return $view;
     }

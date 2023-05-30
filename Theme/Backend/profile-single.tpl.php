@@ -30,15 +30,15 @@ use phpOMS\Utils\Converter\WeightType;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\Profile\Models\Profile $profile */
-$profile = $this->getData('account');
+$profile = $this->data['account'];
 
 /** @var \Modules\Media\Models\Media[] $media */
-$media   = $this->getData('media') ?? [];
+$media   = $this->data['media'] ?? [];
 
 $account = $profile->account;
-$l11n    = $this->getData('l11n');
+$l11n    = $this->data['l11n'];
 
-echo $this->getData('nav')->render();
+echo $this->data['nav']->render();
 ?>
 <div class="tabview tab-2">
     <div class="box wf-100 col-xs-12">
