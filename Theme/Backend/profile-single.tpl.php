@@ -30,15 +30,15 @@ use phpOMS\Utils\Converter\WeightType;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\Profile\Models\Profile $profile */
-$profile = $this->getData('account');
+$profile = $this->data['account'];
 
 /** @var \Modules\Media\Models\Media[] $media */
-$media   = $this->getData('media') ?? [];
+$media   = $this->data['media'] ?? [];
 
 $account = $profile->account;
-$l11n    = $this->getData('l11n');
+$l11n    = $this->data['l11n'];
 
-echo $this->getData('nav')->render();
+echo $this->data['nav']->render();
 ?>
 <div class="tabview tab-2">
     <div class="box wf-100 col-xs-12">
@@ -215,7 +215,7 @@ echo $this->getData('nav')->render();
                                     <tr><td colspan="2">
                                             <select id="iLanguages" name="settings_language">
                                                 <?php foreach ($languages as $code => $language) : $code = \strtolower(\substr($code, 1)); ?>
-                                                <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($code === $l11n->getLanguage() ? ' selected' : ''); ?>><?= $this->printHtml($language); ?>
+                                                <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($code === $l11n->language ? ' selected' : ''); ?>><?= $this->printHtml($language); ?>
                                                 <?php endforeach; ?>
                                             </select>
                                     <tr><td colspan="2"><label for="iTemperature"><?= $this->getHtml('Temperature'); ?></label>

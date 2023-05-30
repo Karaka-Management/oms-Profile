@@ -172,7 +172,7 @@ final class ApiController extends Controller
      */
     public function apiSettingsAccountImageSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        $uploadedFiles = $request->getFiles();
+        $uploadedFiles = $request->files;
 
         if (empty($uploadedFiles)) {
             $this->fillJsonResponse($request, $response, NotificationLevel::ERROR, 'Profile', 'Invalid profile image', $uploadedFiles);
@@ -234,7 +234,7 @@ final class ApiController extends Controller
     public function apiContactElementCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateContactElementCreate($request))) {
-            $response->set('contact_element_create', new FormValidation($val));
+            $response->data['contact_element_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -319,7 +319,7 @@ final class ApiController extends Controller
     public function apiAddressCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateAddressCreate($request))) {
-            $response->set('address_create', new FormValidation($val));
+            $response->data['address_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;

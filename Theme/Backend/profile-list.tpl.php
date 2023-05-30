@@ -18,7 +18,7 @@ use phpOMS\Uri\UriFactory;
  * @var \phpOMS\Views\View                $this
  * @var \Modules\Profile\Models\Profile[] $accounts
  */
-$accounts = $this->getData('accounts') ?? [];
+$accounts = $this->data['accounts'] ?? [];
 
 $previous = empty($accounts) ? '{/base}profile/list' : '{/base}/profile/list?{?}&id=' . \reset($accounts)->id . '&ptype=p';
 $next     = empty($accounts) ? '{/base}profile/list' : '{/base}/profile/list?{?}&id=' . \end($accounts)->id . '&ptype=n';
