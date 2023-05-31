@@ -154,7 +154,7 @@ final class BackendController extends Controller
 
         $view->data['l11n'] = $l11n ?? new NullLocalization();
 
-        $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
+        $accGrpSelector               = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->data['accGrpSelector'] = $accGrpSelector;
 
         /** @var \Modules\Media\Models\Media[] $media */
@@ -214,7 +214,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/Profile/Theme/Backend/modules-create');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000300000, $request, $response);
 
-        $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
+        $accGrpSelector               = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->data['accGrpSelector'] = $accGrpSelector;
 
         return $view;

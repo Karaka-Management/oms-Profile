@@ -235,7 +235,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateContactElementCreate($request))) {
             $response->data['contact_element_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status                 = RequestStatusCode::R_400;
 
             return;
         }
@@ -320,7 +320,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateAddressCreate($request))) {
             $response->data['address_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status         = RequestStatusCode::R_400;
 
             return;
         }
