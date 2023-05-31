@@ -50,7 +50,7 @@ final class BackendController extends Controller
     public function setupProfileStyles(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var \phpOMS\Model\Html\Head $head */
-        $head = $response->get('Content')->head;
+        $head = $response->data['Content']->head;
         $head->addAsset(AssetType::CSS, 'Modules/Profile/Theme/Backend/css/styles.css?v=1.0.0');
     }
 
@@ -120,7 +120,7 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         /** @var \phpOMS\Model\Html\Head $head */
-        $head = $response->get('Content')->head;
+        $head = $response->data['Content']->head;
         $head->addAsset(AssetType::CSS, '/Modules/Calendar/Theme/Backend/css/styles.css?v=1.0.0');
 
         $view->setTemplate('/Modules/Profile/Theme/Backend/profile-single');
