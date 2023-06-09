@@ -41,7 +41,7 @@ $l11n    = $this->data['l11n'];
 echo $this->data['nav']->render();
 ?>
 <div class="tabview tab-2">
-    <div class="box wf-100 col-xs-12">
+    <div class="box">
         <ul class="tab-links">
             <li><label for="c-tab-1"><?= $this->getHtml('Profile'); ?></label></li>
             <?php if ($this->request->header->account === $account->id) : ?>
@@ -208,7 +208,7 @@ echo $this->data['nav']->render();
                                     <tr><td colspan="2">
                                             <select id="iCountries" name="settings_country">
                                                 <?php foreach ($countryCodes as $code3 => $code2) : ?>
-                                                <option value="<?= $this->printHtml($code2); ?>"<?= $this->printHtml($code2 === $l11n->getCountry() ? ' selected' : ''); ?>><?= $this->printHtml($countries[$code3]); ?>
+                                                <option value="<?= $this->printHtml($code2); ?>"<?= $this->printHtml($code2 === $l11n->country ? ' selected' : ''); ?>><?= $this->printHtml($countries[$code3]); ?>
                                                 <?php endforeach; ?>
                                             </select>
                                     <tr><td colspan="2"><label for="iLanguages"><?= $this->getHtml('Language'); ?></label>
