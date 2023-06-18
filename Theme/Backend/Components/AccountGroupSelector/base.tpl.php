@@ -1,4 +1,4 @@
-<div>
+<div class="wf-100">
     <div class="ipt-wrap wf-100">
         <div class="ipt-first">
             <span class="input">
