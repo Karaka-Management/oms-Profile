@@ -28,7 +28,6 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Message\FormValidation;
 
 /**
  * Profile class.
@@ -65,13 +64,14 @@ final class ApiController extends Controller
             $created[] = $profile;
         }
 
-        $this->fillJsonResponse(
-            $request, $response,
-            $status ? NotificationLevel::OK : NotificationLevel::WARNING,
-            'Profil',
-            $status ? 'Profil successfully created.' : 'Profile already existing.',
-            $created
-        );
+        if (!$status) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $created);
+
+            return;
+        }
+
+        $this->createStandardCreateResponse($request, $response, $created);
     }
 
     /**
@@ -113,7 +113,6 @@ final class ApiController extends Controller
         $account->tempPassword = \password_hash(\random_bytes(64), \PASSWORD_BCRYPT);
 
         $this->updateModel($request->header->account, $account, $account, AccountMapper::class, 'profile', $request->getOrigin());
-
         $this->fillJsonResponse(
             $request, $response,
             NotificationLevel::OK,
@@ -175,8 +174,8 @@ final class ApiController extends Controller
         $uploadedFiles = $request->files;
 
         if (empty($uploadedFiles)) {
-            $this->fillJsonResponse($request, $response, NotificationLevel::ERROR, 'Profile', 'Invalid profile image', $uploadedFiles);
             $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $uploadedFiles);
 
             return;
         }
@@ -215,7 +214,7 @@ final class ApiController extends Controller
         }
 
         $this->updateModel($request->header->account, $old, $profile, ProfileMapper::class, 'profile', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Profile', 'Profile successfully updated', $profile);
+        $this->createStandardUpdateResponse($request, $response, $profile);
     }
 
     /**
@@ -234,8 +233,8 @@ final class ApiController extends Controller
     public function apiContactElementCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateContactElementCreate($request))) {
-            $response->data['contact_element_create'] = new FormValidation($val);
-            $response->header->status                 = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -256,7 +255,7 @@ final class ApiController extends Controller
 
         $this->createModel($request->header->account, $contactElement, ContactElementMapper::class, 'profile-contactElement', $request->getOrigin());
         $this->createModelRelation($request->header->account, $profile, $contactElement->id, ProfileMapper::class, 'contactElements', '', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Contact Element', 'Contact element successfully created', $contactElement);
+        $this->createStandardCreateResponse($request, $response, $contactElement);
     }
 
     /**
@@ -319,8 +318,8 @@ final class ApiController extends Controller
     public function apiAddressCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateAddressCreate($request))) {
-            $response->data['address_create'] = new FormValidation($val);
-            $response->header->status         = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -341,7 +340,7 @@ final class ApiController extends Controller
 
         $this->createModel($request->header->account, $address, AddressMapper::class, 'profile-address', $request->getOrigin());
         $this->createModelRelation($request->header->account, $profile, $address->id, ProfileMapper::class, 'location', '', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Address', 'Address successfully created', $address);
+        $this->createStandardCreateResponse($request, $response, $address);
     }
 
     /**
