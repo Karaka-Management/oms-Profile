@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/profile.*$' => [
+    '^.*/profile\?.*$' => [
         [
             'dest'       => '\Modules\Profile\Controller\BackendController:setupProfileStyles',
             'verb'       => RouteVerb::GET,
