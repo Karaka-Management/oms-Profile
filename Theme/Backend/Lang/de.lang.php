@@ -48,6 +48,10 @@ return ['Profile' => [
     'Long'               => 'Lang',
     'Medium'             => 'Mittel',
     'Name'               => 'Name',
+    'OldPassword'                        => 'Altest Passwort',
+    'NewPassword'                        => 'Neues Passwort',
+    'RepeatPassword'                     => 'Wiederhole Passwort',
+    'Password'                           => 'Passwort',
     'NoAddressSpecified' => 'Keine Adresse angegeben',
     'NoContactSpecified' => 'Kein Kontakt angegeben.',
     'Numberformat'       => 'Zahlenformat',
@@ -101,4 +105,5 @@ return ['Profile' => [
     'cType2'             => 'Fax',
     'cType3'             => 'Webseite',
     'cType4'             => 'Email',
+    'IMG_alt_user'       => 'Nutzerbild',
 ]];
