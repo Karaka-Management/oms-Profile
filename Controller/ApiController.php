@@ -208,7 +208,7 @@ final class ApiController extends Controller
             }
         }
 
-        $profile->image = !empty($uploaded) ? \reset($uploaded) : new NullMedia();
+        $profile->image = empty($uploaded) ? new NullMedia() : \reset($uploaded);
         if ($profile->image->id > 0) {
             $profile->image = $this->app->moduleManager->get('Media')->resizeImage($profile->image, 100, 100, false);
         }
