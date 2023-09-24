@@ -68,7 +68,7 @@ class Profile implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $gender = GenderType::OTHER;
+    public int $gender = GenderType::OTHER;
 
     /**
      * Sex.
@@ -76,7 +76,7 @@ class Profile implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $sex = SexType::OTHER;
+    public int $sex = SexType::OTHER;
 
     /**
      * Confirmation key.
