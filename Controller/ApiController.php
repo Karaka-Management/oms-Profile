@@ -56,41 +56,16 @@ final class ApiController extends Controller
     {
         $profiles = $this->createProfilesFromRequest($request);
         $created  = [];
-        $status   = true;
 
         foreach ($profiles as $profile) {
-            $status = $status && $this->apiProfileCreateDbEntry($profile, $request);
+            if ($profile->id === 0) {
+                $this->createModel($request->header->account, $profile, ProfileMapper::class, 'profile', $request->getOrigin());
+            }
 
             $created[] = $profile;
         }
 
-        if (!$status) {
-            $response->header->status = RequestStatusCode::R_400;
-            $this->createInvalidCreateResponse($request, $response, $created);
-
-            return;
-        }
-
         $this->createStandardCreateResponse($request, $response, $created);
-    }
-
-    /**
-     * @param Profile         $profile Profile to create in the database
-     * @param RequestAbstract $request Request
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function apiProfileCreateDbEntry(Profile $profile, RequestAbstract $request) : bool
-    {
-        if ($profile->id !== 0) {
-            return false;
-        }
-
-        $this->createModel($request->header->account, $profile, ProfileMapper::class, 'profile', $request->getOrigin());
-
-        return true;
     }
 
     /**
@@ -138,7 +113,7 @@ final class ApiController extends Controller
         $accounts = $request->getDataList('iaccount-idlist');
 
         foreach ($accounts as $account) {
-            $account = (int) \trim($account);
+            $account = (int) $account;
 
             /** @var Profile $isInDb */
             $isInDb = ProfileMapper::get()->where('account', $account)->execute();

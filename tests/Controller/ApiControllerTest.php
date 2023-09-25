@@ -16,7 +16,6 @@ namespace Modules\Profile\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
-use Modules\Profile\Models\ContactType;
 use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\ProfileMapper;
 use phpOMS\Account\Account;
@@ -100,32 +99,17 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
      */
     public function testApiProfileCreate() : void
     {
+        \Modules\Admin\tests\Helper::createAccounts(1);
+
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
         $request->header->account = 1;
-        $request->setData('iaccount-idlist', '1');
+        $request->setData('iaccount-idlist', '2');
 
         $this->module->apiProfileCreate($request, $response);
 
         self::assertGreaterThan(0, $response->get('')['response'][0]->id);
-    }
-
-    /**
-     * @covers Modules\Profile\Controller\ApiController
-     * @group module
-     */
-    public function testApiProfileCreateDbEntry() : void
-    {
-        $request  = new HttpRequest(new HttpUri(''));
-
-        $request->header->account = 1;
-
-        $profile                 = new Profile(new \Modules\Admin\Models\Account());
-        $profile->account->login = 'ProfileCreateDb';
-        $profile->account->setEmail('profile_create_db@email.com');
-
-        self::assertTrue($this->module->apiProfileCreateDbEntry($profile, $request));
     }
 
     /**
