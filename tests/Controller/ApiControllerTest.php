@@ -16,7 +16,6 @@ namespace Modules\Profile\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
-use Modules\Profile\Models\Profile;
 use Modules\Profile\Models\ProfileMapper;
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
