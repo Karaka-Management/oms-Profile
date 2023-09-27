@@ -44,7 +44,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -52,7 +52,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiProfileCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiProfileCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         $profiles = $this->createProfilesFromRequest($request);
         $created  = [];
@@ -73,7 +73,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -81,7 +81,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiProfileTempLoginCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiProfileTempLoginCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\Admin\Models\Account $account */
         $account               = AccountMapper::get()->where('id', $request->header->account)->execute();
@@ -136,7 +136,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -144,7 +144,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiSettingsAccountImageSet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiSettingsAccountImageSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         $uploadedFiles = $request->files;
 
@@ -201,7 +201,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -209,7 +209,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiContactElementCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiContactElementCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateContactElementCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -286,7 +286,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -294,7 +294,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiAddressCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiAddressCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateAddressCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
