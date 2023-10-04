@@ -114,7 +114,7 @@ class Contact
      * @var Location[]
      * @since 1.0.0
      */
-    protected array $locations = [];
+    public array $locations = [];
 
     /**
      * Contact data.
@@ -122,7 +122,7 @@ class Contact
      * @var Contact[]
      * @since 1.0.0
      */
-    protected array $contacts = [];
+    public array $contacts = [];
 
     /**
      * Constructor.
