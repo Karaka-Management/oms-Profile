@@ -108,7 +108,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 
         $this->module->apiProfileCreate($request, $response);
 
-        self::assertGreaterThan(0, $response->get('')['response'][0]->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response'][0]->id);
     }
 
     /**
@@ -123,7 +123,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->header->account = 1;
 
         $this->module->apiProfileTempLoginCreate($request, $response);
-        self::assertGreaterThan(31, \strlen($response->get('')['response']));
+        self::assertGreaterThan(31, \strlen($response->getDataArray('')['response']));
     }
 
     /**
@@ -151,7 +151,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->module->apiSettingsAccountImageSet($request, $response);
 
-        $image = ProfileMapper::get()->with('image')->where('id', $response->get('')['response']->id)->execute()->image;
+        $image = ProfileMapper::get()->with('image')->where('id', $response->getDataArray('')['response']->id)->execute()->image;
         self::assertEquals('Profile Logo', $image->name);
     }
 
@@ -185,7 +185,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('contact', '1');
 
         $this->module->apiContactElementCreate($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
     */
 
@@ -224,7 +224,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('Country', ISO3166TwoEnum::_USA);
 
         $this->module->apiAddressCreate($request, $response);
-        self::assertGreaterThan(0, $response->get('')['response']->id);
+        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
 
     /**
