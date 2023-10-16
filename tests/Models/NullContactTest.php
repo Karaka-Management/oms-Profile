@@ -23,7 +23,7 @@ final class NullContactTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\Profile\Models\NullContact
-     * @group framework
+     * @group module
      */
     public function testNull() : void
     {
@@ -32,11 +32,21 @@ final class NullContactTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers Modules\Profile\Models\NullContact
-     * @group framework
+     * @group module
      */
     public function testId() : void
     {
         $null = new NullContact(2);
         self::assertEquals(2, $null->id);
+    }
+
+    /**
+     * @covers Modules\Profile\Models\NullContact
+     * @group module
+     */
+    public function testJsonSerialize() : void
+    {
+        $null = new NullContact(2);
+        self::assertEquals(['id' => 2], $null);
     }
 }

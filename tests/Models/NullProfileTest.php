@@ -39,4 +39,14 @@ final class NullProfileTest extends \PHPUnit\Framework\TestCase
         $null = new NullProfile(2);
         self::assertEquals(2, $null->id);
     }
+
+    /**
+     * @covers Modules\Profile\Models\NullProfile
+     * @group module
+     */
+    public function testJsonSerialize() : void
+    {
+        $null = new NullProfile(2);
+        self::assertEquals(['id' => 2], $null);
+    }
 }
