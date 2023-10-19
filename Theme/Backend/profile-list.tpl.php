@@ -26,7 +26,7 @@ $next     = empty($accounts) ? '{/base}profile/list' : '{/base}/profile/list?{?}
 <div class="row">
     <div class="col-xs-12">
         <div class="portlet">
-            <div class="portlet-head"><?= $this->getHtml('Profiles'); ?><i class="lni lni-download download btn end-xs"></i></div>
+            <div class="portlet-head"><?= $this->getHtml('Profiles'); ?><i class="g-icon download btn end-xs">download</i></div>
             <div class="slider">
             <table id="profileList" class="default sticky">
                 <thead>
@@ -35,26 +35,26 @@ $next     = empty($accounts) ? '{/base}profile/list' : '{/base}/profile/list?{?}
                     <td class="wf-100"><?= $this->getHtml('Name'); ?>
                         <label for="profileList-sort-1">
                             <input type="radio" name="profileList-sort" id="profileList-sort-1">
-                            <i class="sort-asc fa fa-chevron-up"></i>
+                            <i class="sort-asc g-icon">expand_less</i>
                         </label>
                         <label for="profileList-sort-2">
                             <input type="radio" name="profileList-sort" id="profileList-sort-2">
-                            <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc g-icon">expand_more</i>
                         </label>
                         <label>
-                            <i class="filter fa fa-filter"></i>
+                            <i class="filter g-icon">filter_alt</i>
                         </label>
                     <td><?= $this->getHtml('Activity'); ?>
                         <label for="profileList-sort-3">
                             <input type="radio" name="profileList-sort" id="profileList-sort-3">
-                            <i class="sort-asc fa fa-chevron-up"></i>
+                            <i class="sort-asc g-icon">expand_less</i>
                         </label>
                         <label for="profileList-sort-4">
                             <input type="radio" name="profileList-sort" id="profileList-sort-4">
-                            <i class="sort-desc fa fa-chevron-down"></i>
+                            <i class="sort-desc g-icon">expand_more</i>
                         </label>
                         <label>
-                            <i class="filter fa fa-filter"></i>
+                            <i class="filter g-icon">filter_alt</i>
                         </label>
                 <tbody>
                 <?php $count = 0;

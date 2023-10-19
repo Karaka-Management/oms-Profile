@@ -12,7 +12,7 @@
                             {"key": 5, "type": "dom.table.append", "id": "grp-table", "aniIn": "fadeIn", "data": [], "bindings": {"id": "id", "name": "name/0"}, "position": -1}
                         ]
                     }
-                ]' formaction=""><i class="fa fa-book"></i></button>
+                ]' formaction=""><i class="g-icon">book</i></button>
                 <div class="advancedInput wf-100" id="<?= $this->id; ?>">
                     <input autocomplete="off" spellcheck="false" class="input" type="text" id="i<?= $this->id; ?>" placeholder="&#xf007; Guest"
                         data-emptyAfter="true"
@@ -22,10 +22,10 @@
                         <table class="default">
                             <thead>
                                 <tr>
-                                    <td>Type<i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                                    <td>ID<i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                                    <td>Name<i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                                    <td>Email<i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
+                                    <td>Type<i class="sort-asc g-icon">expand_less</i><i class="sort-desc g-icon">expand_more</i>
+                                    <td>ID<i class="sort-asc g-icon">expand_less</i><i class="sort-desc g-icon">expand_more</i>
+                                    <td>Name<i class="sort-asc g-icon">expand_less</i><i class="sort-desc g-icon">expand_more</i>
+                                    <td>Email<i class="sort-asc g-icon">expand_less</i><i class="sort-desc g-icon">expand_more</i>
                             <tbody>
                                 <template id="<?= $this->id; ?>-rowElement" class="rowTemplate">
                                     <tr tabindex="-1">
@@ -46,7 +46,7 @@
     <div class="box" id="<?= $this->id; ?>-tags" data-limit="0" data-active="true">
         <template id="<?= $this->id; ?>-tagTemplate">
             <span class="tag red" data-tpl-value="/id" data-value="" data-uuid="" data-name="<?= $this->printHtml($this->name); ?>-list">
-                <i class="fa fa-times close"></i>
+                <i class="g-icon close">close</i>
                 <span style="display: none;" data-name="type_prefix" data-tpl-value="/type_prefix" data-value=""></span>
                 <span data-tpl-text="/id" data-name="<?= $this->printHtml($this->name); ?>-id" data-tpl-value="/id" data-value=""></span>
                 <span data-tpl-text="/name/0" data-tpl-value="/name/0" data-value=""></span>
