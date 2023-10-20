@@ -20,8 +20,8 @@ use phpOMS\Uri\UriFactory;
  */
 $accounts = $this->data['accounts'] ?? [];
 
-$previous = empty($accounts) ? '{/base}profile/list' : '{/base}/profile/list?{?}&id=' . \reset($accounts)->id . '&ptype=p';
-$next     = empty($accounts) ? '{/base}profile/list' : '{/base}/profile/list?{?}&id=' . \end($accounts)->id . '&ptype=n';
+$previous = empty($accounts) ? '{/base}/profile/list' : '{/base}/profile/list?{?}&id=' . \reset($accounts)->id . '&ptype=p';
+$next     = empty($accounts) ? '{/base}/profile/list' : '{/base}/profile/list?{?}&id=' . \end($accounts)->id . '&ptype=n';
 ?>
 <div class="row">
     <div class="col-xs-12">
