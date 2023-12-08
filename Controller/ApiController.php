@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\Profile\Controller;
 
 use Modules\Admin\Models\AccountMapper;
-use Modules\Admin\Models\Address;
 use Modules\Admin\Models\AddressMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
@@ -28,6 +27,7 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
+use phpOMS\Stdlib\Base\Address;
 
 /**
  * Profile class.
@@ -360,10 +360,11 @@ final class ApiController extends Controller
         /** @var Address $element */
         $element           = new Address();
         $element->name     = $request->getDataString('name') ?? '';
-        $element->addition = $request->getDataString('addition') ?? '';
+        $element->fao     = $request->getDataString('fao') ?? '';
         $element->postal   = $request->getDataString('postal') ?? '';
         $element->city     = $request->getDataString('city') ?? '';
         $element->address  = $request->getDataString('address') ?? '';
+        $element->addressAddition = $request->getDataString('addition') ?? '';
         $element->state    = $request->getDataString('state') ?? '';
         $element->setCountry($request->getDataString('country') ?? '');
         $element->setType($request->getDataInt('type') ?? 0);
