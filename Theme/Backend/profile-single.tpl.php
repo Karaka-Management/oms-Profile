@@ -43,10 +43,10 @@ echo $this->data['nav']->render();
 <div class="tabview tab-2">
     <div class="box">
         <ul class="tab-links">
-            <li><label for="c-tab-1"><?= $this->getHtml('Profile'); ?></label></li>
+            <li><label for="c-tab-1"><?= $this->getHtml('Profile'); ?></label>
             <?php if ($this->request->header->account === $account->id) : ?>
-            <li><label for="c-tab-2"><?= $this->getHtml('Localization'); ?></label></li>
-            <li><label for="c-tab-3"><?= $this->getHtml('Password'); ?></label></li>
+            <li><label for="c-tab-2"><?= $this->getHtml('Localization'); ?></label>
+            <li><label for="c-tab-3"><?= $this->getHtml('Password'); ?></label>
             <?php endif; ?>
         </ul>
     </div>

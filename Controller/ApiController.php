@@ -40,7 +40,7 @@ use phpOMS\Stdlib\Base\Address;
 final class ApiController extends Controller
 {
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -69,7 +69,7 @@ final class ApiController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -132,7 +132,7 @@ final class ApiController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -197,7 +197,7 @@ final class ApiController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -282,7 +282,7 @@ final class ApiController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -358,14 +358,14 @@ final class ApiController extends Controller
     public function createAddressFromRequest(RequestAbstract $request) : Address
     {
         /** @var Address $element */
-        $element           = new Address();
-        $element->name     = $request->getDataString('name') ?? '';
-        $element->fao     = $request->getDataString('fao') ?? '';
-        $element->postal   = $request->getDataString('postal') ?? '';
-        $element->city     = $request->getDataString('city') ?? '';
-        $element->address  = $request->getDataString('address') ?? '';
+        $element                  = new Address();
+        $element->name            = $request->getDataString('name') ?? '';
+        $element->fao             = $request->getDataString('fao') ?? '';
+        $element->postal          = $request->getDataString('postal') ?? '';
+        $element->city            = $request->getDataString('city') ?? '';
+        $element->address         = $request->getDataString('address') ?? '';
         $element->addressAddition = $request->getDataString('addition') ?? '';
-        $element->state    = $request->getDataString('state') ?? '';
+        $element->state           = $request->getDataString('state') ?? '';
         $element->setCountry($request->getDataString('country') ?? '');
         $element->setType($request->getDataInt('type') ?? 0);
 
