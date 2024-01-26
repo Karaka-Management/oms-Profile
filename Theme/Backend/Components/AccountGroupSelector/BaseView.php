@@ -57,25 +57,13 @@ class BaseView extends View
     /**
      * {@inheritdoc}
      */
-    public function __construct(L11nManager $l11n = null, RequestAbstract $request, ResponseAbstract $response)
+    public function __construct(?L11nManager $l11n = null, RequestAbstract $request, ResponseAbstract $response)
     {
         parent::__construct($l11n, $request, $response);
         $this->setTemplate('/Modules/Profile/Theme/Backend/Components/AccountGroupSelector/base');
 
         $view = new PopupView($l11n, $request, $response);
         $this->addData('popup', $view);
-    }
-
-    /**
-     * Get selector id
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getId() : string
-    {
-        return $this->id;
     }
 
     /**
@@ -100,7 +88,7 @@ class BaseView extends View
         $this->name       = $data[1];
         $this->isRequired = $data[2] ?? false;
 
-        $this->getData('popup')->setId($this->id);
+        $this->data['popup']->id = $this->id;
 
         return parent::render();
     }

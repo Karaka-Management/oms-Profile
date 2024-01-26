@@ -56,9 +56,9 @@ final class ContactMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const OWNS_ONE = [
-        'image'    => [
-            'mapper'     => MediaMapper::class,
-            'external'   => 'profile_contact_image',
+        'image' => [
+            'mapper'   => MediaMapper::class,
+            'external' => 'profile_contact_image',
         ],
     ];
 
@@ -91,11 +91,13 @@ final class ContactMapper extends DataMapperFactory
             'external' => 'profile_contact_addressrel_address',
             'self'     => 'profile_contact_addressrel_contact',
         ],
+        /*
         'contacts' => [
             'mapper'   => ContactElementMapper::class,
             'table'    => 'profile_contact_element',
             'self'     => 'profile_contact_element_contact',
             'external' => null,
         ],
+        */
     ];
 }

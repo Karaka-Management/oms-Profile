@@ -20,7 +20,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/profile$' => [
+    '^.*/view$' => [
         [
             'dest'       => '\Modules\Profile\Controller\ApiController:apiProfileCreate',
             'verb'       => RouteVerb::PUT,
@@ -32,7 +32,7 @@ return [
         ],
     ],
 
-    '^.*/profile/settings/localization(\?.*|$)' => [
+    '^.*/view/settings/localization(\?.*|$)' => [
         [
             'dest'       => '\Modules\Admin\Controller\ApiController:apiSettingsAccountLocalizationSet',
             'verb'       => RouteVerb::SET,
@@ -43,7 +43,7 @@ return [
             ],
         ],
     ],
-    '^.*/profile/settings/password(\?.*|$)' => [
+    '^.*/view/settings/password(\?.*|$)' => [
         [
             'dest'       => '\Modules\Admin\Controller\ApiController:apiSettingsAccountPasswordSet',
             'verb'       => RouteVerb::SET,
@@ -54,7 +54,7 @@ return [
             ],
         ],
     ],
-    '^.*/profile/settings/image(\?.*|$)' => [
+    '^.*/view/settings/image(\?.*|$)' => [
         [
             'dest'       => '\Modules\Profile\Controller\ApiController:apiSettingsAccountImageSet',
             'verb'       => RouteVerb::SET,

@@ -69,44 +69,6 @@ class ContactElement
     public int $contact = 0;
 
     /**
-     * Get id.
-     *
-     * @return int Model id
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set type
-     *
-     * @param int $type Type
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setType(int $type) : void
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * Get type
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getType() : int
-    {
-        return $this->type;
-    }
-
-    /**
      * Set subtype
      *
      * @param int $subtype Subtype

@@ -21,7 +21,7 @@ final class AdminTest extends \PHPUnit\Framework\TestCase
 {
     protected const NAME = 'Profile';
 
-    protected const URI_LOAD = 'http://127.0.0.1/en/backend/profile';
+    protected const URI_LOAD = 'http://127.0.0.1/en/backend/view';
 
     use \tests\Modules\ModuleTestTrait;
 }

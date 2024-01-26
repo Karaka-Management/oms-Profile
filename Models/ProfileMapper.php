@@ -53,9 +53,9 @@ final class ProfileMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const OWNS_ONE = [
-        'image'    => [
-            'mapper'     => MediaMapper::class,
-            'external'   => 'profile_account_image',
+        'image' => [
+            'mapper'   => MediaMapper::class,
+            'external' => 'profile_account_image',
         ],
     ];
 
@@ -66,9 +66,9 @@ final class ProfileMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const BELONGS_TO = [
-        'account'  => [
-            'mapper'     => AccountMapper::class,
-            'external'   => 'profile_account_account',
+        'account' => [
+            'mapper'   => AccountMapper::class,
+            'external' => 'profile_account_account',
         ],
     ];
 

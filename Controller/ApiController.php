@@ -16,6 +16,7 @@ namespace Modules\Profile\Controller;
 
 use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\AddressMapper;
+use Modules\Admin\Models\ContactType;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
@@ -27,7 +28,6 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Stdlib\Base\Address;
 
 /**
  * Profile class.
@@ -272,9 +272,9 @@ final class ApiController extends Controller
     public function createContactElementFromRequest(RequestAbstract $request) : ContactElement
     {
         /** @var ContactElement $element */
-        $element = new ContactElement();
-        $element->setType($request->getDataInt('type') ?? 0);
-        $element->setSubtype($request->getDataInt('subtype') ?? 0);
+        $element          = new ContactElement();
+        $element->type    = ContactType::tryFromValue($request->getDataInt('type')) ?? ContactType::EMAIL;
+        $element->subtype = $request->getDataInt('subtype') ?? 0;
         $element->content = $request->getDataString('content') ?? '';
         $element->contact = $request->getDataInt('contact') ?? 0;
 
@@ -315,7 +315,7 @@ final class ApiController extends Controller
             $profile = $profileObj->id;
         }
 
-        $address = $this->createAddressFromRequest($request);
+        $address = $this->app->moduleManager->get('Admin', 'Api')->createAddressFromRequest($request);
 
         $this->createModel($request->header->account, $address, AddressMapper::class, 'profile-address', $request->getOrigin());
         $this->createModelRelation($request->header->account, $profile, $address->id, ProfileMapper::class, 'location', '', $request->getOrigin());
@@ -344,31 +344,5 @@ final class ApiController extends Controller
         }
 
         return [];
-    }
-
-    /**
-     * Method to create a contact element from request.
-     *
-     * @param RequestAbstract $request Request
-     *
-     * @return Address
-     *
-     * @since 1.0.0
-     */
-    public function createAddressFromRequest(RequestAbstract $request) : Address
-    {
-        /** @var Address $element */
-        $element                  = new Address();
-        $element->name            = $request->getDataString('name') ?? '';
-        $element->fao             = $request->getDataString('fao') ?? '';
-        $element->postal          = $request->getDataString('postal') ?? '';
-        $element->city            = $request->getDataString('city') ?? '';
-        $element->address         = $request->getDataString('address') ?? '';
-        $element->addressAddition = $request->getDataString('addition') ?? '';
-        $element->state           = $request->getDataString('state') ?? '';
-        $element->setCountry($request->getDataString('country') ?? '');
-        $element->setType($request->getDataInt('type') ?? 0);
-
-        return $element;
     }
 }

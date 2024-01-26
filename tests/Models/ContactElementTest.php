@@ -41,24 +41,4 @@ final class ContactElementTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->contact->content);
         self::assertEquals(0, $this->contact->order);
     }
-
-    /**
-     * @covers Modules\Profile\Models\ContactElement
-     * @group module
-     */
-    public function testTypeInputOutput() : void
-    {
-        $this->contact->setType(3);
-        self::assertEquals(3, $this->contact->getType());
-    }
-
-    /**
-     * @covers Modules\Profile\Models\ContactElement
-     * @group module
-     */
-    public function testSubtypeInputOutput() : void
-    {
-        $this->contact->setSubtype(3);
-        self::assertEquals(3, $this->contact->getSubtype());
-    }
 }

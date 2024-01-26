@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-use Modules\Profile\Models\ContactType;
+use Modules\Admin\Models\ContactType;
 use phpOMS\Localization\ISO3166NameEnum;
 use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Localization\ISO4217Enum;
@@ -33,10 +33,9 @@ use phpOMS\Utils\Converter\WeightType;
 $profile = $this->data['account'];
 
 /** @var \Modules\Media\Models\Media[] $media */
-$media   = $this->data['media'] ?? [];
+$media = $this->data['media'] ?? [];
 
-$account = $profile->account;
-$l11n    = $this->data['l11n'];
+$l11n = $this->data['l11n'];
 
 echo $this->data['nav']->render();
 ?>
@@ -44,7 +43,7 @@ echo $this->data['nav']->render();
     <div class="box">
         <ul class="tab-links">
             <li><label for="c-tab-1"><?= $this->getHtml('Profile'); ?></label>
-            <?php if ($this->request->header->account === $account->id) : ?>
+            <?php if ($this->request->header->account === $profile->account->id) : ?>
             <li><label for="c-tab-2"><?= $this->getHtml('Localization'); ?></label>
             <li><label for="c-tab-3"><?= $this->getHtml('Password'); ?></label>
             <?php endif; ?>
@@ -57,12 +56,12 @@ echo $this->data['nav']->render();
                 <div class="col-xs-12">
                     <div class="portlet" itemscope itemtype="http://schema.org/Person" itemtype="http://schema.org/Organization">
                         <div class="portlet-head">
-                            <?php if (!empty($account->name3) || !empty($account->name2)) : ?>
+                            <?php if (!empty($profile->account->name3) || !empty($profile->account->name2)) : ?>
                                 <span itemprop="familyName" itemprop="legalName">
-                                    <?= $this->printHtml(empty($account->name3) ? $account->name2 : $account->name3); ?></span>,
+                                    <?= $this->printHtml(empty($profile->account->name3) ? $profile->account->name2 : $profile->account->name3); ?></span>,
                             <?php endif; ?>
                             <span itemprop="givenName" itemprop="legalName">
-                                <?= $this->printHtml($account->name1); ?>
+                                <?= $this->printHtml($profile->account->name1); ?>
                             </span>
                         </div>
                         <div class="portlet-body">
@@ -74,7 +73,7 @@ echo $this->data['nav']->render();
                                             ? UriFactory::build($this->getData('defaultImage')->getPath())
                                             : UriFactory::build($profile->image->getPath()); ?>"
                                 width="100px"></div>
-                                <?php if ($this->request->header->account === $account->id) : ?>
+                                <?php if ($this->request->header->account === $profile->account->id) : ?>
                                     <div><a id="iProfileUploadButton" href="#upload" data-action='[
                                         {"listener": "click", "key": 1, "action": [
                                             {"key": 1, "type": "event.prevent"},
@@ -94,20 +93,20 @@ echo $this->data['nav']->render();
                                     <td itemprop="birthDate" itemprop="foundingDate"><?= $this->getDateTime($profile->birthday); ?>
                                 <tr>
                                     <th><?= $this->getHtml('Email'); ?>
-                                    <td itemprop="email"><a href="mailto:>donald.duck@email.com<"><?= $this->printHtml($account->getEmail()); ?></a>
+                                    <td itemprop="email"><a href="mailto:>donald.duck@email.com<"><?= $this->printHtml($profile->account->getEmail()); ?></a>
                                 <tr>
                                     <th><?= $this->getHtml('Address'); ?>
                                     <td>
                                 <?php
-                                    $locations = $profile->account->locations;
-                                    if (empty($locations)) :
+                                    $addresses = $profile->account->addresses;
+                                    if (empty($addresses)) :
                                 ?>
                                 <tr>
                                     <th>
                                     <td><?= $this->getHtml('NoAddressSpecified'); ?>
-                                <?php else: foreach($locations as $location) : ?>
+                                <?php else: foreach($addresses as $location) : ?>
                                     <tr>
-                                        <th><?= $this->getHtml('aType' . $location->getType()); ?>
+                                        <th><?= $this->getHtml('aType' . $location->type); ?>
                                         <td>
                                     <tr>
                                         <th>
@@ -117,7 +116,7 @@ echo $this->data['nav']->render();
                                         <td><?= $this->printHtml($location->postal . ', ' . $location->city); ?>
                                     <tr>
                                         <th>
-                                        <td><?= $this->printHtml(ISO3166NameEnum::getByName(ISO3166TwoEnum::getName($location->getCountry()))); ?>
+                                        <td><?= $this->printHtml(ISO3166NameEnum::getByName(ISO3166TwoEnum::getName($location->country))); ?>
                                 <?php endforeach; endif; ?>
                                 <tr>
                                     <th><?= $this->getHtml('Contact'); ?>
@@ -131,23 +130,23 @@ echo $this->data['nav']->render();
                                     <td><?= $this->getHtml('NoContactSpecified'); ?>
                                 <?php else: foreach($contacts as $contact) : ?>
                                     <tr>
-                                        <th><?= $this->getHtml('cType' . $contact->getType()); ?>
-                                        <td><?= $contact->getType() === ContactType::WEBSITE ? '<a href="' . $contact->content . '">' : ''; ?>
+                                        <th><?= $this->getHtml('cType' . $contact->type); ?>
+                                        <td><?= $contact->type === ContactType::WEBSITE ? '<a href="' . $contact->content . '">' : ''; ?>
                                                 <?= $contact->content; ?>
-                                            <?= $contact->getType() === ContactType::WEBSITE ? '</a>' : ''; ?>
+                                            <?= $contact->type === ContactType::WEBSITE ? '</a>' : ''; ?>
                                 <?php endforeach; endif; ?>
                                 <tr>
                                     <th><?= $this->getHtml('Registered'); ?>
-                                    <td><?= $this->printHtml($account->createdAt->format('Y-m-d')); ?>
+                                    <td><?= $this->printHtml($profile->account->createdAt->format('Y-m-d')); ?>
                                 <tr>
                                     <th><?= $this->getHtml('LastLogin'); ?>
-                                    <td><?= $this->printHtml($account->getLastActive()->format('Y-m-d')); ?>
+                                    <td><?= $this->printHtml($profile->account->getLastActive()->format('Y-m-d')); ?>
                                 <tr>
                                     <th><?= $this->getHtml('Status'); ?>
-                                    <td><span class="tag green"><?= $this->getHtml(':s' . $account->getStatus(), 'Admin'); ?></span>
+                                    <td><span class="tag green"><?= $this->getHtml(':s' . $profile->account->status, 'Admin'); ?></span>
                             </table>
                         </div>
-                        <?php if ($this->request->header->account === $account->id) : ?>
+                        <?php if ($this->request->header->account === $profile->account->id) : ?>
                             <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0'); ?></button></div>
                         <?php endif; ?>
                     </div>
@@ -166,7 +165,7 @@ echo $this->data['nav']->render();
         </div>
         <?php
 
-        if ($this->request->header->account === $account->id) :
+        if ($this->request->header->account === $profile->account->id) :
             $countryCodes    = ISO3166TwoEnum::getConstants();
             $countries       = ISO3166NameEnum::getConstants();
             $timezones       = TimeZoneEnumArray::getConstants();
@@ -228,7 +227,7 @@ echo $this->data['nav']->render();
                                 </table>
                             </div>
                             <div class="portlet-foot">
-                                <input type="hidden" name="account_id" value="<?= $account->id; ?>">
+                                <input type="hidden" name="account_id" value="<?= $profile->account->id; ?>">
                                 <input id="iSubmitLocalization" name="submitLocalization" type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                             </div>
                         </form>
@@ -276,14 +275,14 @@ echo $this->data['nav']->render();
                                     <tr><td colspan="2">
                                             <select form="fLocalization" id="iCurrencies" name="settings_currency">
                                                 <?php foreach ($currencies as $code => $currency) : $code = \substr($code, 1); ?>
-                                                <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($code === $l11n->getCurrency() ? ' selected' : ''); ?>><?= $this->printHtml($currency); ?>
+                                                <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($code === $l11n->currency ? ' selected' : ''); ?>><?= $this->printHtml($currency); ?>
                                                     <?php endforeach; ?>
                                             </select>
                                     <tr><td colspan="2"><label><?= $this->getHtml('Currencyformat'); ?></label>
                                     <tr><td colspan="2">
                                             <select form="fLocalization" name="settings_currencyformat">
-                                                <option value="0"<?= $this->printHtml($l11n->getCurrencyFormat() === '0' ? ' selected' : ''); ?>><?= $this->getHtml('Amount') , ' ' , $this->printHtml($l11n->getCurrency()); ?>
-                                                <option value="1"<?= $this->printHtml($l11n->getCurrencyFormat() === '1' ? ' selected' : ''); ?>><?= $this->printHtml($l11n->getCurrency()) , ' ' , $this->getHtml('Amount'); ?>
+                                                <option value="0"<?= $this->printHtml($l11n->getCurrencyFormat() === '0' ? ' selected' : ''); ?>><?= $this->getHtml('Amount') , ' ' , $this->printHtml($l11n->currency); ?>
+                                                <option value="1"<?= $this->printHtml($l11n->getCurrencyFormat() === '1' ? ' selected' : ''); ?>><?= $this->printHtml($l11n->currency) , ' ' , $this->getHtml('Amount'); ?>
                                             </select>
                                     <tr><td colspan="2"><h2><?= $this->getHtml('Numberformat'); ?></h2>
                                     <tr><td><label for="iDecimalPoint"><?= $this->getHtml('DecimalPoint'); ?></label>

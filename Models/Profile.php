@@ -93,22 +93,10 @@ class Profile implements \JsonSerializable
      *
      * @since 1.0.0
      */
-    public function __construct(Account $account = null)
+    public function __construct(?Account $account = null)
     {
         $this->image   = new NullMedia();
         $this->account = $account ?? new NullAccount();
-    }
-
-    /**
-     * Get account id.
-     *
-     * @return int Account id
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
     }
 
     /**
@@ -181,12 +169,12 @@ class Profile implements \JsonSerializable
     public function toArray() : array
     {
         return [
-            'id'              => $this->id,
-            'sex'             => $this->sex,
-            'gender'          => $this->gender,
-            'account'         => $this->account,
-            'image'           => $this->image,
-            'birthday'        => $this->birthday,
+            'id'       => $this->id,
+            'sex'      => $this->sex,
+            'gender'   => $this->gender,
+            'account'  => $this->account,
+            'image'    => $this->image,
+            'birthday' => $this->birthday,
         ];
     }
 

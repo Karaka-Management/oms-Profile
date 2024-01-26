@@ -41,36 +41,10 @@ class PopupView extends View
     /**
      * {@inheritdoc}
      */
-    public function __construct(L11nManager $l11n = null, RequestAbstract $request, ResponseAbstract $response)
+    public function __construct(?L11nManager $l11n = null, RequestAbstract $request, ResponseAbstract $response)
     {
         parent::__construct($l11n, $request, $response);
         $this->setTemplate('/Modules/Profile/Theme/Backend/Components/AccountGroupSelector/popup');
-    }
-
-    /**
-     * Set popup id
-     *
-     * @param string $id Id
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setId(string $id) : void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Get popup id
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getId() : string
-    {
-        return $this->id;
     }
 
     /**

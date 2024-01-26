@@ -33,7 +33,6 @@ use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
 use phpOMS\Stdlib\Base\AddressType;
 use phpOMS\System\MimeType;
-use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\TestUtils;
 
 /**
@@ -58,14 +57,14 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
             protected string $appName = 'Api';
         };
 
-        $this->app->dbPool          = $GLOBALS['dbpool'];
-        $this->app->unitId          = 1;
-        $this->app->accountManager  = new AccountManager($GLOBALS['session']);
-        $this->app->appSettings     = new CoreSettings();
-        $this->app->moduleManager   = new ModuleManager($this->app, __DIR__ . '/../../../Modules/');
-        $this->app->dispatcher      = new Dispatcher($this->app);
-        $this->app->eventManager    = new EventManager($this->app->dispatcher);
-        $this->app->l11nManager     = new L11nManager();
+        $this->app->dbPool         = $GLOBALS['dbpool'];
+        $this->app->unitId         = 1;
+        $this->app->accountManager = new AccountManager($GLOBALS['session']);
+        $this->app->appSettings    = new CoreSettings();
+        $this->app->moduleManager  = new ModuleManager($this->app, __DIR__ . '/../../../Modules/');
+        $this->app->dispatcher     = new Dispatcher($this->app);
+        $this->app->eventManager   = new EventManager($this->app->dispatcher);
+        $this->app->l11nManager    = new L11nManager();
         $this->app->eventManager->importFromFile(__DIR__ . '/../../../Web/Api/Hooks.php');
 
         $account = new Account();
@@ -101,7 +100,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         \Modules\Admin\tests\Helper::createAccounts(1);
 
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('iaccount-idlist', '2');
@@ -118,7 +117,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiProfileTempLoginCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
 
@@ -135,7 +134,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         \copy(__DIR__ . '/icon.png', __DIR__ . '/temp_icon.png');
 
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 2;
         $request->setData('names', 'Profile Logo');
@@ -162,7 +161,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiProfileImageSetInvalid() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $this->module->apiSettingsAccountImageSet($request, $response);
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
@@ -176,7 +175,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiContactElementCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('account', '1');
@@ -196,7 +195,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiContactElementCreateInvalidData() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('invalid', '1');
@@ -212,7 +211,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiAddressCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('account', '1');
@@ -234,7 +233,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     public function testApiAddressCreateInvalidData() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('invalid', '1');

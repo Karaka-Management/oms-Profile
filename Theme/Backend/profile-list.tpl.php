@@ -59,7 +59,7 @@ $next     = empty($accounts) ? '{/base}/profile/list' : '{/base}/profile/list?{?
                 <tbody>
                 <?php $count = 0;
                     foreach ($accounts as $key => $account) : ++$count;
-                        $url = UriFactory::build('{/base}/profile/single?{?}&id=' . $account->id);
+                        $url = UriFactory::build('{/base}/profile/view?{?}&id=' . $account->id);
                 ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_user'); ?>" width="30" loading="lazy" class="profile-image"

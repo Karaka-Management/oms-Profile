@@ -115,7 +115,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function viewProfileSingle(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    public function viewProfileView(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -123,7 +123,7 @@ final class BackendController extends Controller
         $head = $response->data['Content']->head;
         $head->addAsset(AssetType::CSS, '/Modules/Calendar/Theme/Backend/css/styles.css?v=1.0.0');
 
-        $view->setTemplate('/Modules/Profile/Theme/Backend/profile-single');
+        $view->setTemplate('/Modules/Profile/Theme/Backend/profile-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000301001, $request, $response);
 
         $mediaListView = new \Modules\Media\Theme\Backend\Components\Media\ListView($this->app->l11nManager, $request, $response);
@@ -136,7 +136,7 @@ final class BackendController extends Controller
 
         $mapperQuery = ProfileMapper::get()
             ->with('account')
-            ->with('account/locations')
+            ->with('account/addresses')
             ->with('image');
 
         /** @var \Modules\Profile\Models\Profile $profile */

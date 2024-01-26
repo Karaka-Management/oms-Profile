@@ -138,12 +138,12 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'id'              => 0,
-                'sex'             => SexType::FEMALE,
-                'gender'          => GenderType::FEMALE,
-                'account'         => $a,
-                'image'           => $i,
-                'birthday'        => $date,
+                'id'       => 0,
+                'sex'      => SexType::FEMALE,
+                'gender'   => GenderType::FEMALE,
+                'account'  => $a,
+                'image'    => $i,
+                'birthday' => $date,
             ],
             $this->profile->jsonSerialize()
         );
