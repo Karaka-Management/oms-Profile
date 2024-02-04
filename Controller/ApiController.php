@@ -163,7 +163,7 @@ final class ApiController extends Controller
 
         $old = clone $profile;
 
-        $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+        $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
             names: $request->getDataList('names'),
             fileNames: $request->getDataList('filenames'),
             files: $uploadedFiles,
