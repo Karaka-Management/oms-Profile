@@ -13,7 +13,7 @@
                         ]
                     }
                 ]' formaction=""><i class="g-icon">book</i></button>
-                <div class="advancedInput wf-100" id="<?= $this->id; ?>">
+                <div class="advIpt wf-100" id="<?= $this->id; ?>">
                     <input autocomplete="off" spellcheck="false" class="input" type="text" id="i<?= $this->id; ?>" placeholder="Guest"
                         data-emptyAfter="true"
                         data-autocomplete="off"

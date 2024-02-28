@@ -74,12 +74,12 @@ echo $this->data['nav']->render();
                                             : UriFactory::build($profile->image->getPath()); ?>"
                                 width="100px"></div>
                                 <?php if ($this->request->header->account === $profile->account->id) : ?>
-                                    <div><a id="iProfileUploadButton" href="#upload" data-action='[
+                                    <div class="cT"><a id="iProfileUploadButton" href="#upload" data-action='[
                                         {"listener": "click", "key": 1, "action": [
                                             {"key": 1, "type": "event.prevent"},
                                             {"key": 2, "type": "dom.click", "selector": "#iProfileUpload"}
                                             ]
-                                        }]'><?= $this->getHtml('Change'); ?></a>
+                                        }]'><?= $this->getHtml('Edit', '0', '0'); ?></a>
                                     <form id="iProfileUploadForm" action="<?= UriFactory::build('{/api}profile/settings/image'); ?>" method="post"><input class="preview" data-action='[
                                         {"listener": "change", "key": 1, "action": [
                                             {"key": 1, "type": "form.submit", "selector": "#iProfileUploadForm"}

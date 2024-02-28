@@ -24,7 +24,7 @@
                             ]
                         }
                     ]' autocomplete="off">
-                    <table id="acc-table" class="table">
+                    <table id="acc-table" class="popupTable">
                         <thead>
                             <tr>
                                 <th data-name="id">ID
@@ -67,7 +67,7 @@
                             ]
                         }
                     ]' autocomplete="off">
-                    <table id="grp-table" class="table">
+                    <table id="grp-table" class="popupTable">
                         <thead>
                             <tr>
                                 <th data-name="id">ID
