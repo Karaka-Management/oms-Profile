@@ -47,7 +47,7 @@ final class SearchController extends Controller
      */
     public function searchGeneral(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        $names = \explode(' ', ($request->getDataString('search') ?? ''));
+        $names   = \explode(' ', ($request->getDataString('search') ?? ''));
         $names[] = ($request->getDataString('search') ?? '');
 
         $mapper = ProfileMapper::getAll()
@@ -70,7 +70,7 @@ final class SearchController extends Controller
         /** @var \Model\Setting $profileImage */
         $profileImage = $this->app->appSettings->get(names: SettingsEnum::DEFAULT_PROFILE_IMAGE, module: 'Profile');
 
-        /** @var \Modules\Media\Models\Media $image */
+        /** @var \Modules\Media\Models\Media $default */
         $default = MediaMapper::get()
             ->where('id', (int) $profileImage->content)
             ->execute();
@@ -80,17 +80,17 @@ final class SearchController extends Controller
             $address = empty($account->account->addresses) ? null : \reset($account->account->addresses);
 
             $results[] = [
-                'title'     => $account->account->name1 . ' ' . $account->account->name2,
-                'link'      => '{/base}/profile/view?id=' . $account->id,
+                'title' => $account->account->name1 . ' ' . $account->account->name2,
+                'link'  => '{/base}/profile/view?id=' . $account->id,
                 'email' => $account->account->getContactByType(ContactType::EMAIL)->content,
                 'phone' => $account->account->getContactByType(ContactType::PHONE)->content,
-                'city' => $address?->city,
+                'city'  => $address?->city,
                 'image' => $account->image->id === 0
                     ? $default->getPath()
                     : $account->image->getPath(),
-                'tags'  => [],
-                'type'  => 'list_accounts',
-                'module'  => 'Profile',
+                'tags'   => [],
+                'type'   => 'list_accounts',
+                'module' => 'Profile',
             ];
         }
 

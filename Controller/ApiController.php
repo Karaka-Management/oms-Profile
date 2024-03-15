@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\Profile\Controller;
 
 use Modules\Admin\Models\AccountMapper;
-use Modules\Admin\Models\AddressMapper;
 use Modules\Admin\Models\ContactType;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
