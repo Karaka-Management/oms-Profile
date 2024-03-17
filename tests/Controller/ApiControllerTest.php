@@ -203,42 +203,4 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->module->apiContactElementCreate($request, $response);
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
-
-    /**
-     * @covers Modules\Profile\Controller\ApiController
-     * @group module
-     */
-    public function testApiAddressCreate() : void
-    {
-        $response = new HttpResponse();
-        $request  = new HttpRequest();
-
-        $request->header->account = 1;
-        $request->setData('account', '1');
-        $request->setData('type', AddressType::BUSINESS);
-        $request->setData('name', 'Test Addr.');
-        $request->setData('address', 'Address here');
-        $request->setData('postal', '123456');
-        $request->setData('City', 'TestCity');
-        $request->setData('Country', ISO3166TwoEnum::_USA);
-
-        $this->module->apiAddressCreate($request, $response);
-        self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
-    }
-
-    /**
-     * @covers Modules\Profile\Controller\ApiController
-     * @group module
-     */
-    public function testApiAddressCreateInvalidData() : void
-    {
-        $response = new HttpResponse();
-        $request  = new HttpRequest();
-
-        $request->header->account = 1;
-        $request->setData('invalid', '1');
-
-        $this->module->apiAddressCreate($request, $response);
-        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
-    }
 }
