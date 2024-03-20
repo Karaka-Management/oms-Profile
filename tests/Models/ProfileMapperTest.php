@@ -26,7 +26,7 @@ use Modules\Profile\Models\ProfileMapper;
 final class ProfileMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Profile\Models\ProfileMapper
+     * @covers \Modules\Profile\Models\ProfileMapper
      * @group module
      */
     public function testCRUD() : void

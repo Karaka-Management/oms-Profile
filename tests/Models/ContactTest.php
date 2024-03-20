@@ -32,7 +32,7 @@ final class ContactTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Contact
+     * @covers \Modules\Profile\Models\Contact
      * @group module
      */
     public function testDefault() : void

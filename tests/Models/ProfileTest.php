@@ -36,7 +36,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Profile
+     * @covers \Modules\Profile\Models\Profile
      * @group module
      */
     public function testDefault() : void
@@ -50,7 +50,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Profile
+     * @covers \Modules\Profile\Models\Profile
      * @group module
      */
     public function testGenderInputOutput() : void
@@ -60,7 +60,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Profile
+     * @covers \Modules\Profile\Models\Profile
      * @group module
      */
     public function testInvalidGender() : void
@@ -71,7 +71,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Profile
+     * @covers \Modules\Profile\Models\Profile
      * @group module
      */
     public function testSexInputOutput() : void
@@ -81,7 +81,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Profile
+     * @covers \Modules\Profile\Models\Profile
      * @group module
      */
     public function testInvalidSex() : void
@@ -92,7 +92,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Profile
+     * @covers \Modules\Profile\Models\Profile
      * @group module
      */
     public function testBirthdayInputOutput() : void
@@ -102,7 +102,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Profile
+     * @covers \Modules\Profile\Models\Profile
      * @group module
      */
     public function testImageInputOutput() : void
@@ -112,7 +112,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Profile
+     * @covers \Modules\Profile\Models\Profile
      * @group module
      */
     public function testAccountInputOutput() : void
@@ -125,7 +125,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\Profile
+     * @covers \Modules\Profile\Models\Profile
      * @group module
      */
     public function testSerialize() : void

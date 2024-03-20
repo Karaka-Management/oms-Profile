@@ -92,7 +92,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Controller\ApiController
+     * @covers \Modules\Profile\Controller\ApiController
      * @group module
      */
     public function testApiProfileCreate() : void
@@ -111,7 +111,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Controller\ApiController
+     * @covers \Modules\Profile\Controller\ApiController
      * @group module
      */
     public function testApiProfileTempLoginCreate() : void
@@ -126,7 +126,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Controller\ApiController
+     * @covers \Modules\Profile\Controller\ApiController
      * @group module
      */
     public function testApiProfileImageSet() : void
@@ -155,7 +155,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Controller\ApiController
+     * @covers \Modules\Profile\Controller\ApiController
      * @group module
      */
     public function testApiProfileImageSetInvalid() : void
@@ -168,7 +168,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Controller\ApiController
+     * @covers \Modules\Profile\Controller\ApiController
      * @group module
      */
     /*
@@ -189,7 +189,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     */
 
     /**
-     * @covers Modules\Profile\Controller\ApiController
+     * @covers \Modules\Profile\Controller\ApiController
      * @group module
      */
     public function testApiContactElementCreateInvalidData() : void

@@ -22,7 +22,7 @@ use Modules\Profile\Models\NullContactElement;
 final class NullContactElementTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Profile\Models\NullContactElement
+     * @covers \Modules\Profile\Models\NullContactElement
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullContactElementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\NullContactElement
+     * @covers \Modules\Profile\Models\NullContactElement
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullContactElementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\NullContactElement
+     * @covers \Modules\Profile\Models\NullContactElement
      * @group module
      */
     public function testJsonSerialize() : void

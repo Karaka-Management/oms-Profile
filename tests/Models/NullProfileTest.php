@@ -22,7 +22,7 @@ use Modules\Profile\Models\NullProfile;
 final class NullProfileTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Profile\Models\NullProfile
+     * @covers \Modules\Profile\Models\NullProfile
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\NullProfile
+     * @covers \Modules\Profile\Models\NullProfile
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullProfileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Profile\Models\NullProfile
+     * @covers \Modules\Profile\Models\NullProfile
      * @group module
      */
     public function testJsonSerialize() : void
