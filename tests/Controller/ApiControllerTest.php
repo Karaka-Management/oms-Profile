@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -161,13 +161,13 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     {
         $response = new HttpResponse();
         $request  = new HttpRequest();
-    
+
         $request->header->account = 1;
         $request->setData('account', '1');
         $request->setData('type', ContactType::PHONE);
         $request->setData('content', '+0123-456-789');
         $request->setData('contact', '1');
-    
+
         $this->module->apiContactElementCreate($request, $response);
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
