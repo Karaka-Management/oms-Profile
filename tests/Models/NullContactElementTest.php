@@ -19,31 +19,23 @@ use Modules\Profile\Models\NullContactElement;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Profile\Models\NullContactElement::class)]
 final class NullContactElementTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Profile\Models\NullContactElement
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\Profile\Models\ContactElement', new NullContactElement());
     }
 
-    /**
-     * @covers \Modules\Profile\Models\NullContactElement
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullContactElement(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\Profile\Models\NullContactElement
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullContactElement(2);

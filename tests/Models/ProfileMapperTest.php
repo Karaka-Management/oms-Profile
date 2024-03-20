@@ -23,12 +23,10 @@ use Modules\Profile\Models\ProfileMapper;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Profile\Models\ProfileMapper::class)]
 final class ProfileMapperTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Profile\Models\ProfileMapper
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testCRUD() : void
     {
         $media              = new Media();

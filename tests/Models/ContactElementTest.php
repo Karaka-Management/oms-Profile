@@ -19,6 +19,7 @@ use Modules\Profile\Models\ContactElement;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Profile\Models\ContactElement::class)]
 final class ContactElementTest extends \PHPUnit\Framework\TestCase
 {
     private ContactElement $contact;
@@ -31,10 +32,7 @@ final class ContactElementTest extends \PHPUnit\Framework\TestCase
         $this->contact = new ContactElement();
     }
 
-    /**
-     * @covers \Modules\Profile\Models\ContactElement
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->contact->id);

@@ -23,6 +23,7 @@ use Modules\Profile\Models\SexType;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Profile\Models\Profile::class)]
 final class ProfileTest extends \PHPUnit\Framework\TestCase
 {
     private Profile $profile;
@@ -35,10 +36,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
         $this->profile = new Profile();
     }
 
-    /**
-     * @covers \Modules\Profile\Models\Profile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->profile->id);
@@ -49,20 +47,14 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
         self::assertNull($this->profile->birthday);
     }
 
-    /**
-     * @covers \Modules\Profile\Models\Profile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testGenderInputOutput() : void
     {
         $this->profile->setGender(GenderType::FEMALE);
         self::assertEquals(GenderType::FEMALE, $this->profile->getGender());
     }
 
-    /**
-     * @covers \Modules\Profile\Models\Profile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testInvalidGender() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
@@ -70,20 +62,14 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
         $this->profile->setGender(9999);
     }
 
-    /**
-     * @covers \Modules\Profile\Models\Profile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testSexInputOutput() : void
     {
         $this->profile->setSex(SexType::FEMALE);
         self::assertEquals(SexType::FEMALE, $this->profile->getSex());
     }
 
-    /**
-     * @covers \Modules\Profile\Models\Profile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testInvalidSex() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
@@ -91,30 +77,21 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
         $this->profile->setSex(9999);
     }
 
-    /**
-     * @covers \Modules\Profile\Models\Profile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testBirthdayInputOutput() : void
     {
         $this->profile->birthday = ($date = new \DateTime('now'));
         self::assertEquals($date, $this->profile->birthday);
     }
 
-    /**
-     * @covers \Modules\Profile\Models\Profile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testImageInputOutput() : void
     {
         $this->profile->image = new NullMedia(1);
         self::assertEquals(1, $this->profile->image->id);
     }
 
-    /**
-     * @covers \Modules\Profile\Models\Profile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testAccountInputOutput() : void
     {
         $this->profile->account = new NullAccount(1);
@@ -124,10 +101,7 @@ final class ProfileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $profile->account->id);
     }
 
-    /**
-     * @covers \Modules\Profile\Models\Profile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testSerialize() : void
     {
         $this->profile->setGender(GenderType::FEMALE);

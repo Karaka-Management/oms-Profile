@@ -38,6 +38,7 @@ use phpOMS\Utils\TestUtils;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Profile\Controller\ApiController::class)]
 final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationAbstract $app;
@@ -91,10 +92,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         TestUtils::setMember($this->module, 'app', $this->app);
     }
 
-    /**
-     * @covers \Modules\Profile\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiProfileCreate() : void
     {
         \Modules\Admin\tests\Helper::createAccounts(1);
@@ -110,10 +108,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $response->getDataArray('')['response'][0]->id);
     }
 
-    /**
-     * @covers \Modules\Profile\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiProfileTempLoginCreate() : void
     {
         $response = new HttpResponse();
@@ -125,10 +120,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(31, \strlen($response->getDataArray('')['response']));
     }
 
-    /**
-     * @covers \Modules\Profile\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiProfileImageSet() : void
     {
         \copy(__DIR__ . '/icon.png', __DIR__ . '/temp_icon.png');
@@ -154,10 +146,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Profile Logo', $image->name);
     }
 
-    /**
-     * @covers \Modules\Profile\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiProfileImageSetInvalid() : void
     {
         $response = new HttpResponse();
@@ -167,31 +156,23 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
-    /**
-     * @covers \Modules\Profile\Controller\ApiController
-     * @group module
-     */
     /*
     public function testApiContactElementCreate() : void
     {
         $response = new HttpResponse();
         $request  = new HttpRequest();
-
+    
         $request->header->account = 1;
         $request->setData('account', '1');
         $request->setData('type', ContactType::PHONE);
         $request->setData('content', '+0123-456-789');
         $request->setData('contact', '1');
-
+    
         $this->module->apiContactElementCreate($request, $response);
         self::assertGreaterThan(0, $response->getDataArray('')['response']->id);
     }
     */
-
-    /**
-     * @covers \Modules\Profile\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiContactElementCreateInvalidData() : void
     {
         $response = new HttpResponse();

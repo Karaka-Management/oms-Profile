@@ -19,31 +19,23 @@ use Modules\Profile\Models\NullProfile;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Profile\Models\NullProfile::class)]
 final class NullProfileTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Profile\Models\NullProfile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\Profile\Models\Profile', new NullProfile());
     }
 
-    /**
-     * @covers \Modules\Profile\Models\NullProfile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullProfile(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\Profile\Models\NullProfile
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullProfile(2);
