@@ -57,7 +57,7 @@ return [
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
-                'type'   => PermissionType::READ,
+                'type'   => PermissionType::CREATE,
                 'state'  => PermissionCategory::PROFILE,
             ],
         ],
