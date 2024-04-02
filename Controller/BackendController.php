@@ -75,20 +75,20 @@ final class BackendController extends Controller
             $view->data['accounts'] = ProfileMapper::getAll()
                     ->with('account')
                     ->with('image')
-                    ->where('id', $request->getDataInt('id') ?? 0, '<')
+                    ->where('id', $request->getDataInt('offset') ?? 0, '<')
                     ->limit(25)->execute();
         } elseif ($request->getData('ptype') === 'n') {
             $view->data['accounts'] = ProfileMapper::getAll()
                     ->with('account')
                     ->with('image')
-                    ->where('id', $request->getDataInt('id') ?? 0, '>')
+                    ->where('id', $request->getDataInt('offset') ?? 0, '>')
                     ->limit(25)->execute();
         } else {
             $view->data['accounts'] = ProfileMapper::getAll()
                     ->with('account')
                     ->with('image')
                     ->where('id', 0, '>')
-                    ->limit(25)->execute();
+                    ->limit(25)->executeGetArray();
         }
 
         /** @var \Model\Setting $profileImage */
@@ -162,7 +162,7 @@ final class BackendController extends Controller
             ->with('createdBy')
             ->where('createdBy', (int) $profile->account->id)
             ->limit(25)
-            ->execute();
+            ->executeGetArray();
 
         $view->data['media'] = $media;
 
