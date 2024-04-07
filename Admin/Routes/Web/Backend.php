@@ -22,6 +22,7 @@ return [
         [
             'dest'       => '\Modules\Profile\Controller\BackendController:setupProfileStyles',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -33,6 +34,7 @@ return [
         [
             'dest'       => '\Modules\Profile\Controller\BackendController:viewProfileList',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -44,6 +46,7 @@ return [
         [
             'dest'       => '\Modules\Profile\Controller\BackendController:viewProfileView',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -55,6 +58,7 @@ return [
         [
             'dest'       => '\Modules\Profile\Controller\BackendController:viewProfileAdminCreate',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,

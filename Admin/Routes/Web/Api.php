@@ -25,6 +25,7 @@ return [
             'dest'       => '\Modules\Profile\Controller\ApiController:apiProfileCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -38,6 +39,7 @@ return [
             'dest'       => '\Modules\Admin\Controller\ApiController:apiSettingsAccountLocalizationSet',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => AdminApiController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -50,6 +52,7 @@ return [
             'dest'       => '\Modules\Admin\Controller\ApiController:apiSettingsAccountPasswordSet',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => AdminApiController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -62,6 +65,7 @@ return [
             'dest'       => '\Modules\Profile\Controller\ApiController:apiSettingsAccountImageSet',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
