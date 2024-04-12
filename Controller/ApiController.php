@@ -16,7 +16,6 @@ namespace Modules\Profile\Controller;
 
 use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\ContactType;
-use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
 use Modules\Profile\Models\ContactElement;
@@ -145,11 +144,9 @@ final class ApiController extends Controller
      */
     public function apiSettingsAccountImageSet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        $uploadedFiles = $request->files;
-
-        if (empty($uploadedFiles)) {
+        if (empty($request->files)) {
             $response->header->status = RequestStatusCode::R_400;
-            $this->createInvalidUpdateResponse($request, $response, $uploadedFiles);
+            $this->createInvalidUpdateResponse($request, $response, $request->files);
 
             return;
         }
@@ -165,28 +162,15 @@ final class ApiController extends Controller
         $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
             names: $request->getDataList('names'),
             fileNames: $request->getDataList('filenames'),
-            files: $uploadedFiles,
+            files: $request->files,
             account: $request->header->account,
             basePath: __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->id,
             virtualPath: '/Accounts/' . $profile->account->id . ' ' . $profile->account->login,
-            pathSettings: PathSettings::FILE_PATH
+            pathSettings: PathSettings::FILE_PATH,
+            type: $request->getDataInt('type')
         );
 
-        if ($request->hasData('type')) {
-            foreach ($uploaded as $file) {
-                $this->createModelRelation(
-                    $request->header->account,
-                    $file->id,
-                    $request->getDataInt('type'),
-                    MediaMapper::class,
-                    'types',
-                    '',
-                    $request->getOrigin()
-                );
-            }
-        }
-
-        $profile->image = empty($uploaded) ? new NullMedia() : \reset($uploaded);
+        $profile->image = empty($uploaded->sources) ? new NullMedia() : \reset($uploaded->sources);
         if ($profile->image->id > 0) {
             $profile->image = $this->app->moduleManager->get('Media')->resizeImage($profile->image, 100, 100, false);
         }

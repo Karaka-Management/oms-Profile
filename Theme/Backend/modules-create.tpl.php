@@ -25,7 +25,7 @@ echo $this->data['nav']->render();
                     <table class="layout wf-100" style="table-layout: fixed">
                         <tbody>
                         <tr><td><label for="iAccount"><?= $this->getHtml('Account'); ?></label>
-                        <tr><td><?= $this->getData('accGrpSelector')->render('iAccount', true); ?>
+                        <tr><td><?= $this->getData('accGrpSelector')->render('iAccount', ''); ?>
                         <tr><td><input type="submit" value="<?= $this->getHtml('Create', '0', '0'); ?>" name="create-module">
                     </table>
                 </form>
