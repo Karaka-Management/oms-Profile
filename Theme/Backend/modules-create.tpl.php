@@ -17,19 +17,19 @@ echo $this->data['nav']->render();
 
 <div class="row">
     <div class="col-xs-12 col-md-6">
-        <section class="box wf-100">
-            <header><h1><?= $this->getHtml('CreateProfile'); ?></h1></header>
-
-            <div class="inner">
-                <form id="fProfileCreate" method="PUT" action="<?= \phpOMS\Uri\UriFactory::build('{/api}profile?{?}&csrf={$CSRF}'); ?>">
-                    <table class="layout wf-100" style="table-layout: fixed">
-                        <tbody>
-                        <tr><td><label for="iAccount"><?= $this->getHtml('Account'); ?></label>
-                        <tr><td><?= $this->getData('accGrpSelector')->render('iAccount', ''); ?>
-                        <tr><td><input type="submit" value="<?= $this->getHtml('Create', '0', '0'); ?>" name="create-module">
-                    </table>
-                </form>
-            </div>
+        <section class="portlet">
+            <form id="fProfileCreate" method="PUT" action="<?= \phpOMS\Uri\UriFactory::build('{/api}profile?{?}&csrf={$CSRF}'); ?>">
+                <div class="portlet-head"><?= $this->getHtml('CreateProfile'); ?></div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label for="iAccount"><?= $this->getHtml('Account'); ?></label>
+                        <?= $this->getData('accGrpSelector')->render('iAccount', ''); ?>
+                    </div>
+                </div>
+                <div class="portlet-foot">
+                    <input type="submit" value="<?= $this->getHtml('Create', '0', '0'); ?>" name="create-module">
+                </div>
+            </form>
         </section>
     </div>
 </div>

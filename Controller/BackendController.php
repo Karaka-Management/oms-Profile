@@ -68,28 +68,18 @@ final class BackendController extends Controller
     public function viewProfileList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
-
         $view->setTemplate('/Modules/Profile/Theme/Backend/profile-list');
 
-        if ($request->getData('ptype') === 'p') {
-            $view->data['accounts'] = ProfileMapper::getAll()
-                    ->with('account')
-                    ->with('image')
-                    ->where('id', $request->getDataInt('offset') ?? 0, '<')
-                    ->limit(25)->execute();
-        } elseif ($request->getData('ptype') === 'n') {
-            $view->data['accounts'] = ProfileMapper::getAll()
-                    ->with('account')
-                    ->with('image')
-                    ->where('id', $request->getDataInt('offset') ?? 0, '>')
-                    ->limit(25)->execute();
-        } else {
-            $view->data['accounts'] = ProfileMapper::getAll()
-                    ->with('account')
-                    ->with('image')
-                    ->where('id', 0, '>')
-                    ->limit(25)->executeGetArray();
-        }
+        $view->data['accounts'] = ProfileMapper::getAll()
+            ->with('account')
+            ->with('image')
+            ->paginate(
+                'id',
+                $request->getData('ptype'),
+                $request->getDataInt('offset')
+            )
+            ->limit(25)
+            ->executeGetArray();
 
         /** @var \Model\Setting $profileImage */
         $profileImage = $this->app->appSettings->get(names: SettingsEnum::DEFAULT_PROFILE_IMAGE, module: 'Profile');
