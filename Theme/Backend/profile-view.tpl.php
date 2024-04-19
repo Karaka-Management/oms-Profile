@@ -60,7 +60,7 @@ echo $this->data['nav']->render();
                                     alt="<?= $this->getHtml('ProfileImage'); ?>"
                                     itemprop="logo" loading="lazy"
                                     src="<?= $profile->image->id === 0
-                                            ? UriFactory::build($this->getData('defaultImage')->getPath())
+                                            ? UriFactory::build($this->data['defaultImage']->getPath())
                                             : UriFactory::build($profile->image->getPath()); ?>"
                                 width="100px"></div>
                                 <?php if ($this->request->header->account === $profile->account->id) : ?>

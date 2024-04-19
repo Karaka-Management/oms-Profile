@@ -64,7 +64,7 @@ $next     = empty($accounts) ? '{/base}/profile/list' : '{/base}/profile/list?{?
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><img alt="<?= $this->getHtml('IMG_alt_user'); ?>" width="30" loading="lazy" class="profile-image"
                             src="<?= $account->image->id === 0
-                                ? UriFactory::build($this->getData('defaultImage')->getPath())
+                                ? UriFactory::build($this->data['defaultImage']->getPath())
                                 : UriFactory::build($account->image->getPath()); ?>"></a>
                         <td data-label="<?= $this->getHtml('Name'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->account->name3 . ' ' . $account->account->name2 . ' ' . $account->account->name1); ?></a>
                         <td data-label="<?= $this->getHtml('Activity'); ?>"><a href="<?= $url; ?>"><?= $this->printHtml($account->account->getLastActive()->format('Y-m-d')); ?></a>

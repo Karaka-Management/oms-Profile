@@ -21,6 +21,7 @@ use Modules\Profile\Models\SettingsEnum;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Localization\NullLocalization;
+use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
@@ -109,6 +110,25 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
+        $mapperQuery = ProfileMapper::get()
+            ->with('account')
+            ->with('account/addresses')
+            ->with('image');
+
+        /** @var \Modules\Profile\Models\Profile $profile */
+        $profile = $request->hasData('for')
+            ? $mapperQuery->where('account', (int) $request->getData('for'))->execute()
+            : $mapperQuery->where('id', (int) $request->getData('id'))->execute();
+
+        $view->data['account'] = $profile;
+
+        if ($profile->id === 0) {
+            $response->header->status = RequestStatusCode::R_404;
+            $view->setTemplate('/Web/Backend/Error/404');
+
+            return $view;
+        }
+
         /** @var \phpOMS\Model\Html\Head $head */
         $head = $response->data['Content']->head;
         $head->addAsset(AssetType::CSS, '/Modules/Calendar/Theme/Backend/css/styles.css?v=' . self::VERSION);
@@ -123,18 +143,6 @@ final class BackendController extends Controller
         $calendarView = new \Modules\Calendar\Theme\Backend\Components\Calendar\BaseView($this->app->l11nManager, $request, $response);
         $calendarView->setTemplate('/Modules/Calendar/Theme/Backend/Components/Calendar/mini');
         $view->data['calendar'] = $calendarView;
-
-        $mapperQuery = ProfileMapper::get()
-            ->with('account')
-            ->with('account/addresses')
-            ->with('image');
-
-        /** @var \Modules\Profile\Models\Profile $profile */
-        $profile = $request->hasData('for')
-            ? $mapperQuery->where('account', (int) $request->getData('for'))->execute()
-            : $mapperQuery->where('id', (int) $request->getData('id'))->execute();
-
-        $view->data['account'] = $profile;
 
         $l11n = null;
         if ($profile->account->id === $request->header->account) {
