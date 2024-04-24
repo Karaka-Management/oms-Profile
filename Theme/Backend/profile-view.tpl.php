@@ -15,6 +15,7 @@ declare(strict_types=1);
 use Modules\Admin\Models\ContactType;
 use phpOMS\Localization\ISO3166NameEnum;
 use phpOMS\Localization\ISO3166TwoEnum;
+use phpOMS\Localization\NullLocalization;
 use phpOMS\Uri\UriFactory;
 
 /** @var \phpOMS\Views\View $this */
@@ -25,7 +26,7 @@ $account = $profile->account;
 /** @var \Modules\Media\Models\Media[] $media */
 $media = $this->data['media'] ?? [];
 
-$l11n = $this->data['l11n'];
+$l11n = $this->data['l11n'] ?? new NullLocalization();
 
 echo $this->data['nav']->render();
 ?>
