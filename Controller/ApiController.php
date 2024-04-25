@@ -83,7 +83,7 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Admin\Models\Account $account */
         $account               = AccountMapper::get()->where('id', $request->header->account)->execute();
-        $account->tempPassword = \password_hash(\random_bytes(64), \PASSWORD_BCRYPT);
+        $account->tempPassword = \password_hash(\bin2hex(\random_bytes(32)), \PASSWORD_BCRYPT);
 
         $this->updateModel($request->header->account, $account, $account, AccountMapper::class, 'profile', $request->getOrigin());
         $this->fillJsonResponse(
