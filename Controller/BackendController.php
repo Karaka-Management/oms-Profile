@@ -76,7 +76,7 @@ final class BackendController extends Controller
             ->with('image')
             ->paginate(
                 'id',
-                $request->getData('ptype'),
+                $request->getDataString('ptype'),
                 $request->getDataInt('offset')
             )
             ->limit(25)
