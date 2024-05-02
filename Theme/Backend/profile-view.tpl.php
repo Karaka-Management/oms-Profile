@@ -63,9 +63,9 @@ echo $this->data['nav']->render();
                                     src="<?= $profile->image->id === 0
                                             ? UriFactory::build($this->data['defaultImage']->getPath())
                                             : UriFactory::build($profile->image->getPath()); ?>"
-                                width="100px"></div>
+                                width="100px" style="margin-bottom: .5rem;"></div>
                                 <?php if ($this->request->header->account === $profile->account->id) : ?>
-                                    <div class="cT"><a id="iProfileUploadButton" href="#upload" data-action='[
+                                    <div class="cT"><a id="iProfileUploadButton" class="content" href="#upload" data-action='[
                                         {"listener": "click", "key": 1, "action": [
                                             {"key": 1, "type": "event.prevent"},
                                             {"key": 2, "type": "dom.click", "selector": "#iProfileUpload"}
