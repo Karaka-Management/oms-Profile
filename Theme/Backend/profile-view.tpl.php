@@ -45,7 +45,7 @@ echo $this->data['nav']->render();
         <div class="tab">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="portlet" itemscope itemtype="http://schema.org/Person" itemtype="http://schema.org/Organization">
+                    <section class="portlet" itemscope itemtype="http://schema.org/Person" itemtype="http://schema.org/Organization">
                         <div class="portlet-head">
                             <?php if (!empty($profile->account->name3) || !empty($profile->account->name2)) : ?>
                                 <span itemprop="familyName" itemprop="legalName">
@@ -140,7 +140,7 @@ echo $this->data['nav']->render();
                         <?php if ($this->request->header->account === $profile->account->id) : ?>
                             <div class="portlet-foot"><button class="update"><?= $this->getHtml('Edit', '0', '0'); ?></button></div>
                         <?php endif; ?>
-                    </div>
+                    </section>
                 </div>
 
                 <div class="col-xs-12">
@@ -166,7 +166,7 @@ echo $this->data['nav']->render();
         <div class="tab">
             <div class="row">
                 <div class="col-xs-12 col-md-4">
-                    <div class="portlet">
+                    <section class="portlet">
                         <form id="fPassword" name="fPassword" action="<?= UriFactory::build('{/api}profile/settings/password?csrf={$CSRF}'); ?>" method="post">
                             <div class="portlet-head"><?= $this->getHtml('Password'); ?></div>
                             <div class="portlet-body">
@@ -189,7 +189,7 @@ echo $this->data['nav']->render();
                                 <input type="submit" name="saveButton" id="iSavePassButton" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                             </div>
                         </form>
-                    </div>
+                    </section>
                 </div>
             </div>
         </div>

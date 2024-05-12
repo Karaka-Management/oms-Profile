@@ -25,7 +25,7 @@ $next     = empty($accounts) ? '{/base}/profile/list' : '{/base}/profile/list?{?
 ?>
 <div class="row">
     <div class="col-xs-12">
-        <div class="portlet">
+        <section class="portlet">
             <div class="portlet-head"><?= $this->getHtml('Profiles'); ?><i class="g-icon download btn end-xs">download</i></div>
             <div class="slider">
             <table id="profileList" class="default sticky">
@@ -80,6 +80,6 @@ $next     = empty($accounts) ? '{/base}/profile/list' : '{/base}/profile/list?{?
                 <a tabindex="0" class="button" href="<?= UriFactory::build($next); ?>"><?= $this->getHtml('Next', '0', '0'); ?></a>
             </div>
             -->
-        </div>
+        </section>
     </div>
 </div>

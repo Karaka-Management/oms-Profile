@@ -167,7 +167,7 @@ final class ApiController extends Controller
             basePath: __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $profile->account->id,
             virtualPath: '/Accounts/' . $profile->account->id . ' ' . $profile->account->login,
             pathSettings: PathSettings::FILE_PATH,
-            type: $request->getDataInt('type')
+            tag: $request->getDataInt('tag')
         );
 
         $profile->image = empty($uploaded->sources) ? new NullMedia() : \reset($uploaded->sources);
