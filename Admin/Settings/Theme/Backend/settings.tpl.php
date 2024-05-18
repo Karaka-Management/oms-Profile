@@ -14,5 +14,3 @@ declare(strict_types=1);
 
 echo $this->data['nav']->render();
 ?>
-
-Settings
