@@ -97,7 +97,7 @@ echo $this->data['nav']->render();
                                     <td><?= $this->getHtml('NoAddressSpecified'); ?>
                                 <?php else: foreach($addresses as $location) : ?>
                                     <tr>
-                                        <th><?= $this->getHtml('aType' . $location->type); ?>
+                                        <th><?= $this->getHtml(':aType' . $location->type); ?>
                                         <td>
                                     <tr>
                                         <th>
@@ -121,7 +121,7 @@ echo $this->data['nav']->render();
                                     <td><?= $this->getHtml('NoContactSpecified'); ?>
                                 <?php else: foreach($contacts as $contact) : ?>
                                     <tr>
-                                        <th><?= $this->getHtml('cType' . $contact->type); ?>
+                                        <th><?= $this->getHtml(':cType' . $contact->type); ?>
                                         <td><?= $contact->type === ContactType::WEBSITE ? '<a href="' . $contact->content . '">' : ''; ?>
                                                 <?= $contact->content; ?>
                                             <?= $contact->type === ContactType::WEBSITE ? '</a>' : ''; ?>
