@@ -93,7 +93,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiProfileCreate() : void
     {
-        \Modules\Admin\tests\Helper::createAccounts(1);
+        \Modules\Admin\tests\Script::createAccounts(1);
 
         $response = new HttpResponse();
         $request  = new HttpRequest();
