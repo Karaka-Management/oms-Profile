@@ -17,7 +17,7 @@
                     <input autocomplete="off" spellcheck="false" class="input" type="text" id="i<?= $this->id; ?>"
                         data-emptyAfter="true"
                         data-autocomplete="off"
-                        data-src="api/admin/find/accgrp?search={!#i<?= $this->id; ?>}">
+                        data-src="<?= \phpOMS\Uri\UriFactory::build('{/api}admin/accgrp/find?csrf={$CSRF}'); ?>&search={!#i<?= $this->id; ?>}">
                     <div id="<?= $this->id; ?>-popup" class="popup" data-active="true">
                         <table class="default sticky">
                             <thead>
@@ -41,7 +41,9 @@
                 </div>
             </span>
         </div>
+        <!--
         <div class="ipt-second"><button><?= $this->getHtml('Select', '0', '0'); ?></button></div>
+        -->
     </div>
     <div class="box" id="<?= $this->id; ?>-tags" data-limit="0" data-active="true">
         <template id="<?= $this->id; ?>-tagTemplate">
