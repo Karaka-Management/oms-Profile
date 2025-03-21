@@ -22,7 +22,7 @@ echo $this->data['nav']->render();
                 <div class="portlet-body">
                     <div class="form-group">
                         <label for="iAccount"><?= $this->getHtml('Account'); ?></label>
-                        <?= $this->getData('accGrpSelector')->render('iAccount', ''); ?>
+                        <?= $this->data['accGrpSelector']->render('iAccount', ''); ?>
                     </div>
                 </div>
                 <div class="portlet-foot">

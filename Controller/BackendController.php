@@ -118,7 +118,7 @@ final class BackendController extends Controller
         /** @var \Modules\Profile\Models\Profile $profile */
         $profile = $request->hasData('for')
             ? $mapperQuery->where('account', (int) $request->getData('for'))->execute()
-            : $mapperQuery->where('id', (int) $request->getData('id'))->execute();
+            : $mapperQuery->where('id', $request->getDataInt('id') ?? 0)->execute();
 
         $view->data['account'] = $profile;
 

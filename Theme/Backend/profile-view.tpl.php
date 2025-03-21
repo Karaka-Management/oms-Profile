@@ -144,13 +144,13 @@ echo $this->data['nav']->render();
                 </div>
 
                 <div class="col-xs-12">
-                    <?= $this->getData('medialist')->render($media); ?>
+                    <?= $this->data['medialist']->render($media); ?>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-xs-12 col-md-6">
-                    <?= $this->getData('calendar')->render(null /* calendar object here */); ?>
+                    <?= $this->data['calendar']->render(null /* calendar object here */); ?>
                 </div>
             </div>
         </div>
